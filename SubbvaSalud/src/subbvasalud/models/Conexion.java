@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
 
     Connection conexion;
-    Statement consulta;
+    Statement query;
     public String ruta;
 
     /**
@@ -28,7 +28,7 @@ public class Conexion {
      */
     @SuppressWarnings("empty-statement")
     public Conexion() {
-        ruta = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/testdb.db";;
+        ruta = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/subbvaSaludDB.db";
     }
 
     public void conectar() {
@@ -38,8 +38,8 @@ public class Conexion {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            conexion = DriverManager.getConnection("jdbc:sqlite:" + ruta);
-            consulta = conexion.createStatement();
+            conexion = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "/data/subbvaSaludDB.db");
+            query = conexion.createStatement();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -49,7 +49,7 @@ public class Conexion {
         conectar();
         ResultSet resultado = null;
         try {
-            resultado = consulta.executeQuery(sql);
+            resultado = query.executeQuery(sql);
         } catch (SQLException e) {
                 System.out.println("Mensaje:"+e.getMessage());
                 System.out.println("Estado:"+e.getSQLState());

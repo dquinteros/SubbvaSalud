@@ -37,14 +37,15 @@ public class MainMenuController {
         }
     }
 
-    public int guardarSocio(Socio socio) {
-        
-       if (socio != null){
-        return 0;
+    public int guardarSocio(Socio so) {
+        int i = s.insertSocio(so);
+        if (i == 0) {
+            return 0;
+        } else {
+            return 1;
         }
-        
-       return 1;
     }
-
-   
+    
+    public void formInsertarSocio(){
+    }
 }

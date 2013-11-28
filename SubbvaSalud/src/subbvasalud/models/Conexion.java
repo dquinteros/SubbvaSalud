@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class Conexion {
 
-    Connection conexion;
+    Connection connection;
     Statement query;
     public String ruta;
 
@@ -31,22 +31,22 @@ public class Conexion {
         ruta = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/subbvaSaludDB.db";
     }
 
-    public void conectar() {
+    public void connect() {
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            conexion = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "/data/subbvaSaludDB.db");
-            query = conexion.createStatement();
+            connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "/data/subbvaSaludDB.db");
+            query = connection.createStatement();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
     
     public ResultSet consultar(String sql){
-        conectar();
+        connect();
         ResultSet resultado = null;
         try {
             resultado = query.executeQuery(sql);

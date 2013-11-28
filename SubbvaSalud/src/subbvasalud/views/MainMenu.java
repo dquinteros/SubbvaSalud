@@ -41,6 +41,7 @@ public class MainMenu extends javax.swing.JFrame {
         viewSociosScrollPanel = new javax.swing.JScrollPane();
         viewSociosTable = new javax.swing.JTable();
         viewCargasPanel = new javax.swing.JPanel();
+        insertNewSocioPanel = new javax.swing.JPanel();
         mainMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         loadFileSociosMenuItem = new javax.swing.JMenuItem();
@@ -80,7 +81,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(viewSociosPanel, "viewSocios");
+        getContentPane().add(viewSociosPanel, "viewSociosCard");
 
         javax.swing.GroupLayout viewCargasPanelLayout = new javax.swing.GroupLayout(viewCargasPanel);
         viewCargasPanel.setLayout(viewCargasPanelLayout);
@@ -93,7 +94,20 @@ public class MainMenu extends javax.swing.JFrame {
             .addGap(0, 434, Short.MAX_VALUE)
         );
 
-        getContentPane().add(viewCargasPanel, "viewCargas");
+        getContentPane().add(viewCargasPanel, "viewCargasCard");
+
+        javax.swing.GroupLayout insertNewSocioPanelLayout = new javax.swing.GroupLayout(insertNewSocioPanel);
+        insertNewSocioPanel.setLayout(insertNewSocioPanelLayout);
+        insertNewSocioPanelLayout.setHorizontalGroup(
+            insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 627, Short.MAX_VALUE)
+        );
+        insertNewSocioPanelLayout.setVerticalGroup(
+            insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 434, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(insertNewSocioPanel, "insertNewSocioCard");
 
         fileMenu.setText("Archivo");
 
@@ -138,7 +152,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void viewSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSociosMenuItemActionPerformed
         mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
         CardLayout cl = (CardLayout)(getContentPane().getLayout());
-        cl.show(getContentPane(), "viewSocios");
+        cl.show(getContentPane(), "viewSociosCard");
     }//GEN-LAST:event_viewSociosMenuItemActionPerformed
 
     private void loadFileSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFileSociosMenuItemActionPerformed
@@ -151,7 +165,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void viewCargasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCargasMenuItemActionPerformed
         CardLayout cl = (CardLayout)(getContentPane().getLayout());
-        cl.show(getContentPane(), "viewCargas");
+        cl.show(getContentPane(), "viewCargasCard");
     }//GEN-LAST:event_viewCargasMenuItemActionPerformed
 
     /**
@@ -192,6 +206,7 @@ public class MainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JPanel insertNewSocioPanel;
     private javax.swing.JMenuItem loadFileSociosMenuItem;
     private javax.swing.JMenuBar mainMenu;
     private javax.swing.JFileChooser selectSociosFile;

@@ -21,9 +21,6 @@ public class MainMenuController {
 
         LinkedList<Socio> ls = s.getAllSocios();
         if (ls != null) {
-            tableModel.addColumn("Rut");
-            tableModel.addColumn("Nombre");
-            tableModel.addColumn("Apellido");
             for (Socio so : ls) {
                 Object[] obj = new Object[3];
                 obj[0] = so.getRutSocio();

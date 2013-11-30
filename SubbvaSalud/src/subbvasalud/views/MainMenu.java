@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package subbvasalud.views;
 
+import com.ezware.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import java.awt.CardLayout;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import subbvasalud.controllers.MainMenuController;
 
@@ -17,8 +18,9 @@ import subbvasalud.controllers.MainMenuController;
  * @author damage
  */
 public class MainMenu extends javax.swing.JFrame {
-
+    
     MainMenuController mmc;
+
     /**
      * Creates new form MainMenu
      */
@@ -42,26 +44,65 @@ public class MainMenu extends javax.swing.JFrame {
         viewSociosTable = new javax.swing.JTable();
         viewCargasPanel = new javax.swing.JPanel();
         insertNewSocioPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        newPeriodoPanel = new javax.swing.JPanel();
+        newPeriodoNombreLabel = new javax.swing.JLabel();
+        newPeriodoAnioLabel = new javax.swing.JLabel();
+        newPeriodoNombreTextField = new javax.swing.JTextField();
+        newPeriodoCancelarButton = new javax.swing.JButton();
+        newPeriodoNuevoPeriodoButton = new javax.swing.JButton();
+        newPeriodoSelectAnio = new com.toedter.calendar.JYearChooser();
+        mainView = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         mainMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         loadFileSociosMenuItem = new javax.swing.JMenuItem();
+        newPeriodoMenuItem = new javax.swing.JMenuItem();
+        newSolicitudMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         viewMenu = new javax.swing.JMenu();
         viewSociosMenuItem = new javax.swing.JMenuItem();
         viewCargasMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 450));
+        setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(new java.awt.CardLayout());
+
+        viewSociosPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Ver Socios"));
 
         viewSociosTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "Rut", "Nombre", "Apellido"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         viewSociosScrollPanel.setViewportView(viewSociosTable);
 
         javax.swing.GroupLayout viewSociosPanelLayout = new javax.swing.GroupLayout(viewSociosPanel);
@@ -70,44 +111,239 @@ public class MainMenu extends javax.swing.JFrame {
             viewSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewSociosPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewSociosScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
+                .addComponent(viewSociosScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                 .addContainerGap())
         );
         viewSociosPanelLayout.setVerticalGroup(
             viewSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewSociosPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewSociosScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                .addComponent(viewSociosScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         getContentPane().add(viewSociosPanel, "viewSociosCard");
 
+        viewCargasPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Ver Cargas"));
+
         javax.swing.GroupLayout viewCargasPanelLayout = new javax.swing.GroupLayout(viewCargasPanel);
         viewCargasPanel.setLayout(viewCargasPanelLayout);
         viewCargasPanelLayout.setHorizontalGroup(
             viewCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 627, Short.MAX_VALUE)
+            .addGap(0, 673, Short.MAX_VALUE)
         );
         viewCargasPanelLayout.setVerticalGroup(
             viewCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGap(0, 392, Short.MAX_VALUE)
         );
 
         getContentPane().add(viewCargasPanel, "viewCargasCard");
+
+        insertNewSocioPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresar Nuevo Socio"));
+
+        jLabel1.setText("Rut");
+
+        jLabel2.setText("Nombre(s)");
+
+        jLabel3.setText("Apellidos");
+
+        jLabel4.setText("Numero de Cuenta");
+
+        jLabel5.setText("Tipo de Cuenta");
+
+        jLabel6.setText("Presupuesto");
+
+        jTextField1.setText("jTextField1");
+
+        jTextField2.setText("jTextField2");
+
+        jTextField3.setText("jTextField3");
+
+        jTextField4.setText("jTextField4");
+
+        jTextField5.setText("jTextField5");
+
+        jCheckBox1.setText("jCheckBox1");
 
         javax.swing.GroupLayout insertNewSocioPanelLayout = new javax.swing.GroupLayout(insertNewSocioPanel);
         insertNewSocioPanel.setLayout(insertNewSocioPanelLayout);
         insertNewSocioPanelLayout.setHorizontalGroup(
             insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 627, Short.MAX_VALUE)
+            .addGroup(insertNewSocioPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                        .addComponent(jTextField2)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCheckBox1))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         insertNewSocioPanelLayout.setVerticalGroup(
             insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGroup(insertNewSocioPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jCheckBox1))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         getContentPane().add(insertNewSocioPanel, "insertNewSocioCard");
+
+        newPeriodoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Periodo"));
+
+        newPeriodoNombreLabel.setText("Nombre Periodo");
+
+        newPeriodoAnioLabel.setText("Año");
+
+        newPeriodoCancelarButton.setText("Cancelar");
+
+        newPeriodoNuevoPeriodoButton.setText("Nuevo Periodo");
+
+        javax.swing.GroupLayout newPeriodoPanelLayout = new javax.swing.GroupLayout(newPeriodoPanel);
+        newPeriodoPanel.setLayout(newPeriodoPanelLayout);
+        newPeriodoPanelLayout.setHorizontalGroup(
+            newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newPeriodoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(newPeriodoPanelLayout.createSequentialGroup()
+                        .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(newPeriodoNombreLabel)
+                            .addComponent(newPeriodoAnioLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(newPeriodoNombreTextField)
+                            .addGroup(newPeriodoPanelLayout.createSequentialGroup()
+                                .addComponent(newPeriodoSelectAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newPeriodoPanelLayout.createSequentialGroup()
+                        .addGap(0, 461, Short.MAX_VALUE)
+                        .addComponent(newPeriodoNuevoPeriodoButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(newPeriodoCancelarButton)))
+                .addContainerGap())
+        );
+        newPeriodoPanelLayout.setVerticalGroup(
+            newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newPeriodoPanelLayout.createSequentialGroup()
+                .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(newPeriodoPanelLayout.createSequentialGroup()
+                        .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(newPeriodoNombreLabel)
+                            .addComponent(newPeriodoNombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(newPeriodoAnioLabel))
+                    .addComponent(newPeriodoSelectAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
+                .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newPeriodoCancelarButton)
+                    .addComponent(newPeriodoNuevoPeriodoButton))
+                .addContainerGap())
+        );
+
+        getContentPane().add(newPeriodoPanel, "newPeriodoCard");
+
+        mainView.setBorder(javax.swing.BorderFactory.createTitledBorder("Inicio"));
+
+        jLabel7.setText("Año ");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Período"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Rut", "Nombre", "Monto", "Solicitud"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        javax.swing.GroupLayout mainViewLayout = new javax.swing.GroupLayout(mainView);
+        mainView.setLayout(mainViewLayout);
+        mainViewLayout.setHorizontalGroup(
+            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainViewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainViewLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(26, 26, 26)
+                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        mainViewLayout.setVerticalGroup(
+            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainViewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(mainView, "card6");
 
         fileMenu.setText("Archivo");
 
@@ -118,6 +354,23 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         fileMenu.add(loadFileSociosMenuItem);
+
+        newPeriodoMenuItem.setText("Nuevo periodo");
+        newPeriodoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newPeriodoMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(newPeriodoMenuItem);
+
+        newSolicitudMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        newSolicitudMenuItem.setText("Nueva Solicitud");
+        newSolicitudMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newSolicitudMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(newSolicitudMenuItem);
 
         mainMenu.add(fileMenu);
 
@@ -150,23 +403,38 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSociosMenuItemActionPerformed
-        mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
-        CardLayout cl = (CardLayout)(getContentPane().getLayout());
+        
+        CardLayout cl = (CardLayout) (getContentPane().getLayout());
         cl.show(getContentPane(), "viewSociosCard");
+        TableRowFilterSupport.forTable(viewSociosTable).searchable(true).apply();
+        
+        while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
+            ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
+        }
+        mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());        
     }//GEN-LAST:event_viewSociosMenuItemActionPerformed
 
     private void loadFileSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFileSociosMenuItemActionPerformed
-         int rv = selectSociosFile.showOpenDialog(getContentPane());
-         if (rv == JFileChooser.APPROVE_OPTION) {
+        int rv = selectSociosFile.showOpenDialog(getContentPane());
+        if (rv == JFileChooser.APPROVE_OPTION) {
             File file = selectSociosFile.getSelectedFile();
-             System.out.println("Archivo "+file.getPath());
-         }
+            System.out.println("Archivo " + file.getPath());
+        }
     }//GEN-LAST:event_loadFileSociosMenuItemActionPerformed
 
     private void viewCargasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCargasMenuItemActionPerformed
-        CardLayout cl = (CardLayout)(getContentPane().getLayout());
+        CardLayout cl = (CardLayout) (getContentPane().getLayout());
         cl.show(getContentPane(), "viewCargasCard");
     }//GEN-LAST:event_viewCargasMenuItemActionPerformed
+
+    private void newPeriodoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPeriodoMenuItemActionPerformed
+        CardLayout cl = (CardLayout) (getContentPane().getLayout());
+        cl.show(getContentPane(), "newPeriodoCard");
+    }//GEN-LAST:event_newPeriodoMenuItemActionPerformed
+
+    private void newSolicitudMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSolicitudMenuItemActionPerformed
+       NewSolicitud.main(null);
+    }//GEN-LAST:event_newSolicitudMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,8 +475,36 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel insertNewSocioPanel;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private com.toedter.calendar.JYearChooser jYearChooser1;
     private javax.swing.JMenuItem loadFileSociosMenuItem;
     private javax.swing.JMenuBar mainMenu;
+    private javax.swing.JPanel mainView;
+    private javax.swing.JLabel newPeriodoAnioLabel;
+    private javax.swing.JButton newPeriodoCancelarButton;
+    private javax.swing.JMenuItem newPeriodoMenuItem;
+    private javax.swing.JLabel newPeriodoNombreLabel;
+    private javax.swing.JTextField newPeriodoNombreTextField;
+    private javax.swing.JButton newPeriodoNuevoPeriodoButton;
+    private javax.swing.JPanel newPeriodoPanel;
+    private com.toedter.calendar.JYearChooser newPeriodoSelectAnio;
+    private javax.swing.JMenuItem newSolicitudMenuItem;
     private javax.swing.JFileChooser selectSociosFile;
     private javax.swing.JMenuItem viewCargasMenuItem;
     private javax.swing.JPanel viewCargasPanel;

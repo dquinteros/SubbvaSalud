@@ -42,6 +42,9 @@ public class MainMenu extends javax.swing.JFrame {
         viewSociosPanel = new javax.swing.JPanel();
         viewSociosScrollPanel = new javax.swing.JScrollPane();
         viewSociosTable = new javax.swing.JTable();
+        deleteSocioButton = new javax.swing.JButton();
+        editSocioButton = new javax.swing.JButton();
+        addNewSocioButton = new javax.swing.JButton();
         viewCargasPanel = new javax.swing.JPanel();
         insertNewSocioPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -75,10 +78,10 @@ public class MainMenu extends javax.swing.JFrame {
         loadFileSociosMenuItem = new javax.swing.JMenuItem();
         newPeriodoMenuItem = new javax.swing.JMenuItem();
         newSolicitudMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
         viewMenu = new javax.swing.JMenu();
         viewSociosMenuItem = new javax.swing.JMenuItem();
         viewCargasMenuItem = new javax.swing.JMenuItem();
+        editMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -92,11 +95,11 @@ public class MainMenu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Rut", "Nombre", "Apellido"
+                "Rut", "Nombre"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -105,20 +108,54 @@ public class MainMenu extends javax.swing.JFrame {
         });
         viewSociosScrollPanel.setViewportView(viewSociosTable);
 
+        deleteSocioButton.setText("Eliminar Socio");
+        deleteSocioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteSocioButtonActionPerformed(evt);
+            }
+        });
+
+        editSocioButton.setText("Editar Socio");
+        editSocioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editSocioButtonActionPerformed(evt);
+            }
+        });
+
+        addNewSocioButton.setText("Agregar Socio");
+        addNewSocioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewSocioButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout viewSociosPanelLayout = new javax.swing.GroupLayout(viewSociosPanel);
         viewSociosPanel.setLayout(viewSociosPanelLayout);
         viewSociosPanelLayout.setHorizontalGroup(
             viewSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewSociosPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewSociosScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                .addGroup(viewSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewSociosScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewSociosPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addNewSocioButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(editSocioButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteSocioButton)))
                 .addContainerGap())
         );
         viewSociosPanelLayout.setVerticalGroup(
             viewSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewSociosPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewSociosScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(viewSociosScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(viewSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteSocioButton)
+                    .addComponent(editSocioButton)
+                    .addComponent(addNewSocioButton))
                 .addContainerGap())
         );
 
@@ -374,9 +411,6 @@ public class MainMenu extends javax.swing.JFrame {
 
         mainMenu.add(fileMenu);
 
-        editMenu.setText("Editar");
-        mainMenu.add(editMenu);
-
         viewMenu.setText("Ver");
 
         viewSociosMenuItem.setText("Ver Socios");
@@ -396,6 +430,9 @@ public class MainMenu extends javax.swing.JFrame {
         viewMenu.add(viewCargasMenuItem);
 
         mainMenu.add(viewMenu);
+
+        editMenu.setText("Editar");
+        mainMenu.add(editMenu);
 
         setJMenuBar(mainMenu);
 
@@ -436,6 +473,18 @@ public class MainMenu extends javax.swing.JFrame {
        NewSolicitud.main(null);
     }//GEN-LAST:event_newSolicitudMenuItemActionPerformed
 
+    private void editSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSocioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editSocioButtonActionPerformed
+
+    private void addNewSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewSocioButtonActionPerformed
+        NewSocio.main(null);
+    }//GEN-LAST:event_addNewSocioButtonActionPerformed
+
+    private void deleteSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSocioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteSocioButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -472,7 +521,10 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addNewSocioButton;
+    private javax.swing.JButton deleteSocioButton;
     private javax.swing.JMenu editMenu;
+    private javax.swing.JButton editSocioButton;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel insertNewSocioPanel;
     private javax.swing.JCheckBox jCheckBox1;

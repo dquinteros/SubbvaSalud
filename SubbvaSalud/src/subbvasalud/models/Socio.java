@@ -15,28 +15,28 @@ import java.util.LinkedList;
  */
 public class Socio extends Conexion {
 
+    private int idSocio;
     private int rutSocio;
     private String nombreSocio;
     private String cuentaBancariaSocio;
-    private String tipoCuentaSocio;
-    private int idSocio;
-    private int idEstado;
-    private String apellidoSocio;
+    private int tipoCuentaSocio;
     private int presupuestoSocio;
-    private static final int COLUMNAS = 8;
+    private int idEstado;
 
-    public Socio(int rutSocio, String nombreSocio, String cuentaBancariaSocio, String tipoCuentaSocio, int idSocio, int idEstado, String apellidoSocio, int presupuestoSocio) {
+    private static final int COLUMNAS = 7;
+
+    public Socio() {
+
+    }
+
+    public Socio(int idSocio, int rutSocio, String nombreSocio, String cuentaBancariaSocio, int tipoCuentaSocio, int presupuestoSocio, int idEstado) {
+        this.idSocio = idSocio;
         this.rutSocio = rutSocio;
         this.nombreSocio = nombreSocio;
         this.cuentaBancariaSocio = cuentaBancariaSocio;
         this.tipoCuentaSocio = tipoCuentaSocio;
-        this.idSocio = idSocio;
-        this.idEstado = idEstado;
-        this.apellidoSocio = apellidoSocio;
         this.presupuestoSocio = presupuestoSocio;
-    }
-
-    public Socio() {
+        this.idEstado = idEstado;
     }
 
     public String socioToSqlInsert(Socio s) {
@@ -50,14 +50,14 @@ public class Socio extends Conexion {
                     + "\"apellido_socio\","
                     + "\"presupuesto_socio\")"
                     + " VALUES("
+                    + " NULL,"
                     + s.getRutSocio() + ","
                     + " '" + s.getNombreSocio() + "',"
                     + " '" + s.getCuentaBancariaSocio() + "',"
                     + " '" + s.getTipoCuentaSocio() + "',"
-                    + " NULL,"
-                    + s.getIdEstado() + ","
-                    + " '" + s.getApellidoSocio() + "',"
-                    + s.getPresupuestoSocio() + ")";
+                    + s.getPresupuestoSocio() + ","
+                    + s.getIdEstado()
+                    + ")";
             return sql;
         } else {
             return null;
@@ -70,7 +70,7 @@ public class Socio extends Conexion {
         if (sql != null) {
             connect();
             try {
-                query.executeUpdate(sql);                
+                query.executeUpdate(sql);
             } catch (SQLException e) {
                 modelUtils.showSQLException(e);
             } finally {
@@ -107,22 +107,22 @@ public class Socio extends Conexion {
             System.out.println("NullPointerException");
             e.printStackTrace();
         } finally {
-           modelUtils.postSelectFinally(query,connection,result);
+            modelUtils.postSelectFinally(query, connection, result);
         }
         return listSocios;
     }
 
     public Socio createSocioFromResultSet(ResultSet r) {
         try {
-            Socio s = new Socio(
+            Socio s;
+            s = new Socio(
                     (int) r.getObject(1),
-                    (String) r.getObject(2),
+                    (int) r.getObject(2),
                     (String) r.getObject(3),
                     (String) r.getObject(4),
                     (int) r.getObject(5),
                     (int) r.getObject(6),
-                    (String) r.getObject(7),
-                    (int) r.getObject(8));
+                    (int) r.getObject(7));
             return s;
         } catch (SQLException e) {
             System.out.println(e.getSQLState());
@@ -155,11 +155,11 @@ public class Socio extends Conexion {
         this.cuentaBancariaSocio = cuentaBancariaSocio;
     }
 
-    public String getTipoCuentaSocio() {
+    public int getTipoCuentaSocio() {
         return tipoCuentaSocio;
     }
 
-    public void setTipoCuentaSocio(String tipoCuentaSocio) {
+    public void setTipoCuentaSocio(int tipoCuentaSocio) {
         this.tipoCuentaSocio = tipoCuentaSocio;
     }
 
@@ -177,14 +177,6 @@ public class Socio extends Conexion {
 
     public void setIdEstado(int idEstado) {
         this.idEstado = idEstado;
-    }
-
-    public String getApellidoSocio() {
-        return apellidoSocio;
-    }
-
-    public void setApellidoSocio(String apellidoSocio) {
-        this.apellidoSocio = apellidoSocio;
     }
 
     public int getPresupuestoSocio() {

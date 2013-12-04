@@ -15,34 +15,27 @@ import subbvasalud.models.Socio;
  */
 public class MainMenuController {
 
-    Socio s = new Socio();
+    Socio s;
 
+    public MainMenuController() {
+        s = new Socio();
+    }
+
+    
     public void mostrarSocios(DefaultTableModel tableModel) {
 
         LinkedList<Socio> ls = s.getAllSocios();
         if (ls != null) {
             for (Socio so : ls) {
-                Object[] obj = new Object[3];
+                Object[] obj = new Object[2];
                 obj[0] = so.getRutSocio();
-                obj[1] = so.getNombreSocio();
-                obj[2] = so.getApellidoSocio();
+                obj[1] = so.getNombreSocio();                
                 tableModel.addRow(obj);
-
             }
         } else {
             System.out.println("Table Empty");
         }
     }
 
-    public int guardarSocio(Socio so) {
-        int i = s.insertSocio(so);
-        if (i == 0) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
     
-    public void formInsertarSocio(){
-    }
 }

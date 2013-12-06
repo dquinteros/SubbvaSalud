@@ -30,8 +30,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="newSociosPanel" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="newSociosPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,27 +61,34 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="accountTypeNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="accountNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lastnameNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="nombreNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="rutNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="aceptNewSociosButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="cancelNewSociosButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="accountNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lastnameNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rutNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="bancoNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="accountTypeNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="rutTextField" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                              <Component id="lastnameTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="accountTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="bancoComboBox" pref="250" max="32767" attributes="0"/>
+                              <Component id="nameTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="accounTypeComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="rutTextField" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="nameTextField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lastnameTextField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="accountTextField" alignment="0" pref="250" max="32767" attributes="0"/>
-                      <Component id="accounTypeComboBox" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="aceptNewSociosButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="cancelNewSociosButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -106,6 +113,11 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="bancoNewSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bancoComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="accountNewSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="accountTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -116,10 +128,11 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cancelNewSociosButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="aceptNewSociosButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelNewSociosButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -127,17 +140,17 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="rutNewSociosLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Rut"/>
+            <Property name="text" type="java.lang.String" value="Rut*"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="nombreNewSociosLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombres"/>
+            <Property name="text" type="java.lang.String" value="Nombres*"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lastnameNewSociosLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Apellidos"/>
+            <Property name="text" type="java.lang.String" value="Apellidos*"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="accountNewSociosLabel">
@@ -153,11 +166,12 @@
         <Component class="javax.swing.JComboBox" name="accounTypeComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Cuenta corriente"/>
-                <StringItem index="1" value="Cuenta de ahorro"/>
-                <StringItem index="2" value="Vale vista"/>
-                <StringItem index="3" value="Cuenta en l&#xed;nea"/>
+              <StringArray count="5">
+                <StringItem index="0" value="&lt;Seleccione un tipo de cuenta&gt;"/>
+                <StringItem index="1" value="Cuenta corriente"/>
+                <StringItem index="2" value="Cuenta de ahorro"/>
+                <StringItem index="3" value="Vale vista"/>
+                <StringItem index="4" value="Cuenta en l&#xed;nea"/>
               </StringArray>
             </Property>
           </Properties>
@@ -206,6 +220,25 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aceptNewSociosButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="bancoNewSociosLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Banco"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="bancoComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value="&lt;Seleccione un Banco&gt;"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="* Campos obligatorios"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

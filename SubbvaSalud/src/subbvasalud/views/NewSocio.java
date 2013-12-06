@@ -5,6 +5,7 @@
  */
 package subbvasalud.views;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import subbvasalud.controllers.AddNewSocio;
 
@@ -13,7 +14,7 @@ import subbvasalud.controllers.AddNewSocio;
  * @author damage
  */
 public class NewSocio extends javax.swing.JDialog {
-    
+
     AddNewSocio addController;
 
     /**
@@ -23,6 +24,7 @@ public class NewSocio extends javax.swing.JDialog {
         super(parent, modal);
         addController = new AddNewSocio();
         initComponents();
+        addController.fillBancoComboBox(bancoComboBox);
     }
 
     /**
@@ -47,6 +49,9 @@ public class NewSocio extends javax.swing.JDialog {
         rutTextField = new javax.swing.JTextField();
         cancelNewSociosButton = new javax.swing.JButton();
         aceptNewSociosButton = new javax.swing.JButton();
+        bancoNewSociosLabel = new javax.swing.JLabel();
+        bancoComboBox = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Socio");
@@ -55,17 +60,17 @@ public class NewSocio extends javax.swing.JDialog {
 
         newSociosPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar socio"));
 
-        rutNewSociosLabel.setText("Rut");
+        rutNewSociosLabel.setText("Rut*");
 
-        nombreNewSociosLabel.setText("Nombres");
+        nombreNewSociosLabel.setText("Nombres*");
 
-        lastnameNewSociosLabel.setText("Apellidos");
+        lastnameNewSociosLabel.setText("Apellidos*");
 
         accountNewSociosLabel.setText("N° Cuenta");
 
         accountTypeNewSociosLabel.setText("Tipo Cuenta");
 
-        accounTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cuenta corriente", "Cuenta de ahorro", "Vale vista", "Cuenta en línea" }));
+        accounTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<Seleccione un tipo de cuenta>", "Cuenta corriente", "Cuenta de ahorro", "Vale vista", "Cuenta en línea" }));
 
         accountTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -107,6 +112,12 @@ public class NewSocio extends javax.swing.JDialog {
             }
         });
 
+        bancoNewSociosLabel.setText("Banco");
+
+        bancoComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<Seleccione un Banco>" }));
+
+        jLabel1.setText("* Campos obligatorios");
+
         javax.swing.GroupLayout newSociosPanelLayout = new javax.swing.GroupLayout(newSociosPanel);
         newSociosPanel.setLayout(newSociosPanelLayout);
         newSociosPanelLayout.setHorizontalGroup(
@@ -114,24 +125,29 @@ public class NewSocio extends javax.swing.JDialog {
             .addGroup(newSociosPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(accountTypeNewSociosLabel)
-                    .addComponent(accountNewSociosLabel)
-                    .addComponent(lastnameNewSociosLabel)
-                    .addComponent(nombreNewSociosLabel)
-                    .addComponent(rutNewSociosLabel))
-                .addGap(18, 18, 18)
-                .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(rutTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameTextField)
-                    .addComponent(lastnameTextField)
-                    .addComponent(accountTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(accounTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newSociosPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(aceptNewSociosButton)
-                .addGap(18, 18, 18)
-                .addComponent(cancelNewSociosButton)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newSociosPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(aceptNewSociosButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelNewSociosButton))
+                    .addGroup(newSociosPanelLayout.createSequentialGroup()
+                        .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(accountNewSociosLabel)
+                            .addComponent(lastnameNewSociosLabel)
+                            .addComponent(nombreNewSociosLabel)
+                            .addComponent(rutNewSociosLabel)
+                            .addComponent(bancoNewSociosLabel)
+                            .addComponent(accountTypeNewSociosLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(rutTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lastnameTextField)
+                            .addComponent(accountTextField)
+                            .addComponent(bancoComboBox, 0, 250, Short.MAX_VALUE)
+                            .addComponent(nameTextField)
+                            .addComponent(accounTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         newSociosPanelLayout.setVerticalGroup(
@@ -151,6 +167,10 @@ public class NewSocio extends javax.swing.JDialog {
                     .addComponent(lastnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bancoNewSociosLabel)
+                    .addComponent(bancoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(accountNewSociosLabel)
                     .addComponent(accountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -159,9 +179,10 @@ public class NewSocio extends javax.swing.JDialog {
                     .addComponent(accounTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(aceptNewSociosButton)
                     .addComponent(cancelNewSociosButton)
-                    .addComponent(aceptNewSociosButton))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(jLabel1))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         rutTextField.getAccessibleContext().setAccessibleDescription("");
@@ -172,8 +193,8 @@ public class NewSocio extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(newSociosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(newSociosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,27 +208,35 @@ public class NewSocio extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rutTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutTextFieldKeyTyped
-        viewUtils.onlyRutNumbers(evt, rutTextField,9);
+        rutTextField.setBackground(null);
+        viewUtils.onlyRutNumbers(evt, rutTextField, 9);
     }//GEN-LAST:event_rutTextFieldKeyTyped
 
     private void nameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTextFieldKeyTyped
+        nameTextField.setBackground(null);
         viewUtils.onlyLetters(evt, nameTextField, lastnameTextField);
     }//GEN-LAST:event_nameTextFieldKeyTyped
 
     private void lastnameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lastnameTextFieldKeyTyped
+        lastnameTextField.setBackground(null);
         viewUtils.onlyLetters(evt, nameTextField, lastnameTextField);
     }//GEN-LAST:event_lastnameTextFieldKeyTyped
 
     private void accountTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_accountTextFieldKeyTyped
-        viewUtils.onlyRutNumbers(evt, rutTextField,20);
+        viewUtils.onlyRutNumbers(evt, rutTextField, 20);
     }//GEN-LAST:event_accountTextFieldKeyTyped
 
     private void aceptNewSociosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptNewSociosButtonActionPerformed
-    if(!viewUtils.validaRut(rutTextField.getText())){
-        JOptionPane.showMessageDialog(this, "El rut ingresado no es correcto", "Rut inválido", WIDTH);
-    }else{
-        
-    }
+        if (!addController.validateNullMainFields(rutTextField, nameTextField, lastnameTextField)) {
+            if (!viewUtils.validaRut(rutTextField.getText())) {
+                rutTextField.setBackground(Color.red);
+                JOptionPane.showMessageDialog(this, "El rut ingresado no es correcto", "Rut inválido", WIDTH);
+            } else {
+
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Los campos obligatorios no pueden estar vacíos", "Campos vacíos", WIDTH);
+        }
     }//GEN-LAST:event_aceptNewSociosButtonActionPerformed
 
     private void cancelNewSociosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelNewSociosButtonActionPerformed
@@ -248,7 +277,7 @@ public class NewSocio extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        
+
                     }
                 });
                 dialog.setVisible(true);
@@ -262,7 +291,10 @@ public class NewSocio extends javax.swing.JDialog {
     private javax.swing.JTextField accountTextField;
     private javax.swing.JLabel accountTypeNewSociosLabel;
     private javax.swing.JButton aceptNewSociosButton;
+    private javax.swing.JComboBox bancoComboBox;
+    private javax.swing.JLabel bancoNewSociosLabel;
     private javax.swing.JButton cancelNewSociosButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lastnameNewSociosLabel;
     private javax.swing.JTextField lastnameTextField;
     private javax.swing.JTextField nameTextField;

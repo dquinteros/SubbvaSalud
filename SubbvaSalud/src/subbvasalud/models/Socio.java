@@ -22,14 +22,15 @@ public class Socio extends Conexion {
     private int tipoCuentaSocio;
     private int presupuestoSocio;
     private int idEstado;
+    private int bancoSocio;
 
-    private static final int COLUMNAS = 7;
+    private static final int COLUMNAS = 8;
 
     public Socio() {
 
     }
 
-    public Socio(int idSocio, int rutSocio, String nombreSocio, String cuentaBancariaSocio, int tipoCuentaSocio, int presupuestoSocio, int idEstado) {
+    public Socio(int idSocio, int rutSocio, String nombreSocio, String cuentaBancariaSocio, int tipoCuentaSocio, int presupuestoSocio, int idEstado, int bancoSocio) {
         this.idSocio = idSocio;
         this.rutSocio = rutSocio;
         this.nombreSocio = nombreSocio;
@@ -37,6 +38,7 @@ public class Socio extends Conexion {
         this.tipoCuentaSocio = tipoCuentaSocio;
         this.presupuestoSocio = presupuestoSocio;
         this.idEstado = idEstado;
+        this.bancoSocio = bancoSocio;
     }
 
     public String socioToSqlInsert(Socio s) {
@@ -54,9 +56,10 @@ public class Socio extends Conexion {
                     + s.getRutSocio() + ","
                     + " '" + s.getNombreSocio() + "',"
                     + " '" + s.getCuentaBancariaSocio() + "',"
-                    + " '" + s.getTipoCuentaSocio() + "',"
+                    + s.getTipoCuentaSocio() + ","
                     + s.getPresupuestoSocio() + ","
-                    + s.getIdEstado()
+                    + s.getIdEstado() + ","
+                    + s.getBancoSocio() + ","
                     + ")";
             return sql;
         } else {
@@ -122,7 +125,9 @@ public class Socio extends Conexion {
                     (String) r.getObject(4),
                     (int) r.getObject(5),
                     (int) r.getObject(6),
-                    (int) r.getObject(7));
+                    (int) r.getObject(7),
+                    (int) r.getObject(8)
+            );
             return s;
         } catch (SQLException e) {
             System.out.println(e.getSQLState());
@@ -187,4 +192,11 @@ public class Socio extends Conexion {
         this.presupuestoSocio = presupuestoSocio;
     }
 
+    public int getBancoSocio() {
+        return bancoSocio;
+    }
+
+    public void setBancoSocio(int bancoSocio) {
+        this.bancoSocio = bancoSocio;
+    }
 }

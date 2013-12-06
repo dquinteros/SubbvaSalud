@@ -38,38 +38,39 @@ public class AddNewSocio {
     public void formInsertarSocio() {
     }
 
-    public void fillBancoComboBox(JComboBox bancoComboBox) {
+    public LinkedList<Banco> fillBancoComboBox(JComboBox bancoComboBox) {
         LinkedList<Banco> listBancos = b.getAllBancos();
         for (Banco ba : listBancos) {
             bancoComboBox.addItem(ba.getNombreBanco());
         }
+        return listBancos;
     }
-    
-    public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField, JTextField lastnameTextField){
-                
-        if((rutTextField.getText().length()==0) || (nameTextField.getText().length()==0) || (lastnameTextField.getText().length()==0)){
-           
-            if(rutTextField.getText().length()==0 ){
+
+    public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField, JTextField lastnameTextField) {
+
+        if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0) || (lastnameTextField.getText().length() == 0)) {
+
+            if (rutTextField.getText().length() == 0) {
                 rutTextField.setBackground(Color.red);
             }
-            if(nameTextField.getText().length()==0){
+            if (nameTextField.getText().length() == 0) {
                 nameTextField.setBackground(Color.red);
             }
-            if(lastnameTextField.getText().length()==0){
+            if (lastnameTextField.getText().length() == 0) {
                 lastnameTextField.setBackground(Color.red);
             }
             return true;
         }
-        
-        if("".equals(rutTextField)||"".equals(nameTextField)||"".equals(lastnameTextField)){
-           
-            if("".equals(rutTextField)){
+
+        if ("".equals(rutTextField.getText()) || "".equals(nameTextField.getText()) || "".equals(lastnameTextField.getText())) {
+
+            if ("".equals(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);
             }
-            if("".equals(nameTextField)){
+            if ("".equals(nameTextField.getText())) {
                 nameTextField.setBackground(Color.red);
             }
-            if("".equals(lastnameTextField)){
+            if ("".equals(lastnameTextField.getText())) {
                 lastnameTextField.setBackground(Color.red);
             }
             return true;

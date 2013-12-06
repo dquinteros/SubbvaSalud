@@ -5,7 +5,10 @@
  */
 package subbvasalud.views;
 
+import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import subbvasalud.models.TipoCuenta;
 
 /**
  *
@@ -13,7 +16,7 @@ import javax.swing.JTextField;
  */
 public class viewUtils {
 
-    public static void onlyRutNumbers(java.awt.event.KeyEvent evt, JTextField rutTextField,int maxChars) {
+    public static void onlyRutNumbers(java.awt.event.KeyEvent evt, JTextField rutTextField, int maxChars) {
         char c = evt.getKeyChar();
         if (((!(Character.isDigit(c))) && (c != '\b')) && (c != 'k')) {
             evt.consume();
@@ -34,7 +37,25 @@ public class viewUtils {
     }
 
     public static boolean validaRut(int rut) {
-        return  validaRut(String.valueOf(rut));
+        return validaRut(String.valueOf(rut));
+    }
+
+    public static ArrayList<TipoCuenta> fillTipoCuentaComBox(JComboBox typeAccountComboBox) {
+        ArrayList<TipoCuenta> accountTypeList = new ArrayList<>();
+        TipoCuenta corriente = new TipoCuenta(1, "Cuenta Corriente");
+        accountTypeList.add(corriente);
+        typeAccountComboBox.addItem(corriente);
+        TipoCuenta ahorro = new TipoCuenta(2, "Cuenta de Ahorro");
+        accountTypeList.add(ahorro);
+        typeAccountComboBox.addItem(ahorro);
+        TipoCuenta valeVista = new TipoCuenta(3, "Vale Vista");
+        accountTypeList.add(valeVista);
+        typeAccountComboBox.addItem(valeVista);
+        TipoCuenta enLinea = new TipoCuenta(4, "Cuenta en Linea");
+        accountTypeList.add(enLinea);
+        typeAccountComboBox.addItem(enLinea);
+
+        return accountTypeList;
     }
 
     public static boolean validaRut(String rut) {

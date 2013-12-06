@@ -6,8 +6,13 @@
 package subbvasalud.views;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import subbvasalud.controllers.AddNewSocio;
+import subbvasalud.models.Banco;
+import subbvasalud.models.Socio;
+import subbvasalud.models.TipoCuenta;
 
 /**
  *
@@ -16,6 +21,8 @@ import subbvasalud.controllers.AddNewSocio;
 public class NewSocio extends javax.swing.JDialog {
 
     AddNewSocio addController;
+    LinkedList<Banco> listBancos;
+    ArrayList<TipoCuenta> listTipoCuenta;
 
     /**
      * Creates new form NewSocio
@@ -24,7 +31,8 @@ public class NewSocio extends javax.swing.JDialog {
         super(parent, modal);
         addController = new AddNewSocio();
         initComponents();
-        addController.fillBancoComboBox(bancoComboBox);
+        listBancos = addController.fillBancoComboBox(bancoComboBox);
+        listTipoCuenta = viewUtils.fillTipoCuentaComBox(accounTypeComboBox);
     }
 
     /**
@@ -70,7 +78,7 @@ public class NewSocio extends javax.swing.JDialog {
 
         accountTypeNewSociosLabel.setText("Tipo Cuenta");
 
-        accounTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<Seleccione un tipo de cuenta>", "Cuenta corriente", "Cuenta de ahorro", "Vale vista", "Cuenta en línea" }));
+        accounTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<Seleccione un tipo de cuenta>" }));
 
         accountTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -232,9 +240,18 @@ public class NewSocio extends javax.swing.JDialog {
                 rutTextField.setBackground(Color.red);
                 JOptionPane.showMessageDialog(this, "El rut ingresado no es correcto", "Rut inválido", WIDTH);
             } else {
-
+                int banco = 0;
+                for (Banco b : listBancos) {
+                    banco = b.getNombreBanco().equals((String) bancoComboBox.getSelectedItem()) ? b.getIdBanco() : -1;
+                }
+                int tipo = 0;
+                for (TipoCuenta tc : listTipoCuenta) {
+                    tipo = tc.getNombreCuenta().equals((String) accounTypeComboBox.getSelectedItem()) ? tc.getIdCuenta() : -1;
+                }
+                Socio so = new Socio(-1, Integer.parseInt(rutTextField.getText()), lastnameTextField.getText() + " " + nameTextField.getText(), accountTextField.getText(), tipo, 0, 1, banco);
+                addController.guardarSocio(so);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Los campos obligatorios no pueden estar vacíos", "Campos vacíos", WIDTH);
         }
     }//GEN-LAST:event_aceptNewSociosButtonActionPerformed

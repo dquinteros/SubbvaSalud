@@ -44,13 +44,14 @@ public class Socio extends Conexion {
     public String socioToSqlInsert(Socio s) {
         if (s != null) {
             String sql = "INSERT INTO \"socio\""
-                    + "(\"rut_socio\","
+                    + "(\"id_socio\","
+                    + "\"rut_socio\","
                     + "\"nombre_socio\","
                     + "\"cuenta_bancaria_socio\","
                     + "\"tipo_cuenta_socio\","
-                    + "\"id_socio\",\"id_estado\","
-                    + "\"apellido_socio\","
-                    + "\"presupuesto_socio\")"
+                    + "\"presupuesto_socio\"," 
+                    + "\"id_estado\","                     
+                    + "\"id_banco\")"
                     + " VALUES("
                     + " NULL,"
                     + s.getRutSocio() + ","
@@ -59,8 +60,8 @@ public class Socio extends Conexion {
                     + s.getTipoCuentaSocio() + ","
                     + s.getPresupuestoSocio() + ","
                     + s.getIdEstado() + ","
-                    + s.getBancoSocio() + ","
-                    + ")";
+                    + s.getBancoSocio()
+                    + ");";
             return sql;
         } else {
             return null;

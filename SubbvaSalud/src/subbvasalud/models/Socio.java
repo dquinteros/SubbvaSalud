@@ -49,8 +49,8 @@ public class Socio extends Conexion {
                     + "\"nombre_socio\","
                     + "\"cuenta_bancaria_socio\","
                     + "\"tipo_cuenta_socio\","
-                    + "\"presupuesto_socio\"," 
-                    + "\"id_estado\","                     
+                    + "\"presupuesto_socio\","
+                    + "\"id_estado\","
                     + "\"id_banco\")"
                     + " VALUES("
                     + " NULL,"
@@ -68,8 +68,63 @@ public class Socio extends Conexion {
         }
     }
 
+    public String socioToSqlUpdate(Socio s) {
+        if (s != null) {
+            String sql = "UPDATE \"socio\""
+                    + " SET"
+                    + " rut_socio = " + s.getRutSocio()+ ","
+                    + " nombre_socio = \"" + s.getNombreSocio()+ "\","
+                    + " cuenta_bancaria_socio = \"" + s.getCuentaBancariaSocio()+ "\","
+                    + " tipo_cuenta_socio = " + s.getTipoCuentaSocio()+ ","
+                    + " presupuesto_socio = " + s.getPresupuestoSocio()+ ","
+                    + " id_estado = " + s.getIdEstado()+ ","
+                    + " id_banco = " + s.getBancoSocio()
+                    + " WHERE id_socio= " + s.getIdSocio()
+                    + ";";
+            System.out.println(sql);
+            return sql;
+        } else {
+            return null;
+        }
+    }
+
+    public String socioToSqlFindById(int id) {
+        if (id > 0) {
+            String sql = "SELECT * FROM socio WHERE id_socio =" + id + ";";
+            return sql;
+        } else {
+            return null;
+        }
+    }
+
+    public String socioToSqlFindByRut(int rut) {
+        if (rut > 0) {
+            String sql = "SELECT * FROM socio WHERE rut_socio =" + rut + ";";
+            return sql;
+        } else {
+            return null;
+        }
+    }
+
     public int insertSocio(Socio s) {
         String sql = this.socioToSqlInsert(s);
+
+        if (sql != null) {
+            connect();
+            try {
+                query.executeUpdate(sql);
+            } catch (SQLException e) {
+                modelUtils.showSQLException(e);
+            } finally {
+                modelUtils.postUpdateFinally(query, connection);
+            }
+            return 0;
+        }
+        return 1;
+    }
+
+    public int updateSocio(Socio s) {
+        String sql = this.socioToSqlUpdate(s);
 
         if (sql != null) {
             connect();
@@ -114,6 +169,33 @@ public class Socio extends Conexion {
             modelUtils.postSelectFinally(query, connection, result);
         }
         return listSocios;
+    }
+
+    public Socio getSociosById(int id) {
+        String sql = socioToSqlFindById(id);
+        ResultSet result = null;
+        connect();
+        Socio newSocio = new Socio();
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                if (result.next()) {
+                    System.out.println("Pasa");
+                    newSocio = this.createSocioFromResultSet(result);
+                    if (newSocio != null) {
+                        System.out.println("Agregado");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return newSocio;
     }
 
     public Socio createSocioFromResultSet(ResultSet r) {

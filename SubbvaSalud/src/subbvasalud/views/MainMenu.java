@@ -7,6 +7,8 @@ package subbvasalud.views;
 
 import com.ezware.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import java.awt.CardLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -18,7 +20,7 @@ import subbvasalud.controllers.MainMenuController;
  * @author damage
  */
 public class MainMenu extends javax.swing.JFrame {
-    
+
     MainMenuController mmc;
 
     /**
@@ -27,6 +29,7 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         mmc = new MainMenuController();
         initComponents();
+        mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
     }
 
     /**
@@ -39,6 +42,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         selectSociosFile = new javax.swing.JFileChooser();
+        jDialog1 = new javax.swing.JDialog();
         viewSociosPanel = new javax.swing.JPanel();
         viewSociosScrollPanel = new javax.swing.JScrollPane();
         viewSociosTable = new javax.swing.JTable();
@@ -83,9 +87,27 @@ public class MainMenu extends javax.swing.JFrame {
         viewCargasMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
 
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         getContentPane().setLayout(new java.awt.CardLayout());
 
         viewSociosPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Ver Socios"));
@@ -440,15 +462,15 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSociosMenuItemActionPerformed
-        
+
         CardLayout cl = (CardLayout) (getContentPane().getLayout());
         cl.show(getContentPane(), "viewSociosCard");
         TableRowFilterSupport.forTable(viewSociosTable).searchable(true).apply();
-        
+
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
             ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
         }
-        mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());        
+        mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
     }//GEN-LAST:event_viewSociosMenuItemActionPerformed
 
     private void loadFileSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFileSociosMenuItemActionPerformed
@@ -470,11 +492,19 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_newPeriodoMenuItemActionPerformed
 
     private void newSolicitudMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSolicitudMenuItemActionPerformed
-       NewSolicitud.main(null);
+        NewSolicitud.main(null);
     }//GEN-LAST:event_newSolicitudMenuItemActionPerformed
 
     private void editSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSocioButtonActionPerformed
-        // TODO add your handling code here:
+        int row = viewSociosTable.getSelectedRow();
+        int rut = (int) viewSociosTable.getModel().getValueAt(row, 0);
+        int id = mmc.getIdSociosByRut(rut);
+        String[] arg = new String[2];
+        arg[0] = id + "";
+        arg[1] = viewSociosTable.toString();
+        
+        EditSocio.main(arg);
+             
     }//GEN-LAST:event_editSocioButtonActionPerformed
 
     private void addNewSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewSocioButtonActionPerformed
@@ -484,6 +514,13 @@ public class MainMenu extends javax.swing.JFrame {
     private void deleteSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSocioButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteSocioButtonActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+       while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
+            ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
+        }
+        mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
@@ -528,6 +565,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JPanel insertNewSocioPanel;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

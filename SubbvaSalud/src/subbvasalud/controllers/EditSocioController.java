@@ -16,18 +16,18 @@ import subbvasalud.models.Socio;
  *
  * @author damage
  */
-public class AddNewSocio {
+public class EditSocioController {
 
     Socio s;
     Banco b;
 
-    public AddNewSocio() {
+    public EditSocioController() {
         s = new Socio();
         b = new Banco();
     }
 
-    public int guardarSocio(Socio so) {
-        int i = s.insertSocio(so);
+    public int editarSocio(Socio so) {
+        int i = s.updateSocio(so);
         if (i == 0) {
             return 0;
         } else {
@@ -35,20 +35,25 @@ public class AddNewSocio {
         }
     }
 
-    public void formInsertarSocio() {
+    public Socio getSocio(int id) {
+        return s.getSociosById(id);
     }
 
-    public LinkedList<Banco> fillBancoComboBox(JComboBox bancoComboBox) {
+    public LinkedList<Banco> fillBancoComboBox(JComboBox bancoComboBox, int idBanco) {
         LinkedList<Banco> listBancos = b.getAllBancos();
         for (Banco ba : listBancos) {
             bancoComboBox.addItem(ba.getNombreBanco());
+            if (ba.getIdBanco() == idBanco) {
+                bancoComboBox.setSelectedItem(ba.getNombreBanco());
+            }
         }
+
         return listBancos;
     }
 
-    public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField, JTextField lastnameTextField) {
+    public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField) {
 
-        if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0) || (lastnameTextField.getText().length() == 0)) {
+        if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0)) {
 
             if (rutTextField.getText().length() == 0) {
                 rutTextField.setBackground(Color.red);
@@ -56,13 +61,10 @@ public class AddNewSocio {
             if (nameTextField.getText().length() == 0) {
                 nameTextField.setBackground(Color.red);
             }
-            if (lastnameTextField.getText().length() == 0) {
-                lastnameTextField.setBackground(Color.red);
-            }
             return true;
         }
 
-        if ("".equals(rutTextField.getText()) || "".equals(nameTextField.getText()) || "".equals(lastnameTextField.getText())) {
+        if ("".equals(rutTextField.getText()) || "".equals(nameTextField.getText())) {
 
             if ("".equals(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);
@@ -70,9 +72,7 @@ public class AddNewSocio {
             if ("".equals(nameTextField.getText())) {
                 nameTextField.setBackground(Color.red);
             }
-            if ("".equals(lastnameTextField.getText())) {
-                lastnameTextField.setBackground(Color.red);
-            }
+
             return true;
         }
         return false;

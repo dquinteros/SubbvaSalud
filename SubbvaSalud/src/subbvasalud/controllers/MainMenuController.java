@@ -16,20 +16,20 @@ import subbvasalud.models.Socio;
 public class MainMenuController {
 
     Socio s;
+    LinkedList<Socio> ls;
 
     public MainMenuController() {
         s = new Socio();
     }
 
-    
     public void mostrarSocios(DefaultTableModel tableModel) {
 
-        LinkedList<Socio> ls = s.getAllSocios();
+        ls = s.getAllSocios();
         if (ls != null) {
             for (Socio so : ls) {
                 Object[] obj = new Object[2];
                 obj[0] = so.getRutSocio();
-                obj[1] = so.getNombreSocio();                
+                obj[1] = so.getNombreSocio();
                 tableModel.addRow(obj);
             }
         } else {
@@ -37,5 +37,13 @@ public class MainMenuController {
         }
     }
 
-    
+    public int getIdSociosByRut(int rut) {
+        for (Socio so : ls) {
+            if (so.getRutSocio() == rut) {
+                return so.getIdSocio();
+            }
+        }
+        return -1;
+    }
+
 }

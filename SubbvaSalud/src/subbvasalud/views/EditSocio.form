@@ -64,23 +64,21 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="mandatoryFieldsLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="aceptNewSociosButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="saveSociosButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cancelNewSociosButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="cancelSociosButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="accountNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lastnameNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="nombreNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="rutNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="accountSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rutSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="bancoNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="accountTypeNewSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="accountTypeSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="rutTextField" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Component id="lastnameTextField" alignment="0" max="32767" attributes="0"/>
                               <Component id="accountTextField" alignment="0" max="32767" attributes="0"/>
                               <Component id="bancoComboBox" pref="250" max="32767" attributes="0"/>
                               <Component id="nameTextField" alignment="0" max="32767" attributes="0"/>
@@ -98,67 +96,57 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="rutNewSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rutSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rutTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="nombreNewSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nombreSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lastnameNewSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lastnameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="bancoNewSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bancoComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="accountNewSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="accountSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="accountTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="accountTypeNewSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="accountTypeSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="accounTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="aceptNewSociosButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cancelNewSociosButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveSociosButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelSociosButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="mandatoryFieldsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="rutNewSociosLabel">
+        <Component class="javax.swing.JLabel" name="rutSociosLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Rut*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="nombreNewSociosLabel">
+        <Component class="javax.swing.JLabel" name="nombreSociosLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombres*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lastnameNewSociosLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Apellidos*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="accountNewSociosLabel">
+        <Component class="javax.swing.JLabel" name="accountSociosLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="N&#xb0; Cuenta"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="accountTypeNewSociosLabel">
+        <Component class="javax.swing.JLabel" name="accountTypeSociosLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tipo Cuenta"/>
           </Properties>
@@ -175,11 +163,6 @@
         <Component class="javax.swing.JTextField" name="accountTextField">
           <Events>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="accountTextFieldKeyTyped"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="lastnameTextField">
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="lastnameTextFieldKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="nameTextField">
@@ -201,20 +184,20 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="rutTextFieldKeyTyped"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="cancelNewSociosButton">
+        <Component class="javax.swing.JButton" name="cancelSociosButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelNewSociosButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelSociosButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="aceptNewSociosButton">
+        <Component class="javax.swing.JButton" name="saveSociosButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Aceptar"/>
+            <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aceptNewSociosButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveSociosButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="bancoNewSociosLabel">

@@ -36,6 +36,13 @@ public class viewUtils {
         }
     }
 
+    public static void onlyLetters(java.awt.event.KeyEvent evt, JTextField nameTextField) {
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c) && (c == '\b')) {
+            evt.consume();
+        }
+    }
+
     public static boolean validaRut(int rut) {
         return validaRut(String.valueOf(rut));
     }
@@ -44,18 +51,32 @@ public class viewUtils {
         ArrayList<TipoCuenta> accountTypeList = new ArrayList<>();
         TipoCuenta corriente = new TipoCuenta(1, "Cuenta Corriente");
         accountTypeList.add(corriente);
-        typeAccountComboBox.addItem(corriente);
+        typeAccountComboBox.addItem("Cuenta Corriente");
         TipoCuenta ahorro = new TipoCuenta(2, "Cuenta de Ahorro");
         accountTypeList.add(ahorro);
-        typeAccountComboBox.addItem(ahorro);
+        typeAccountComboBox.addItem("Cuenta de Ahorro");
         TipoCuenta valeVista = new TipoCuenta(3, "Vale Vista");
         accountTypeList.add(valeVista);
-        typeAccountComboBox.addItem(valeVista);
+        typeAccountComboBox.addItem("Vale Vista");
         TipoCuenta enLinea = new TipoCuenta(4, "Cuenta en Linea");
         accountTypeList.add(enLinea);
-        typeAccountComboBox.addItem(enLinea);
+        typeAccountComboBox.addItem("Cuenta en Linea");
 
         return accountTypeList;
+    }
+
+    public static String getTipoCuentaName(int id) {
+        String name;
+        if (id == 1) {
+            name = "Cuenta Corriente";
+        } else if (id == 2) {
+            name = "Cuenta de Ahorro";
+        } else if (id == 3) {
+            name = "Vale Vista";
+        } else {
+            name = "Cuenta en Linea";
+        }
+        return name;
     }
 
     public static boolean validaRut(String rut) {

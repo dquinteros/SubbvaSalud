@@ -20,8 +20,6 @@ public class AddNewSocioController {
 
     Socio s;
     Banco b;
-    
-    
 
     public AddNewSocioController() {
         s = new Socio();

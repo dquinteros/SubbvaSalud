@@ -26,11 +26,11 @@ public class EditSocio extends javax.swing.JDialog {
     LinkedList<Banco> listBancos;
     ArrayList<TipoCuenta> listTipoCuenta;
     static int id;
-   static Frame padre;
-  
+    static Frame padre;
 
     /**
      * Creates new form NewSocio
+     *
      * @param parent
      * @param modal
      */
@@ -44,7 +44,7 @@ public class EditSocio extends javax.swing.JDialog {
         rutTextField.setText(s.getRutSocio() + "");
         nameTextField.setText(s.getNombreSocio());
         accounTypeComboBox.setSelectedItem(viewUtils.getTipoCuentaName(s.getTipoCuentaSocio()));
-        accountTextField.setText(s.getCuentaBancariaSocio());       
+        accountTextField.setText(s.getCuentaBancariaSocio());
     }
 
     /**
@@ -246,11 +246,12 @@ public class EditSocio extends javax.swing.JDialog {
                 s.setTipoCuentaSocio(tipo);
                 //Socio so = new Socio(id, Integer.parseInt(rutTextField.getText()), nameTextField.getText(), accountTextField.getText(), tipo, 0, 1, banco);
                 editController.editarSocio(s);
+                this.dispose();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Los campos obligatorios no pueden estar vacíos", "Campos vacíos", WIDTH);
         }
-         this.dispose();
+
     }//GEN-LAST:event_saveSociosButtonActionPerformed
 
     private void cancelSociosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelSociosButtonActionPerformed
@@ -262,7 +263,7 @@ public class EditSocio extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         id = Integer.parseInt(args[0]);
-      
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -284,7 +285,7 @@ public class EditSocio extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EditSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-       //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -298,7 +299,7 @@ public class EditSocio extends javax.swing.JDialog {
                 });
                 dialog.setVisible(true);
             }
-        });          
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

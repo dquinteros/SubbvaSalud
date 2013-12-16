@@ -72,12 +72,12 @@ public class Socio extends Conexion {
         if (s != null) {
             String sql = "UPDATE \"socio\""
                     + " SET"
-                    + " rut_socio = " + s.getRutSocio()+ ","
-                    + " nombre_socio = \"" + s.getNombreSocio()+ "\","
-                    + " cuenta_bancaria_socio = \"" + s.getCuentaBancariaSocio()+ "\","
-                    + " tipo_cuenta_socio = " + s.getTipoCuentaSocio()+ ","
-                    + " presupuesto_socio = " + s.getPresupuestoSocio()+ ","
-                    + " id_estado = " + s.getIdEstado()+ ","
+                    + " rut_socio = " + s.getRutSocio() + ","
+                    + " nombre_socio = \"" + s.getNombreSocio() + "\","
+                    + " cuenta_bancaria_socio = \"" + s.getCuentaBancariaSocio() + "\","
+                    + " tipo_cuenta_socio = " + s.getTipoCuentaSocio() + ","
+                    + " presupuesto_socio = " + s.getPresupuestoSocio() + ","
+                    + " id_estado = " + s.getIdEstado() + ","
                     + " id_banco = " + s.getBancoSocio()
                     + " WHERE id_socio= " + s.getIdSocio()
                     + ";";

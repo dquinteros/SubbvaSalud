@@ -7,6 +7,7 @@ package subbvasalud.controllers;
 
 import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
+import subbvasalud.models.Carga;
 import subbvasalud.models.Socio;
 
 /**
@@ -17,9 +18,12 @@ public class MainMenuController {
 
     Socio s;
     LinkedList<Socio> ls;
+    Carga c;
+    LinkedList<Carga> lc;
 
     public MainMenuController() {
         s = new Socio();
+        c = new Carga();
     }
 
     public void mostrarSocios(DefaultTableModel tableModel) {
@@ -37,6 +41,21 @@ public class MainMenuController {
         }
     }
 
+    public void mostrarCargas(DefaultTableModel tableModel) {
+
+        lc = c.getAllCargas();
+        if (ls != null) {
+            for (Carga ca : lc) {
+                Object[] obj = new Object[2];
+                obj[0] = ca.getRut();
+                obj[1] = ca.getNombre();
+                tableModel.addRow(obj);
+            }
+        } else {
+            System.out.println("Table Empty");
+        }
+    }
+
     public int getIdSociosByRut(int rut) {
         for (Socio so : ls) {
             if (so.getRutSocio() == rut) {
@@ -46,4 +65,12 @@ public class MainMenuController {
         return -1;
     }
 
+    public int getIdCargasByRut(int rut) {
+        for (Carga ca : lc) {
+            if (ca.getRut() == rut) {
+                return ca.getIdCarga();
+            }
+        }
+        return -1;
+    }
 }

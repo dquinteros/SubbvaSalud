@@ -26,6 +26,7 @@ public class NewSocio extends javax.swing.JDialog {
 
     /**
      * Creates new form NewSocio
+     *
      * @param parent
      * @param modal
      */
@@ -252,11 +253,11 @@ public class NewSocio extends javax.swing.JDialog {
                 }
                 Socio so = new Socio(-1, Integer.parseInt(rutTextField.getText()), lastnameTextField.getText() + " " + nameTextField.getText(), accountTextField.getText(), tipo, 0, 1, banco);
                 addController.guardarSocio(so);
+                this.dispose();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Los campos obligatorios no pueden estar vacíos", "Campos vacíos", WIDTH);
         }
-        this.dispose();
     }//GEN-LAST:event_aceptNewSociosButtonActionPerformed
 
     private void cancelNewSociosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelNewSociosButtonActionPerformed

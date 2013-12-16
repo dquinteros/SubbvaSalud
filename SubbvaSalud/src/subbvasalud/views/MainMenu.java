@@ -7,8 +7,7 @@ package subbvasalud.views;
 
 import com.ezware.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import java.awt.CardLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -30,6 +29,7 @@ public class MainMenu extends javax.swing.JFrame {
         mmc = new MainMenuController();
         initComponents();
         mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
+         TableRowFilterSupport.forTable(viewSociosTable).searchable(true).apply();
     }
 
     /**
@@ -464,13 +464,14 @@ public class MainMenu extends javax.swing.JFrame {
     private void viewSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSociosMenuItemActionPerformed
 
         CardLayout cl = (CardLayout) (getContentPane().getLayout());
-        cl.show(getContentPane(), "viewSociosCard");
+        cl.show(getContentPane(), "viewSociosCard");       
         TableRowFilterSupport.forTable(viewSociosTable).searchable(true).apply();
 
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
             ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
         }
         mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
+        
     }//GEN-LAST:event_viewSociosMenuItemActionPerformed
 
     private void loadFileSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFileSociosMenuItemActionPerformed
@@ -497,14 +498,17 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void editSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSocioButtonActionPerformed
         int row = viewSociosTable.getSelectedRow();
-        int rut = (int) viewSociosTable.getModel().getValueAt(row, 0);
-        int id = mmc.getIdSociosByRut(rut);
-        String[] arg = new String[2];
-        arg[0] = id + "";
-        arg[1] = viewSociosTable.toString();
-        
-        EditSocio.main(arg);
-             
+        if (row != -1) {
+            int rut = (int) viewSociosTable.getModel().getValueAt(row, 0);
+            int id = mmc.getIdSociosByRut(rut);
+
+            String[] arg = new String[2];
+            arg[0] = id + "";
+            arg[1] = viewSociosTable.toString();
+            EditSocio.main(arg);
+        } else {
+            JOptionPane.showMessageDialog(this, "Para editar debe seleccionar un socio.", "Seleccionar Socio", WIDTH);
+        }
     }//GEN-LAST:event_editSocioButtonActionPerformed
 
     private void addNewSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewSocioButtonActionPerformed
@@ -516,7 +520,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteSocioButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-       while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
+        while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
             ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
         }
         mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());

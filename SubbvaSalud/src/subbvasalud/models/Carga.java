@@ -86,7 +86,7 @@ public class Carga extends Conexion{
         }
     }
     
-    public int insertSocio(Carga c) {
+    public int insertCarga(Carga c) {
         String sql = this.cargaToSqlInsert(c);
 
         if (sql != null) {
@@ -103,7 +103,7 @@ public class Carga extends Conexion{
         return 1;
     }
     
-    public int updateSocio(Carga c) {
+    public int updateCarga(Carga c) {
         String sql = this.cargaToSqlUpdate(c);
 
         if (sql != null) {

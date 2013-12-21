@@ -57,6 +57,7 @@ public class MainMenuController {
     }
 
     public int getIdSociosByRut(int rut) {
+         ls = s.getAllSocios();
         for (Socio so : ls) {
             if (so.getRutSocio() == rut) {
                 return so.getIdSocio();

@@ -29,7 +29,9 @@ public class MainMenu extends javax.swing.JFrame {
         mmc = new MainMenuController();
         initComponents();
         mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
-         TableRowFilterSupport.forTable(viewSociosTable).searchable(true).apply();
+        mmc.mostrarCargas((DefaultTableModel) viewCargasTable.getModel());
+        TableRowFilterSupport.forTable(viewSociosTable).searchable(true).apply();
+        TableRowFilterSupport.forTable(viewCargasTable).searchable(true).apply();
     }
 
     /**
@@ -50,6 +52,11 @@ public class MainMenu extends javax.swing.JFrame {
         editSocioButton = new javax.swing.JButton();
         addNewSocioButton = new javax.swing.JButton();
         viewCargasPanel = new javax.swing.JPanel();
+        viewCargasScrollPanel = new javax.swing.JScrollPane();
+        viewCargasTable = new javax.swing.JTable();
+        deleteCargaButton = new javax.swing.JButton();
+        editCartaButton = new javax.swing.JButton();
+        addNewCargaButton = new javax.swing.JButton();
         insertNewSocioPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -185,15 +192,60 @@ public class MainMenu extends javax.swing.JFrame {
 
         viewCargasPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Ver Cargas"));
 
+        viewCargasTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Rut", "Nombre"
+            }
+        ));
+        viewCargasScrollPanel.setViewportView(viewCargasTable);
+
+        deleteCargaButton.setText("Eliminar Carga");
+
+        editCartaButton.setText("Editar Carga");
+        editCartaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editCartaButtonActionPerformed(evt);
+            }
+        });
+
+        addNewCargaButton.setText("Agregar Carga");
+        addNewCargaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewCargaButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout viewCargasPanelLayout = new javax.swing.GroupLayout(viewCargasPanel);
         viewCargasPanel.setLayout(viewCargasPanelLayout);
         viewCargasPanelLayout.setHorizontalGroup(
             viewCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 673, Short.MAX_VALUE)
+            .addGroup(viewCargasPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewCargasScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewCargasPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addNewCargaButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(editCartaButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteCargaButton)))
+                .addContainerGap())
         );
         viewCargasPanelLayout.setVerticalGroup(
             viewCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 392, Short.MAX_VALUE)
+            .addGroup(viewCargasPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(viewCargasScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(viewCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteCargaButton)
+                    .addComponent(editCartaButton)
+                    .addComponent(addNewCargaButton))
+                .addContainerGap())
         );
 
         getContentPane().add(viewCargasPanel, "viewCargasCard");
@@ -464,14 +516,14 @@ public class MainMenu extends javax.swing.JFrame {
     private void viewSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewSociosMenuItemActionPerformed
 
         CardLayout cl = (CardLayout) (getContentPane().getLayout());
-        cl.show(getContentPane(), "viewSociosCard");       
+        cl.show(getContentPane(), "viewSociosCard");
         TableRowFilterSupport.forTable(viewSociosTable).searchable(true).apply();
 
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
             ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
         }
         mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
-        
+
     }//GEN-LAST:event_viewSociosMenuItemActionPerformed
 
     private void loadFileSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFileSociosMenuItemActionPerformed
@@ -516,15 +568,38 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_addNewSocioButtonActionPerformed
 
     private void deleteSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSocioButtonActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_deleteSocioButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
             ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
         }
+        while (((DefaultTableModel) viewCargasTable.getModel()).getRowCount() != 0) {
+            ((DefaultTableModel) viewCargasTable.getModel()).removeRow(0);
+        }
         mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
+        mmc.mostrarCargas((DefaultTableModel) viewCargasTable.getModel());
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void addNewCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewCargaButtonActionPerformed
+         NewCarga.main(null);
+    }//GEN-LAST:event_addNewCargaButtonActionPerformed
+
+    private void editCartaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCartaButtonActionPerformed
+        int row = viewCargasTable.getSelectedRow();
+        if (row != -1) {
+            int rut = (int) viewCargasTable.getModel().getValueAt(row, 0);
+            int id = mmc.getIdSociosByRut(rut);
+
+            String[] arg = new String[2];
+            arg[0] = id + "";
+            arg[1] = viewCargasTable.toString();
+            EditCarga.main(arg);
+        } else {
+            JOptionPane.showMessageDialog(this, "Para editar debe seleccionar una carga.", "Seleccionar Cargas", WIDTH);
+        }
+    }//GEN-LAST:event_editCartaButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -562,8 +637,11 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addNewCargaButton;
     private javax.swing.JButton addNewSocioButton;
+    private javax.swing.JButton deleteCargaButton;
     private javax.swing.JButton deleteSocioButton;
+    private javax.swing.JButton editCartaButton;
     private javax.swing.JMenu editMenu;
     private javax.swing.JButton editSocioButton;
     private javax.swing.JMenu fileMenu;
@@ -602,6 +680,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JFileChooser selectSociosFile;
     private javax.swing.JMenuItem viewCargasMenuItem;
     private javax.swing.JPanel viewCargasPanel;
+    private javax.swing.JScrollPane viewCargasScrollPanel;
+    private javax.swing.JTable viewCargasTable;
     private javax.swing.JMenu viewMenu;
     private javax.swing.JMenuItem viewSociosMenuItem;
     private javax.swing.JPanel viewSociosPanel;

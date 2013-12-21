@@ -26,7 +26,6 @@ public class EditSocio extends javax.swing.JDialog {
     LinkedList<Banco> listBancos;
     ArrayList<TipoCuenta> listTipoCuenta;
     static int id;
-    static Frame padre;
 
     /**
      * Creates new form NewSocio

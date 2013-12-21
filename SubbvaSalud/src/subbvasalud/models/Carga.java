@@ -13,7 +13,7 @@ import java.util.LinkedList;
  *
  * @author damage
  */
-public class Carga extends Conexion{
+public class Carga extends Conexion {
 
     private int idCarga;
     private int idSocio;
@@ -21,9 +21,9 @@ public class Carga extends Conexion{
     private String nombre;
     private int idEstado;
 
-    public Carga(){
+    public Carga() {
     }
-    
+
     public Carga(int idCarga, int idSocio, int rut, String nombre, int idEstado) {
         this.idCarga = idCarga;
         this.idSocio = idSocio;
@@ -52,14 +52,15 @@ public class Carga extends Conexion{
             return null;
         }
     }
-    
-     public String cargaToSqlUpdate(Carga c) {
+
+    public String cargaToSqlUpdate(Carga c) {
         if (c != null) {
-            String sql = "UPDATE \"socio\""
+            String sql = "UPDATE \"carga\""
                     + " SET"
                     + " rut_carga = " + c.getRut() + ","
-                    + " nombre_carga = \"" + c.getNombre() + "\""                   
-                    + " WHERE id_socio= " + c.getIdCarga()
+                    + " nombre_carga = \"" + c.getNombre() + "\","
+                    + " id_estado = " + c.getIdEstado()
+                    + " WHERE id_carga= " + c.getIdCarga()
                     + ";";
             System.out.println(sql);
             return sql;
@@ -67,7 +68,7 @@ public class Carga extends Conexion{
             return null;
         }
     }
-     
+
     public String cargaToSqlFindById(int id) {
         if (id > 0) {
             String sql = "SELECT * FROM carga WHERE id_carga =" + id + ";";
@@ -76,7 +77,7 @@ public class Carga extends Conexion{
             return null;
         }
     }
-    
+
     public String cargaToSqlFindByRut(int rut) {
         if (rut > 0) {
             String sql = "SELECT * FROM carga WHERE rut_carga =" + rut + ";";
@@ -86,6 +87,8 @@ public class Carga extends Conexion{
         }
     }
     
+       
+     
     public int insertCarga(Carga c) {
         String sql = this.cargaToSqlInsert(c);
 
@@ -102,7 +105,7 @@ public class Carga extends Conexion{
         }
         return 1;
     }
-    
+
     public int updateCarga(Carga c) {
         String sql = this.cargaToSqlUpdate(c);
 
@@ -121,7 +124,38 @@ public class Carga extends Conexion{
     }
 
     public LinkedList<Carga> getAllCargas() {
-        String sql = "select * from carga";
+        String sql = "select * from carga where id_estado = 1";
+        ResultSet result = null;
+        connect();
+        LinkedList<Carga> listCargas;
+        listCargas = new LinkedList<>();
+
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                while (result.next()) {
+                    System.out.println("Pasa");
+                    Carga newCarga = this.createCargaFromResultSet(result);
+                    boolean ans;
+                    ans = listCargas.add(newCarga);
+                    if (ans == true) {
+                        System.out.println("Agregado");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return listCargas;
+    }
+
+     public LinkedList<Carga> getAllCargasByIdSocio(int id) {
+        String sql = "select * from carga where id_socio ="+id;
         ResultSet result = null;
         connect();
         LinkedList<Carga> listCargas;
@@ -151,6 +185,7 @@ public class Carga extends Conexion{
         return listCargas;
     }
     
+    
     public Carga getCargasById(int id) {
         String sql = cargaToSqlFindById(id);
         ResultSet result = null;
@@ -178,6 +213,34 @@ public class Carga extends Conexion{
         return newCarga;
     }
 
+    public Carga getCargasByRut(int rut) {
+        String sql = cargaToSqlFindByRut(rut);
+        ResultSet result = null;
+        connect();
+        Carga newCarga = new Carga();
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                if (result.next()) {
+                    System.out.println("Pasa");
+                    newCarga = this.createCargaFromResultSet(result);
+                    if (newCarga != null) {
+                        System.out.println("Agregado");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return newCarga;
+    }
+         
+
     public Carga createCargaFromResultSet(ResultSet r) {
         try {
             Carga c;
@@ -193,9 +256,9 @@ public class Carga extends Conexion{
             System.out.println(e.getSQLState());
             System.out.println(e.getMessage());
             return null;
-        }       
+        }
     }
-    
+
     public int getIdCarga() {
         return idCarga;
     }

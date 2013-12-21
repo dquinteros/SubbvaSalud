@@ -44,11 +44,14 @@ public class MainMenuController {
     public void mostrarCargas(DefaultTableModel tableModel) {
 
         lc = c.getAllCargas();
+
         if (ls != null) {
             for (Carga ca : lc) {
-                Object[] obj = new Object[2];
+                Object[] obj = new Object[3];
                 obj[0] = ca.getRut();
                 obj[1] = ca.getNombre();
+                s = s.getSociosById(ca.getIdSocio());
+                obj[2] = s.getNombreSocio();
                 tableModel.addRow(obj);
             }
         } else {
@@ -57,13 +60,14 @@ public class MainMenuController {
     }
 
     public int getIdSociosByRut(int rut) {
-         ls = s.getAllSocios();
-        for (Socio so : ls) {
-            if (so.getRutSocio() == rut) {
-                return so.getIdSocio();
-            }
+        Socio so = new Socio();
+        so = so.getSociosByRut(rut);
+        if (so != null) {
+            return so.getIdSocio();
+
+        } else {
+            return -1;
         }
-        return -1;
     }
 
     public int getIdCargasByRut(int rut) {

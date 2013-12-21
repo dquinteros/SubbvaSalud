@@ -141,7 +141,7 @@ public class Socio extends Conexion {
     }
 
     public LinkedList<Socio> getAllSocios() {
-        String sql = "select * from socio";
+        String sql = "select * from socio where id_estado = 1";
         ResultSet result = null;
         connect();
         LinkedList<Socio> listSocios;
@@ -198,6 +198,33 @@ public class Socio extends Conexion {
         return newSocio;
     }
 
+    public Socio getSociosByRut(int rut) {
+        String sql = socioToSqlFindByRut(rut);
+        ResultSet result = null;
+        connect();
+        Socio newSocio = new Socio();
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                if (result.next()) {
+                    System.out.println("Pasa");
+                    newSocio = this.createSocioFromResultSet(result);
+                    if (newSocio != null) {
+                        System.out.println("Agregado");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return newSocio;
+    }
+    
     public Socio createSocioFromResultSet(ResultSet r) {
         try {
             Socio s;
@@ -219,6 +246,8 @@ public class Socio extends Conexion {
         }
     }
 
+    
+    
     public int getRutSocio() {
         return rutSocio;
     }

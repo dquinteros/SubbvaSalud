@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="newSociosPanel" min="-2" max="-2" attributes="0"/>
+              <Component id="editCargasPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -34,18 +34,18 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="newSociosPanel" max="32767" attributes="0"/>
+              <Component id="editCargasPanel" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="newSociosPanel">
+    <Container class="javax.swing.JPanel" name="editCargasPanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Agregar socio"/>
+            <TitledBorder title="Editar Carga"/>
           </Border>
         </Property>
       </Properties>
@@ -60,8 +60,8 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="nombreSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="rutSociosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="nombreCargaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rutCargaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -73,9 +73,9 @@
                               <Group type="102" attributes="0">
                                   <Component id="mandatoryFieldsLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="saveSociosButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="saveCargaButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="cancelSociosButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cancelCargaButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -93,12 +93,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="rutSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rutCargaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rutTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="nombreSociosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nombreCargaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -110,8 +110,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="mandatoryFieldsLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="cancelSociosButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="saveSociosButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cancelCargaButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="saveCargaButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -120,12 +120,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="rutSociosLabel">
+        <Component class="javax.swing.JLabel" name="rutCargaLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Rut*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="nombreSociosLabel">
+        <Component class="javax.swing.JLabel" name="nombreCargaLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombres*"/>
           </Properties>
@@ -146,20 +146,20 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="rutTextFieldKeyTyped"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="cancelSociosButton">
+        <Component class="javax.swing.JButton" name="cancelCargaButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelSociosButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelCargaButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="saveSociosButton">
+        <Component class="javax.swing.JButton" name="saveCargaButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveSociosButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveCargaButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="mandatoryFieldsLabel">

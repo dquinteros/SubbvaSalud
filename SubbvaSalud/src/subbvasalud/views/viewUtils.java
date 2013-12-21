@@ -42,6 +42,13 @@ public class viewUtils {
             evt.consume();
         }
     }
+    
+     public static void maxLongInput(java.awt.event.KeyEvent evt, JTextField textField, int maxChars) {
+        char c = evt.getKeyChar();
+        if (textField.getText().length() > maxChars) {
+            evt.consume();
+        }
+    }
 
     public static boolean validaRut(int rut) {
         return validaRut(String.valueOf(rut));

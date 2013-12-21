@@ -7,12 +7,22 @@ package subbvasalud.views;
 
 import com.ezware.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import java.awt.CardLayout;
+import java.awt.event.WindowEvent;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
+import java.util.LinkedList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import subbvasalud.controllers.AnioController;
+import subbvasalud.controllers.EditCargaController;
+import subbvasalud.controllers.EditSocioController;
 import subbvasalud.controllers.MainMenuController;
+import subbvasalud.controllers.PeriodoController;
+import subbvasalud.models.Anio;
+import subbvasalud.models.Carga;
+import subbvasalud.models.Periodo;
+import subbvasalud.models.Socio;
 
 /**
  *
@@ -21,11 +31,22 @@ import subbvasalud.controllers.MainMenuController;
 public class MainMenu extends javax.swing.JFrame {
 
     MainMenuController mmc;
+    EditSocioController es;
+    EditCargaController ec;
+    PeriodoController pc;
+    AnioController ac;
+    LinkedList<Anio> la;
+    
 
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
+        la = new LinkedList<>();
+        ac = new AnioController();
+        pc = new PeriodoController();
+        es = new EditSocioController();
+        ec = new EditCargaController();
         mmc = new MainMenuController();
         initComponents();
         mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
@@ -44,7 +65,13 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         selectSociosFile = new javax.swing.JFileChooser();
-        jDialog1 = new javax.swing.JDialog();
+        mainView = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        anioSelectorComboBox = new javax.swing.JComboBox();
         viewSociosPanel = new javax.swing.JPanel();
         viewSociosScrollPanel = new javax.swing.JScrollPane();
         viewSociosTable = new javax.swing.JTable();
@@ -57,19 +84,6 @@ public class MainMenu extends javax.swing.JFrame {
         deleteCargaButton = new javax.swing.JButton();
         editCartaButton = new javax.swing.JButton();
         addNewCargaButton = new javax.swing.JButton();
-        insertNewSocioPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
         newPeriodoPanel = new javax.swing.JPanel();
         newPeriodoNombreLabel = new javax.swing.JLabel();
         newPeriodoAnioLabel = new javax.swing.JLabel();
@@ -77,15 +91,10 @@ public class MainMenu extends javax.swing.JFrame {
         newPeriodoCancelarButton = new javax.swing.JButton();
         newPeriodoNuevoPeriodoButton = new javax.swing.JButton();
         newPeriodoSelectAnio = new com.toedter.calendar.JYearChooser();
-        mainView = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jYearChooser1 = new com.toedter.calendar.JYearChooser();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        newPariodoCamposObligados = new javax.swing.JLabel();
         mainMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        mainViewMenuItem = new javax.swing.JMenuItem();
         loadFileSociosMenuItem = new javax.swing.JMenuItem();
         newPeriodoMenuItem = new javax.swing.JMenuItem();
         newSolicitudMenuItem = new javax.swing.JMenuItem();
@@ -93,17 +102,6 @@ public class MainMenu extends javax.swing.JFrame {
         viewSociosMenuItem = new javax.swing.JMenuItem();
         viewCargasMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -116,6 +114,87 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new java.awt.CardLayout());
+
+        mainView.setBorder(javax.swing.BorderFactory.createTitledBorder("Inicio"));
+
+        jLabel7.setText("Año ");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Período"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Rut", "Nombre", "Monto", "Solicitud"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        anioSelectorComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        anioSelectorComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                anioSelectorComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
+        javax.swing.GroupLayout mainViewLayout = new javax.swing.GroupLayout(mainView);
+        mainView.setLayout(mainViewLayout);
+        mainViewLayout.setHorizontalGroup(
+            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainViewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainViewLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(anioSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        mainViewLayout.setVerticalGroup(
+            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainViewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(anioSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(mainView, "mainViewCard");
 
         viewSociosPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Ver Socios"));
 
@@ -197,12 +276,17 @@ public class MainMenu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Rut", "Nombre"
+                "Rut", "Nombre", "Nombre Socio"
             }
         ));
         viewCargasScrollPanel.setViewportView(viewCargasTable);
 
         deleteCargaButton.setText("Eliminar Carga");
+        deleteCargaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteCargaButtonActionPerformed(evt);
+            }
+        });
 
         editCartaButton.setText("Editar Carga");
         editCartaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -250,97 +334,28 @@ public class MainMenu extends javax.swing.JFrame {
 
         getContentPane().add(viewCargasPanel, "viewCargasCard");
 
-        insertNewSocioPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresar Nuevo Socio"));
-
-        jLabel1.setText("Rut");
-
-        jLabel2.setText("Nombre(s)");
-
-        jLabel3.setText("Apellidos");
-
-        jLabel4.setText("Numero de Cuenta");
-
-        jLabel5.setText("Tipo de Cuenta");
-
-        jLabel6.setText("Presupuesto");
-
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setText("jTextField4");
-
-        jTextField5.setText("jTextField5");
-
-        jCheckBox1.setText("jCheckBox1");
-
-        javax.swing.GroupLayout insertNewSocioPanelLayout = new javax.swing.GroupLayout(insertNewSocioPanel);
-        insertNewSocioPanel.setLayout(insertNewSocioPanelLayout);
-        insertNewSocioPanelLayout.setHorizontalGroup(
-            insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(insertNewSocioPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                        .addComponent(jTextField2)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox1))
-                .addContainerGap(155, Short.MAX_VALUE))
-        );
-        insertNewSocioPanelLayout.setVerticalGroup(
-            insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(insertNewSocioPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(insertNewSocioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jCheckBox1))
-                .addContainerGap(168, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(insertNewSocioPanel, "insertNewSocioCard");
-
         newPeriodoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Periodo"));
 
-        newPeriodoNombreLabel.setText("Nombre Periodo");
+        newPeriodoNombreLabel.setText("Nombre Periodo *");
 
-        newPeriodoAnioLabel.setText("Año");
+        newPeriodoAnioLabel.setText("Año *");
+
+        newPeriodoNombreTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                newPeriodoNombreTextFieldKeyTyped(evt);
+            }
+        });
 
         newPeriodoCancelarButton.setText("Cancelar");
 
         newPeriodoNuevoPeriodoButton.setText("Nuevo Periodo");
+        newPeriodoNuevoPeriodoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newPeriodoNuevoPeriodoButtonActionPerformed(evt);
+            }
+        });
+
+        newPariodoCamposObligados.setText("* Campos obligatorios");
 
         javax.swing.GroupLayout newPeriodoPanelLayout = new javax.swing.GroupLayout(newPeriodoPanel);
         newPeriodoPanel.setLayout(newPeriodoPanelLayout);
@@ -360,7 +375,8 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addComponent(newPeriodoSelectAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newPeriodoPanelLayout.createSequentialGroup()
-                        .addGap(0, 461, Short.MAX_VALUE)
+                        .addComponent(newPariodoCamposObligados)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
                         .addComponent(newPeriodoNuevoPeriodoButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(newPeriodoCancelarButton)))
@@ -380,83 +396,23 @@ public class MainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
                 .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newPeriodoCancelarButton)
-                    .addComponent(newPeriodoNuevoPeriodoButton))
+                    .addComponent(newPeriodoNuevoPeriodoButton)
+                    .addComponent(newPariodoCamposObligados))
                 .addContainerGap())
         );
 
         getContentPane().add(newPeriodoPanel, "newPeriodoCard");
 
-        mainView.setBorder(javax.swing.BorderFactory.createTitledBorder("Inicio"));
+        fileMenu.setText("Archivo");
 
-        jLabel7.setText("Año ");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Período"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        mainViewMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        mainViewMenuItem.setText("Inicio");
+        mainViewMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mainViewMenuItemActionPerformed(evt);
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Rut", "Nombre", "Monto", "Solicitud"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-
-        javax.swing.GroupLayout mainViewLayout = new javax.swing.GroupLayout(mainView);
-        mainView.setLayout(mainViewLayout);
-        mainViewLayout.setHorizontalGroup(
-            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainViewLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainViewLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(26, 26, 26)
-                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        mainViewLayout.setVerticalGroup(
-            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainViewLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(18, 18, 18)
-                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(mainView, "card6");
-
-        fileMenu.setText("Archivo");
+        fileMenu.add(mainViewMenuItem);
 
         loadFileSociosMenuItem.setText("Cargar archivo de socios");
         loadFileSociosMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -568,29 +524,39 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_addNewSocioButtonActionPerformed
 
     private void deleteSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSocioButtonActionPerformed
-       
+        int row = viewSociosTable.getSelectedRow();
+        if (row != -1) {
+            int rut = (int) viewSociosTable.getModel().getValueAt(row, 0);
+            Socio s = new Socio();
+            s = s.getSociosByRut(rut);
+            s.setIdEstado(0);
+            LinkedList<Carga> lc = new LinkedList<>();
+            Carga c = new Carga();
+            lc = c.getAllCargasByIdSocio(s.getIdSocio());
+            for (Carga ca : lc) {
+                ca.setIdEstado(0);
+                ec.editarCarga(ca);
+            }
+            es.editarSocio(s);
+        } else {
+            JOptionPane.showMessageDialog(this, "Para eliminar debe seleccionar un socio.", "Seleccionar Socio", WIDTH);
+        }
+        refresh();
     }//GEN-LAST:event_deleteSocioButtonActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
-            ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
-        }
-        while (((DefaultTableModel) viewCargasTable.getModel()).getRowCount() != 0) {
-            ((DefaultTableModel) viewCargasTable.getModel()).removeRow(0);
-        }
-        mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
-        mmc.mostrarCargas((DefaultTableModel) viewCargasTable.getModel());
+        refresh();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void addNewCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewCargaButtonActionPerformed
-         NewCarga.main(null);
+        NewCarga.main(null);
     }//GEN-LAST:event_addNewCargaButtonActionPerformed
 
     private void editCartaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCartaButtonActionPerformed
         int row = viewCargasTable.getSelectedRow();
         if (row != -1) {
             int rut = (int) viewCargasTable.getModel().getValueAt(row, 0);
-            int id = mmc.getIdSociosByRut(rut);
+            int id = mmc.getIdCargasByRut(rut);
 
             String[] arg = new String[2];
             arg[0] = id + "";
@@ -600,6 +566,69 @@ public class MainMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Para editar debe seleccionar una carga.", "Seleccionar Cargas", WIDTH);
         }
     }//GEN-LAST:event_editCartaButtonActionPerformed
+
+    private void deleteCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCargaButtonActionPerformed
+        int row = viewCargasTable.getSelectedRow();
+        if (row != -1) {
+            int rut = (int) viewCargasTable.getModel().getValueAt(row, 0);
+            Carga c = new Carga();
+            c = c.getCargasByRut(rut);
+            c.setIdEstado(0);
+            ec.editarCarga(c);
+        } else {
+            JOptionPane.showMessageDialog(this, "Para eliminar debe seleccionar un socio.", "Seleccionar Socio", WIDTH);
+        }
+        refresh();
+    }//GEN-LAST:event_deleteCargaButtonActionPerformed
+
+    private void newPeriodoNuevoPeriodoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPeriodoNuevoPeriodoButtonActionPerformed
+        if (!pc.validateNullMainFields(newPeriodoNombreTextField)) {
+            int year = newPeriodoSelectAnio.getYear();
+            Anio a = ac.getAnioByAnioNumber(year);
+            if (a != null) {
+                Periodo p = new Periodo(-1, a.getId_anio(), 1, newPeriodoNombreTextField.getText());
+                pc.guardarPeriodo(p);
+                CardLayout cl = (CardLayout) (getContentPane().getLayout());
+                cl.show(getContentPane(), "mainViewCard");
+
+            } else {
+                Anio newYear = new Anio();
+                newYear.setNumero_anio(year);
+                ac.guardarAnio(newYear);
+                Anio an = ac.getAnioByAnioNumber(year);
+                Periodo p = new Periodo(-1, an.getId_anio(), 1, newPeriodoNombreTextField.getText());
+                pc.guardarPeriodo(p);
+                CardLayout cl = (CardLayout) (getContentPane().getLayout());
+                cl.show(getContentPane(), "mainViewCard");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Los campos obligatorios no pueden estar vacíos", "Campos vacíos", WIDTH);
+        }
+    }//GEN-LAST:event_newPeriodoNuevoPeriodoButtonActionPerformed
+
+    private void newPeriodoNombreTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newPeriodoNombreTextFieldKeyTyped
+        viewUtils.maxLongInput(evt, newPeriodoNombreTextField, 45);
+    }//GEN-LAST:event_newPeriodoNombreTextFieldKeyTyped
+
+    private void mainViewMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainViewMenuItemActionPerformed
+        CardLayout cl = (CardLayout) (getContentPane().getLayout());
+        cl.show(getContentPane(), "mainViewCard");
+    }//GEN-LAST:event_mainViewMenuItemActionPerformed
+
+    private void anioSelectorComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_anioSelectorComboBoxPopupMenuWillBecomeVisible
+        la = ac.fillAnioComboBox(anioSelectorComboBox);        
+    }//GEN-LAST:event_anioSelectorComboBoxPopupMenuWillBecomeVisible
+
+    private void refresh() {
+        while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
+            ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
+        }
+        while (((DefaultTableModel) viewCargasTable.getModel()).getRowCount() != 0) {
+            ((DefaultTableModel) viewCargasTable.getModel()).removeRow(0);
+        }
+        mmc.mostrarSocios((DefaultTableModel) viewSociosTable.getModel());
+        mmc.mostrarCargas((DefaultTableModel) viewCargasTable.getModel());
+    }
 
     /**
      * @param args the command line arguments
@@ -639,35 +668,23 @@ public class MainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewCargaButton;
     private javax.swing.JButton addNewSocioButton;
+    private javax.swing.JComboBox anioSelectorComboBox;
     private javax.swing.JButton deleteCargaButton;
     private javax.swing.JButton deleteSocioButton;
     private javax.swing.JButton editCartaButton;
     private javax.swing.JMenu editMenu;
     private javax.swing.JButton editSocioButton;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JPanel insertNewSocioPanel;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private com.toedter.calendar.JYearChooser jYearChooser1;
     private javax.swing.JMenuItem loadFileSociosMenuItem;
     private javax.swing.JMenuBar mainMenu;
     private javax.swing.JPanel mainView;
+    private javax.swing.JMenuItem mainViewMenuItem;
+    private javax.swing.JLabel newPariodoCamposObligados;
     private javax.swing.JLabel newPeriodoAnioLabel;
     private javax.swing.JButton newPeriodoCancelarButton;
     private javax.swing.JMenuItem newPeriodoMenuItem;

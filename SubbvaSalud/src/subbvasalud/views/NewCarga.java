@@ -56,7 +56,7 @@ public class NewCarga extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        newCargasPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar socio"));
+        newCargasPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar carga"));
 
         rutNewCargasLabel.setText("Rut*");
 

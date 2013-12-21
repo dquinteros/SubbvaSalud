@@ -6,13 +6,11 @@
 package subbvasalud.views;
 
 import java.awt.Color;
-import java.awt.Frame;
 import javax.swing.JOptionPane;
 import subbvasalud.controllers.EditCargaController;
 import subbvasalud.controllers.MainMenuController;
 import subbvasalud.models.Carga;
 import subbvasalud.models.Socio;
-import static subbvasalud.views.EditSocio.id;
 
 /**
  *
@@ -25,17 +23,17 @@ public class EditCarga extends javax.swing.JDialog {
     Carga c;
     Socio s;
     static int id;
-   // static Frame padre;
 
     /**
      * Creates new form EditCarga
      */
     public EditCarga(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        mmc = new MainMenuController();
         s = new Socio();
         editController = new EditCargaController();
         c = editController.getCarga(id);
-        s = s.getSociosById(id);
+        s =  s.getSociosById(c.getIdSocio());
         initComponents();
         rutTextField.setText(c.getRut() + "");
         nameTextField.setText(c.getNombre());
@@ -51,24 +49,24 @@ public class EditCarga extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        newSociosPanel = new javax.swing.JPanel();
-        rutSociosLabel = new javax.swing.JLabel();
-        nombreSociosLabel = new javax.swing.JLabel();
+        editCargasPanel = new javax.swing.JPanel();
+        rutCargaLabel = new javax.swing.JLabel();
+        nombreCargaLabel = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
         rutTextField = new javax.swing.JTextField();
-        cancelSociosButton = new javax.swing.JButton();
-        saveSociosButton = new javax.swing.JButton();
+        cancelCargaButton = new javax.swing.JButton();
+        saveCargaButton = new javax.swing.JButton();
         mandatoryFieldsLabel = new javax.swing.JLabel();
         rutsocioLabel = new javax.swing.JLabel();
         rutSocioTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        newSociosPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar socio"));
+        editCargasPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar Carga"));
 
-        rutSociosLabel.setText("Rut*");
+        rutCargaLabel.setText("Rut*");
 
-        nombreSociosLabel.setText("Nombres*");
+        nombreCargaLabel.setText("Nombres*");
 
         nameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -84,17 +82,17 @@ public class EditCarga extends javax.swing.JDialog {
             }
         });
 
-        cancelSociosButton.setText("Cancelar");
-        cancelSociosButton.addActionListener(new java.awt.event.ActionListener() {
+        cancelCargaButton.setText("Cancelar");
+        cancelCargaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelSociosButtonActionPerformed(evt);
+                cancelCargaButtonActionPerformed(evt);
             }
         });
 
-        saveSociosButton.setText("Guardar");
-        saveSociosButton.addActionListener(new java.awt.event.ActionListener() {
+        saveCargaButton.setText("Guardar");
+        saveCargaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveSociosButtonActionPerformed(evt);
+                saveCargaButtonActionPerformed(evt);
             }
         });
 
@@ -108,56 +106,56 @@ public class EditCarga extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout newSociosPanelLayout = new javax.swing.GroupLayout(newSociosPanel);
-        newSociosPanel.setLayout(newSociosPanelLayout);
-        newSociosPanelLayout.setHorizontalGroup(
-            newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(newSociosPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout editCargasPanelLayout = new javax.swing.GroupLayout(editCargasPanel);
+        editCargasPanel.setLayout(editCargasPanelLayout);
+        editCargasPanelLayout.setHorizontalGroup(
+            editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editCargasPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(newSociosPanelLayout.createSequentialGroup()
-                        .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(newSociosPanelLayout.createSequentialGroup()
-                                .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nombreSociosLabel)
-                                    .addComponent(rutSociosLabel))
+                .addGroup(editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editCargasPanelLayout.createSequentialGroup()
+                        .addGroup(editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(editCargasPanelLayout.createSequentialGroup()
+                                .addGroup(editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nombreCargaLabel)
+                                    .addComponent(rutCargaLabel))
                                 .addGap(28, 28, 28)
-                                .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(rutTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(rutSocioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(newSociosPanelLayout.createSequentialGroup()
+                            .addGroup(editCargasPanelLayout.createSequentialGroup()
                                 .addComponent(mandatoryFieldsLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(saveSociosButton)
+                                .addComponent(saveCargaButton)
                                 .addGap(18, 18, 18)
-                                .addComponent(cancelSociosButton)))
+                                .addComponent(cancelCargaButton)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(newSociosPanelLayout.createSequentialGroup()
+                    .addGroup(editCargasPanelLayout.createSequentialGroup()
                         .addComponent(rutsocioLabel)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-        newSociosPanelLayout.setVerticalGroup(
-            newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(newSociosPanelLayout.createSequentialGroup()
+        editCargasPanelLayout.setVerticalGroup(
+            editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editCargasPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rutSociosLabel)
+                .addGroup(editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rutCargaLabel)
                     .addComponent(rutTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreSociosLabel)
+                .addGroup(editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreCargaLabel)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rutsocioLabel)
                     .addComponent(rutSocioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mandatoryFieldsLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newSociosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cancelSociosButton)
-                        .addComponent(saveSociosButton)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cancelCargaButton)
+                        .addComponent(saveCargaButton)))
                 .addContainerGap())
         );
 
@@ -167,14 +165,14 @@ public class EditCarga extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(newSociosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editCargasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(newSociosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(editCargasPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -191,13 +189,14 @@ public class EditCarga extends javax.swing.JDialog {
         viewUtils.onlyRutNumbers(evt, rutTextField, 9);
     }//GEN-LAST:event_rutTextFieldKeyTyped
 
-    private void cancelSociosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelSociosButtonActionPerformed
+    private void cancelCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelCargaButtonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_cancelSociosButtonActionPerformed
+    }//GEN-LAST:event_cancelCargaButtonActionPerformed
 
-    private void saveSociosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSociosButtonActionPerformed
+    private void saveCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCargaButtonActionPerformed
+        
         int socio = mmc.getIdSociosByRut(Integer.parseInt(rutSocioTextField.getText()));
-
+        
         if (!editController.validateNullMainFields(rutTextField, nameTextField, rutSocioTextField)) {
             if (!viewUtils.validaRut(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);
@@ -215,7 +214,7 @@ public class EditCarga extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Los campos obligatorios no pueden estar vacíos", "Campos vacíos", WIDTH);
         }
-    }//GEN-LAST:event_saveSociosButtonActionPerformed
+    }//GEN-LAST:event_saveCargaButtonActionPerformed
 
     private void rutSocioTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioTextFieldKeyTyped
         rutTextField.setBackground(null);
@@ -257,8 +256,7 @@ public class EditCarga extends javax.swing.JDialog {
                 EditCarga dialog = new EditCarga(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+                    public void windowClosing(java.awt.event.WindowEvent e) {      
                     }
                 });
                 dialog.setVisible(true);
@@ -267,15 +265,15 @@ public class EditCarga extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelSociosButton;
+    private javax.swing.JButton cancelCargaButton;
+    private javax.swing.JPanel editCargasPanel;
     private javax.swing.JLabel mandatoryFieldsLabel;
     private javax.swing.JTextField nameTextField;
-    private javax.swing.JPanel newSociosPanel;
-    private javax.swing.JLabel nombreSociosLabel;
+    private javax.swing.JLabel nombreCargaLabel;
+    private javax.swing.JLabel rutCargaLabel;
     private javax.swing.JTextField rutSocioTextField;
-    private javax.swing.JLabel rutSociosLabel;
     private javax.swing.JTextField rutTextField;
     private javax.swing.JLabel rutsocioLabel;
-    private javax.swing.JButton saveSociosButton;
+    private javax.swing.JButton saveCargaButton;
     // End of variables declaration//GEN-END:variables
 }

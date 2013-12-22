@@ -148,8 +148,8 @@ public class Periodo extends Conexion {
         return listPeriodos;
     }
 
-    public LinkedList<Periodo> getAllPeriodosByYear(int anio) {
-        String sql = "select * from carga where id_anio = " + anio;
+    public LinkedList<Periodo> getAllPeriodosByYear(int id) {
+        String sql = "select * from periodo where id_anio = " +id;
         ResultSet result = null;
         connect();
         LinkedList<Periodo> listPeriodos;

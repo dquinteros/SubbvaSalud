@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package subbvasalud.models;
 
 import java.sql.ResultSet;
@@ -14,20 +13,21 @@ import java.util.LinkedList;
  *
  * @author damage
  */
-public class Anio extends Conexion{
+public class Anio extends Conexion {
+
     private int id_anio;
     private int numero_anio;
 
     public Anio() {
-    }    
-    
+    }
+
     public Anio(int id_anio, int numero_anio) {
         this.id_anio = id_anio;
         this.numero_anio = numero_anio;
     }
-    
-    public String anioToSqlInsert(Anio a){
-         if (a != null) {
+
+    public String anioToSqlInsert(Anio a) {
+        if (a != null) {
             String sql = "INSERT INTO \"carga\""
                     + "(\"id_anio\","
                     + "\"numero_anio\")"
@@ -39,9 +39,9 @@ public class Anio extends Conexion{
         } else {
             return null;
         }
-    }   
-    
-     public String anioToSqlFindById(int id) {
+    }
+
+    public String anioToSqlFindById(int id) {
         if (id > 0) {
             String sql = "SELECT * FROM anio WHERE id_anio =" + id + ";";
             return sql;
@@ -49,7 +49,7 @@ public class Anio extends Conexion{
             return null;
         }
     }
-     
+
     public String anioToSqlFindByYear(int anio) {
         if (anio > 0) {
             String sql = "SELECT * FROM anio WHERE numero_anio =" + anio + ";";
@@ -58,7 +58,7 @@ public class Anio extends Conexion{
             return null;
         }
     }
-    
+
     public int insertAnio(Anio a) {
         String sql = this.anioToSqlInsert(a);
 
@@ -75,8 +75,8 @@ public class Anio extends Conexion{
         }
         return 1;
     }
-   
-     public LinkedList<Anio> getAllAnios() {
+
+    public LinkedList<Anio> getAllAnios() {
         String sql = "select * from anio";
         ResultSet result = null;
         connect();
@@ -106,8 +106,8 @@ public class Anio extends Conexion{
         }
         return listAnios;
     }
-     
-     public Anio getCargasById(int id) {
+
+    public Anio getCargasById(int id) {
         String sql = anioToSqlFindById(id);
         ResultSet result = null;
         connect();
@@ -133,8 +133,8 @@ public class Anio extends Conexion{
         }
         return newAnio;
     }
-     
-     public Anio getAnioByYear(int anio) {
+
+    public Anio getAnioByYear(int anio) {
         String sql = anioToSqlFindByYear(anio);
         ResultSet result = null;
         connect();
@@ -159,8 +159,8 @@ public class Anio extends Conexion{
             modelUtils.postSelectFinally(query, connection, result);
         }
         return newAnio;
-    } 
-     
+    }
+
     public Anio createAnioFromResultSet(ResultSet r) {
         try {
             Anio a;
@@ -175,7 +175,7 @@ public class Anio extends Conexion{
             return null;
         }
     }
-     
+
     public int getId_anio() {
         return id_anio;
     }
@@ -191,8 +191,5 @@ public class Anio extends Conexion{
     public void setNumero_anio(int numero_anio) {
         this.numero_anio = numero_anio;
     }
-    
-    
-    
-    
+
 }

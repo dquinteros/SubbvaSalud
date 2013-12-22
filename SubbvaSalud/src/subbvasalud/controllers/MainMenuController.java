@@ -44,7 +44,6 @@ public class MainMenuController {
     public void mostrarCargas(DefaultTableModel tableModel) {
 
         lc = c.getAllCargas();
-
         if (ls != null) {
             for (Carga ca : lc) {
                 Object[] obj = new Object[3];

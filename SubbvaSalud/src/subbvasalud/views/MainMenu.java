@@ -7,6 +7,7 @@ package subbvasalud.views;
 
 import com.ezware.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import java.awt.CardLayout;
+import java.awt.event.ItemEvent;
 import java.awt.event.WindowEvent;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
@@ -36,7 +37,6 @@ public class MainMenu extends javax.swing.JFrame {
     PeriodoController pc;
     AnioController ac;
     LinkedList<Anio> la;
-    
 
     /**
      * Creates new form MainMenu
@@ -53,6 +53,7 @@ public class MainMenu extends javax.swing.JFrame {
         mmc.mostrarCargas((DefaultTableModel) viewCargasTable.getModel());
         TableRowFilterSupport.forTable(viewSociosTable).searchable(true).apply();
         TableRowFilterSupport.forTable(viewCargasTable).searchable(true).apply();
+        la = ac.fillAnioComboBox(anioSelectorComboBox);
     }
 
     /**
@@ -66,11 +67,11 @@ public class MainMenu extends javax.swing.JFrame {
 
         selectSociosFile = new javax.swing.JFileChooser();
         mainView = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        mainViewAnioLabel = new javax.swing.JLabel();
+        mainViewPeriodoScrollPanel = new javax.swing.JScrollPane();
+        mainViewPeriodoTable = new javax.swing.JTable();
+        mainViewSolicitudScrollPanel = new javax.swing.JScrollPane();
+        mainViewSolicitudTable = new javax.swing.JTable();
         anioSelectorComboBox = new javax.swing.JComboBox();
         viewSociosPanel = new javax.swing.JPanel();
         viewSociosScrollPanel = new javax.swing.JScrollPane();
@@ -117,9 +118,9 @@ public class MainMenu extends javax.swing.JFrame {
 
         mainView.setBorder(javax.swing.BorderFactory.createTitledBorder("Inicio"));
 
-        jLabel7.setText("Año ");
+        mainViewAnioLabel.setText("Año ");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        mainViewPeriodoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -135,25 +136,22 @@ public class MainMenu extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        mainViewPeriodoTable.setColumnSelectionAllowed(true);
+        mainViewPeriodoTable.getTableHeader().setReorderingAllowed(false);
+        mainViewPeriodoScrollPanel.setViewportView(mainViewPeriodoTable);
+        mainViewPeriodoTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        mainViewSolicitudTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Rut", "Nombre", "Monto", "Solicitud"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        mainViewSolicitudScrollPanel.setViewportView(mainViewSolicitudTable);
 
-        anioSelectorComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        anioSelectorComboBox.setEditable(true);
         anioSelectorComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -161,6 +159,11 @@ public class MainMenu extends javax.swing.JFrame {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
                 anioSelectorComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+        anioSelectorComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                anioSelectorComboBoxItemStateChanged(evt);
             }
         });
 
@@ -172,12 +175,12 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainViewLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(mainViewAnioLabel)
                         .addGap(18, 18, 18)
                         .addComponent(anioSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(mainViewPeriodoScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainViewSolicitudScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         mainViewLayout.setVerticalGroup(
@@ -185,12 +188,12 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(mainViewLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(mainViewAnioLabel)
                     .addComponent(anioSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(mainViewSolicitudScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(mainViewPeriodoScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -616,8 +619,22 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_mainViewMenuItemActionPerformed
 
     private void anioSelectorComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_anioSelectorComboBoxPopupMenuWillBecomeVisible
-        la = ac.fillAnioComboBox(anioSelectorComboBox);        
+        anioSelectorComboBox.removeAllItems();
+        la = ac.fillAnioComboBox(anioSelectorComboBox);
     }//GEN-LAST:event_anioSelectorComboBoxPopupMenuWillBecomeVisible
+
+    private void anioSelectorComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_anioSelectorComboBoxItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int year = (int) anioSelectorComboBox.getSelectedItem();
+            if (year != 0) {
+                while (((DefaultTableModel) mainViewPeriodoTable.getModel()).getRowCount() != 0) {
+                    ((DefaultTableModel) mainViewPeriodoTable.getModel()).removeRow(0);
+                }
+                pc.mostrarPeriodos((DefaultTableModel) mainViewPeriodoTable.getModel(), year);
+            }
+
+        }
+    }//GEN-LAST:event_anioSelectorComboBoxItemStateChanged
 
     private void refresh() {
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
@@ -675,15 +692,15 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenu editMenu;
     private javax.swing.JButton editSocioButton;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JMenuItem loadFileSociosMenuItem;
     private javax.swing.JMenuBar mainMenu;
     private javax.swing.JPanel mainView;
+    private javax.swing.JLabel mainViewAnioLabel;
     private javax.swing.JMenuItem mainViewMenuItem;
+    private javax.swing.JScrollPane mainViewPeriodoScrollPanel;
+    private javax.swing.JTable mainViewPeriodoTable;
+    private javax.swing.JScrollPane mainViewSolicitudScrollPanel;
+    private javax.swing.JTable mainViewSolicitudTable;
     private javax.swing.JLabel newPariodoCamposObligados;
     private javax.swing.JLabel newPeriodoAnioLabel;
     private javax.swing.JButton newPeriodoCancelarButton;

@@ -8,7 +8,6 @@ package subbvasalud.controllers;
 import java.util.LinkedList;
 import javax.swing.JComboBox;
 import subbvasalud.models.Anio;
-import subbvasalud.models.Banco;
 
 /**
  *

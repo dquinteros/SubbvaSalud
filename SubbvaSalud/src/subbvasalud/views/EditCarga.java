@@ -181,12 +181,12 @@ public class EditCarga extends javax.swing.JDialog {
 
     private void nameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTextFieldKeyTyped
         nameTextField.setBackground(null);
-        viewUtils.onlyLetters(evt, nameTextField);
+        ViewUtils.onlyLetters(evt, nameTextField);
     }//GEN-LAST:event_nameTextFieldKeyTyped
 
     private void rutTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutTextFieldKeyTyped
         rutTextField.setBackground(null);
-        viewUtils.onlyRutNumbers(evt, rutTextField, 9);
+        ViewUtils.onlyRutNumbers(evt, rutTextField, 9);
     }//GEN-LAST:event_rutTextFieldKeyTyped
 
     private void cancelCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelCargaButtonActionPerformed
@@ -198,7 +198,7 @@ public class EditCarga extends javax.swing.JDialog {
         int socio = mmc.getIdSociosByRut(Integer.parseInt(rutSocioTextField.getText()));
         
         if (!editController.validateNullMainFields(rutTextField, nameTextField, rutSocioTextField)) {
-            if (!viewUtils.validaRut(rutTextField.getText())) {
+            if (!ViewUtils.validaRut(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);
                 JOptionPane.showMessageDialog(this, "El rut ingresado no es correcto", "Rut inválido", WIDTH);
             } else if (socio == (-1)) {
@@ -218,7 +218,7 @@ public class EditCarga extends javax.swing.JDialog {
 
     private void rutSocioTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioTextFieldKeyTyped
         rutTextField.setBackground(null);
-        viewUtils.onlyRutNumbers(evt, rutTextField, 9);
+        ViewUtils.onlyRutNumbers(evt, rutTextField, 9);
     }//GEN-LAST:event_rutSocioTextFieldKeyTyped
 
     /**

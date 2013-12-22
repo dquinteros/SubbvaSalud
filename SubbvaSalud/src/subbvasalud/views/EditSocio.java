@@ -39,10 +39,10 @@ public class EditSocio extends javax.swing.JDialog {
         s = editController.getSocio(id);
         initComponents();
         listBancos = editController.fillBancoComboBox(bancoComboBox, s.getBancoSocio());
-        listTipoCuenta = viewUtils.fillTipoCuentaComBox(accounTypeComboBox);
+        listTipoCuenta = ViewUtils.fillTipoCuentaComBox(accounTypeComboBox);
         rutTextField.setText(s.getRutSocio() + "");
         nameTextField.setText(s.getNombreSocio());
-        accounTypeComboBox.setSelectedItem(viewUtils.getTipoCuentaName(s.getTipoCuentaSocio()));
+        accounTypeComboBox.setSelectedItem(ViewUtils.getTipoCuentaName(s.getTipoCuentaSocio()));
         accountTextField.setText(s.getCuentaBancariaSocio());
     }
 
@@ -212,21 +212,21 @@ public class EditSocio extends javax.swing.JDialog {
 
     private void rutTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutTextFieldKeyTyped
         rutTextField.setBackground(null);
-        viewUtils.onlyRutNumbers(evt, rutTextField, 9);
+        ViewUtils.onlyRutNumbers(evt, rutTextField, 9);
     }//GEN-LAST:event_rutTextFieldKeyTyped
 
     private void nameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTextFieldKeyTyped
         nameTextField.setBackground(null);
-        viewUtils.onlyLetters(evt, nameTextField);
+        ViewUtils.onlyLetters(evt, nameTextField);
     }//GEN-LAST:event_nameTextFieldKeyTyped
 
     private void accountTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_accountTextFieldKeyTyped
-        viewUtils.onlyRutNumbers(evt, rutTextField, 20);
+        ViewUtils.onlyRutNumbers(evt, rutTextField, 20);
     }//GEN-LAST:event_accountTextFieldKeyTyped
 
     private void saveSociosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSociosButtonActionPerformed
         if (!editController.validateNullMainFields(rutTextField, nameTextField)) {
-            if (!viewUtils.validaRut(rutTextField.getText())) {
+            if (!ViewUtils.validaRut(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);
                 JOptionPane.showMessageDialog(this, "El rut ingresado no es correcto", "Rut inválido", WIDTH);
             } else {

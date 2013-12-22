@@ -625,7 +625,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_newPeriodoNuevoPeriodoButtonActionPerformed
 
     private void newPeriodoNombreTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newPeriodoNombreTextFieldKeyTyped
-        viewUtils.maxLongInput(evt, newPeriodoNombreTextField, 45);
+        ViewUtils.maxLongInput(evt, newPeriodoNombreTextField, 45);
     }//GEN-LAST:event_newPeriodoNombreTextFieldKeyTyped
 
     private void mainViewMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainViewMenuItemActionPerformed

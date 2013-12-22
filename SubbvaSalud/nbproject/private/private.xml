@@ -7,21 +7,23 @@
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/NewSocio.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/models/Anio.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/AddNewSocioController.java</file>
-            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/MainMenuController.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/models/Socio.java</file>
+            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/MainMenuController.java</file>
+            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/NewSolicitud.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/PeriodoController.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/EditCargaController.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/models/Carga.java</file>
-            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/AddNewCargaController.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/models/Periodo.java</file>
+            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/AddNewCargaController.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/EditSocioController.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/NewCarga.java</file>
+            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/SolicitudController.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/EditCarga.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/AnioController.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/NewMain.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/EditSocio.java</file>
-            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/viewUtils.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/models/SolicitudDeReembolso.java</file>
+            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/ViewUtils.java</file>
             <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/MainMenu.java</file>
         </group>
     </open-files>

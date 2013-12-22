@@ -14,7 +14,7 @@ import subbvasalud.models.TipoCuenta;
  *
  * @author damage
  */
-public class viewUtils {
+public class ViewUtils {
 
     public static void onlyRutNumbers(java.awt.event.KeyEvent evt, JTextField rutTextField, int maxChars) {
         char c = evt.getKeyChar();

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package subbvasalud.views;
+
+import subbvasalud.models.Socio;
 
 /**
  *
@@ -35,8 +36,6 @@ public class NewSolicitud extends javax.swing.JDialog {
         nameSocioNewSolicitudLabel = new javax.swing.JLabel();
         nameSocioNewSolicitudTextField = new javax.swing.JTextField();
         selectPeriodoNewSolicitudLabel = new javax.swing.JLabel();
-        selectPeriodoNewSolicitudScrollPanel = new javax.swing.JScrollPane();
-        selectPeriodoNewSolicitudList = new javax.swing.JList();
         selectDateNewSolicitudLabel = new javax.swing.JLabel();
         selectDateNewSolicitudDateChooser = new com.toedter.calendar.JDateChooser();
         insertDocumentoPanel = new javax.swing.JPanel();
@@ -58,17 +57,21 @@ public class NewSolicitud extends javax.swing.JDialog {
         rutSocioNewSolicitudLabel.setText("Rut Socio");
 
         rutSocioNewSolicitudTextField.setToolTipText("");
+        rutSocioNewSolicitudTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rutSocioNewSolicitudTextFieldKeyTyped(evt);
+            }
+        });
 
         nameSocioNewSolicitudLabel.setText("Nombre Socio");
 
-        selectPeriodoNewSolicitudLabel.setText("Periodo");
-
-        selectPeriodoNewSolicitudList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        nameSocioNewSolicitudTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameSocioNewSolicitudTextFieldKeyTyped(evt);
+            }
         });
-        selectPeriodoNewSolicitudScrollPanel.setViewportView(selectPeriodoNewSolicitudList);
+
+        selectPeriodoNewSolicitudLabel.setText("Periodo");
 
         selectDateNewSolicitudLabel.setText("Fecha de recepción");
 
@@ -146,11 +149,9 @@ public class NewSolicitud extends javax.swing.JDialog {
                                 .addComponent(rutSocioNewSolicitudTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(newSolicitudPanelLayout.createSequentialGroup()
-                                .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(nameSocioNewSolicitudTextField)
+                                .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(nameSocioNewSolicitudTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(newSolicitudPanelLayout.createSequentialGroup()
-                                        .addComponent(selectPeriodoNewSolicitudScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
                                         .addComponent(selectDateNewSolicitudLabel)
                                         .addGap(18, 18, 18)
                                         .addComponent(selectDateNewSolicitudDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -178,11 +179,10 @@ public class NewSolicitud extends javax.swing.JDialog {
                     .addComponent(nameSocioNewSolicitudTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(selectPeriodoNewSolicitudScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(selectPeriodoNewSolicitudLabel)
                     .addComponent(selectDateNewSolicitudLabel)
                     .addComponent(selectDateNewSolicitudDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(61, 61, 61)
                 .addComponent(insertDocumentoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -234,6 +234,24 @@ public class NewSolicitud extends javax.swing.JDialog {
         InsertNewDocByCode.main(null);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void rutSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioNewSolicitudTextFieldKeyTyped
+        String rut = rutSocioNewSolicitudTextField.getText()+evt.getKeyChar();
+        boolean rutValido = ViewUtils.validaRut(rut);
+        if (rutValido) {
+            Socio socioAux = new Socio();
+            socioAux = socioAux.getSociosByRut(Integer.parseInt(rut));
+            System.out.println(socioAux.getNombreSocio());
+            if ((socioAux.getNombreSocio() != null)) {
+                nameSocioNewSolicitudTextField.setText(socioAux.getNombreSocio());
+            }
+        }
+        ViewUtils.onlyRutNumbers(evt, rutSocioNewSolicitudTextField, 9);
+    }//GEN-LAST:event_rutSocioNewSolicitudTextFieldKeyTyped
+
+    private void nameSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameSocioNewSolicitudTextFieldKeyTyped
+       
+    }//GEN-LAST:event_nameSocioNewSolicitudTextFieldKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -268,7 +286,7 @@ public class NewSolicitud extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                       
+
                     }
                 });
                 dialog.setVisible(true);
@@ -295,8 +313,6 @@ public class NewSolicitud extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser selectDateNewSolicitudDateChooser;
     private javax.swing.JLabel selectDateNewSolicitudLabel;
     private javax.swing.JLabel selectPeriodoNewSolicitudLabel;
-    private javax.swing.JList selectPeriodoNewSolicitudList;
-    private javax.swing.JScrollPane selectPeriodoNewSolicitudScrollPanel;
     private javax.swing.JTextField totalReembolsoTextField;
     // End of variables declaration//GEN-END:variables
 }

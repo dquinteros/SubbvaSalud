@@ -186,17 +186,17 @@ public class NewCarga extends javax.swing.JDialog {
 
     private void lastnameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lastnameTextFieldKeyTyped
         lastnameTextField.setBackground(null);
-        viewUtils.onlyLetters(evt, nameTextField, lastnameTextField);
+        ViewUtils.onlyLetters(evt, nameTextField, lastnameTextField);
     }//GEN-LAST:event_lastnameTextFieldKeyTyped
 
     private void nameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTextFieldKeyTyped
         nameTextField.setBackground(null);
-        viewUtils.onlyLetters(evt, nameTextField, lastnameTextField);
+        ViewUtils.onlyLetters(evt, nameTextField, lastnameTextField);
     }//GEN-LAST:event_nameTextFieldKeyTyped
 
     private void rutTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutTextFieldKeyTyped
         rutTextField.setBackground(null);
-        viewUtils.onlyRutNumbers(evt, rutTextField, 9);
+        ViewUtils.onlyRutNumbers(evt, rutTextField, 9);
     }//GEN-LAST:event_rutTextFieldKeyTyped
 
     private void cancelNewCargasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelNewCargasButtonActionPerformed
@@ -208,7 +208,7 @@ public class NewCarga extends javax.swing.JDialog {
         int socio = mmc.getIdSociosByRut(Integer.parseInt(rutSocioNewCargaTextField.getText()));
 
         if (!addController.validateNullMainFields(rutTextField, nameTextField, lastnameTextField, rutSocioNewCargaTextField)) {
-            if (!viewUtils.validaRut(rutTextField.getText())) {
+            if (!ViewUtils.validaRut(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);
                 JOptionPane.showMessageDialog(this, "El rut ingresado no es correcto", "Rut inválido", WIDTH);
             } else if (socio == (-1)) {
@@ -225,7 +225,7 @@ public class NewCarga extends javax.swing.JDialog {
 
     private void rutSocioNewCargaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioNewCargaTextFieldKeyTyped
         rutSocioNewCargaTextField.setBackground(null);
-        viewUtils.onlyRutNumbers(evt, rutSocioNewCargaTextField, 9);
+        ViewUtils.onlyRutNumbers(evt, rutSocioNewCargaTextField, 9);
     }//GEN-LAST:event_rutSocioNewCargaTextFieldKeyTyped
 
     /**

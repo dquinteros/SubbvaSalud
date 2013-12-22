@@ -8,6 +8,7 @@ package subbvasalud.controllers;
 import java.awt.Color;
 import java.util.LinkedList;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import subbvasalud.models.Banco;
 import subbvasalud.models.Socio;
@@ -27,11 +28,22 @@ public class AddNewSocioController {
     }
 
     public int guardarSocio(Socio so) {
-        int i = s.insertSocio(so);
-        if (i == 0) {
-            return 0;
+        s = s.getSociosByRut(so.getRutSocio());
+        if (s.getNombreSocio() == null) {
+            int i = s.insertSocio(so);
+            if (i == 0) {
+                return 0;
+            } else {
+                return 1;
+            }
         } else {
-            return 1;
+           s.setIdEstado(1);
+           int i = s.updateSocio(s);
+            if (i == 0) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
     }
 

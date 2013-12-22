@@ -90,7 +90,7 @@ public class SolicitudDeReembolso extends Conexion {
     }
 
 
-    public int insertPeriodo(SolicitudDeReembolso sr) {
+    public int insertSolicitud(SolicitudDeReembolso sr) {
         String sql = this.solicitudToSqlInsert(sr);
 
         if (sql != null) {

@@ -7,10 +7,7 @@
 package subbvasalud.controllers;
 
 import java.awt.Color;
-import java.util.LinkedList;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
-import subbvasalud.models.Banco;
 import subbvasalud.models.Carga;
 import subbvasalud.models.Socio;
 

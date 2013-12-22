@@ -25,17 +25,28 @@ public class AddNewCargaController {
     }
 
     public int guardarCarga(Carga ca) {
-        int i = c.insertCarga(ca);
-        if (i == 0) {
-            return 0;
+        c = c.getCargasByRut(ca.getRut());
+        if (c.getNombre() == null) {
+            int i = c.insertCarga(ca);
+            if (i == 0) {
+                return 0;
+            } else {
+                return 1;
+            }
         } else {
-            return 1;
+            c.setIdEstado(1);
+            int i = c.updateCarga(c);
+            if (i == 0) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
     }
 
     public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField, JTextField lastnameTextField, JTextField rutSocioTextField) {
 
-        if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0) || (lastnameTextField.getText().length() == 0)||(rutSocioTextField.getText().length() == 0) ) {
+        if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0) || (lastnameTextField.getText().length() == 0) || (rutSocioTextField.getText().length() == 0)) {
 
             if (rutTextField.getText().length() == 0) {
                 rutTextField.setBackground(Color.red);
@@ -52,7 +63,7 @@ public class AddNewCargaController {
             return true;
         }
 
-        if ("".equals(rutTextField.getText()) || "".equals(nameTextField.getText()) || "".equals(lastnameTextField.getText())||"".equals(rutSocioTextField.getText())) {
+        if ("".equals(rutTextField.getText()) || "".equals(nameTextField.getText()) || "".equals(lastnameTextField.getText()) || "".equals(rutSocioTextField.getText())) {
 
             if ("".equals(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);

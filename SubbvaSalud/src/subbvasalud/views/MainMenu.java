@@ -588,11 +588,19 @@ public class MainMenu extends javax.swing.JFrame {
         if (!pc.validateNullMainFields(newPeriodoNombreTextField)) {
             int year = newPeriodoSelectAnio.getYear();
             Anio a = ac.getAnioByAnioNumber(year);
-            if (a != null) {
+            if (a.getId_anio() != 0) {
                 Periodo p = new Periodo(-1, a.getId_anio(), 1, newPeriodoNombreTextField.getText());
                 pc.guardarPeriodo(p);
                 CardLayout cl = (CardLayout) (getContentPane().getLayout());
                 cl.show(getContentPane(), "mainViewCard");
+                int anio = (int) anioSelectorComboBox.getSelectedItem();
+                if (anio != 0) {
+                    while (((DefaultTableModel) mainViewPeriodoTable.getModel()).getRowCount() != 0) {
+                        ((DefaultTableModel) mainViewPeriodoTable.getModel()).removeRow(0);
+                    }
+                    pc.mostrarPeriodos((DefaultTableModel) mainViewPeriodoTable.getModel(), anio);
+                }
+                System.out.println("Control");
 
             } else {
                 Anio newYear = new Anio();
@@ -603,6 +611,13 @@ public class MainMenu extends javax.swing.JFrame {
                 pc.guardarPeriodo(p);
                 CardLayout cl = (CardLayout) (getContentPane().getLayout());
                 cl.show(getContentPane(), "mainViewCard");
+                int anio = (int) anioSelectorComboBox.getSelectedItem();
+                if (anio != 0) {
+                    while (((DefaultTableModel) mainViewPeriodoTable.getModel()).getRowCount() != 0) {
+                        ((DefaultTableModel) mainViewPeriodoTable.getModel()).removeRow(0);
+                    }
+                    pc.mostrarPeriodos((DefaultTableModel) mainViewPeriodoTable.getModel(), anio);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Los campos obligatorios no pueden estar vacíos", "Campos vacíos", WIDTH);
@@ -632,7 +647,6 @@ public class MainMenu extends javax.swing.JFrame {
                 }
                 pc.mostrarPeriodos((DefaultTableModel) mainViewPeriodoTable.getModel(), year);
             }
-
         }
     }//GEN-LAST:event_anioSelectorComboBoxItemStateChanged
 

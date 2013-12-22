@@ -28,11 +28,11 @@ public class Anio extends Conexion {
 
     public String anioToSqlInsert(Anio a) {
         if (a != null) {
-            String sql = "INSERT INTO \"carga\""
+            String sql = "INSERT INTO \"anio\""
                     + "(\"id_anio\","
                     + "\"numero_anio\")"
                     + " VALUES("
-                    + " NULL,"
+                    + " null,"
                     + a.getNumero_anio()
                     + ");";
             return sql;

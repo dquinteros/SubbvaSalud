@@ -61,7 +61,7 @@ public class MainMenuController {
     public int getIdSociosByRut(int rut) {
         Socio so = new Socio();
         so = so.getSociosByRut(rut);
-        if (so != null) {
+        if (so.getNombreSocio() !=  null) {
             return so.getIdSocio();
 
         } else {

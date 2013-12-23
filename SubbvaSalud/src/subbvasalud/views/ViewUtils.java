@@ -55,7 +55,7 @@ public class ViewUtils {
     }
 
     public static ArrayList<TipoCuenta> fillTipoCuentaComBox(JComboBox typeAccountComboBox) {
-        ArrayList<TipoCuenta> accountTypeList = new ArrayList<TipoCuenta>();
+        ArrayList<TipoCuenta> accountTypeList = new ArrayList<>();
         TipoCuenta corriente = new TipoCuenta(1, "Cuenta Corriente");
         accountTypeList.add(corriente);
         typeAccountComboBox.addItem("Cuenta Corriente");

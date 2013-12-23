@@ -128,7 +128,7 @@ public class Carga extends Conexion {
         ResultSet result = null;
         connect();
         LinkedList<Carga> listCargas;
-        listCargas = new LinkedList<Carga>();
+        listCargas = new LinkedList<>();
 
         try {
             result = consultar(sql);
@@ -159,7 +159,7 @@ public class Carga extends Conexion {
         ResultSet result = null;
         connect();
         LinkedList<Carga> listCargas;
-        listCargas = new LinkedList<Carga>();
+        listCargas = new LinkedList<>();
 
         try {
             result = consultar(sql);
@@ -245,11 +245,11 @@ public class Carga extends Conexion {
         try {
             Carga c;
             c = new Carga(
-                    (Integer) r.getObject(1),
-                    (Integer) r.getObject(2),
-                    (Integer) r.getObject(3),
+                    (int) r.getObject(1),
+                    (int) r.getObject(2),
+                    (int) r.getObject(3),
                     (String) r.getObject(4),
-                    (Integer) r.getObject(5)
+                    (int) r.getObject(5)
             );
             return c;
         } catch (SQLException e) {

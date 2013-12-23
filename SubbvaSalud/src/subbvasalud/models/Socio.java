@@ -145,7 +145,7 @@ public class Socio extends Conexion {
         ResultSet result = null;
         connect();
         LinkedList<Socio> listSocios;
-        listSocios = new LinkedList<Socio>();
+        listSocios = new LinkedList<>();
 
         try {
             result = consultar(sql);
@@ -229,14 +229,14 @@ public class Socio extends Conexion {
         try {
             Socio s;
             s = new Socio(
-                    (Integer) r.getObject(1),
-                    (Integer) r.getObject(2),
+                    (int) r.getObject(1),
+                    (int) r.getObject(2),
                     (String) r.getObject(3),
                     (String) r.getObject(4),
-                    (Integer) r.getObject(5),
-                    (Integer) r.getObject(6),
-                    (Integer) r.getObject(7),
-                    (Integer) r.getObject(8)
+                    (int) r.getObject(5),
+                    (int) r.getObject(6),
+                    (int) r.getObject(7),
+                    (int) r.getObject(8)
             );
             return s;
         } catch (SQLException e) {

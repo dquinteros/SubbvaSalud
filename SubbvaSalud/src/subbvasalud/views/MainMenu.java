@@ -42,7 +42,7 @@ public class MainMenu extends javax.swing.JFrame {
      * Creates new form MainMenu
      */
     public MainMenu() {
-        la = new LinkedList<Anio>();
+        la = new LinkedList<>();
         ac = new AnioController();
         pc = new PeriodoController();
         es = new EditSocioController();
@@ -510,7 +510,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void editSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSocioButtonActionPerformed
         int row = viewSociosTable.getSelectedRow();
         if (row != -1) {
-            int rut = (Integer) viewSociosTable.getModel().getValueAt(row, 0);
+            int rut = (int) viewSociosTable.getModel().getValueAt(row, 0);
             int id = mmc.getIdSociosByRut(rut);
 
             String[] arg = new String[2];
@@ -529,11 +529,11 @@ public class MainMenu extends javax.swing.JFrame {
     private void deleteSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSocioButtonActionPerformed
         int row = viewSociosTable.getSelectedRow();
         if (row != -1) {
-            int rut = (Integer) viewSociosTable.getModel().getValueAt(row, 0);
+            int rut = (int) viewSociosTable.getModel().getValueAt(row, 0);
             Socio s = new Socio();
             s = s.getSociosByRut(rut);
             s.setIdEstado(0);
-            LinkedList<Carga> lc = new LinkedList<Carga>();
+            LinkedList<Carga> lc = new LinkedList<>();
             Carga c = new Carga();
             lc = c.getAllCargasByIdSocio(s.getIdSocio());
             for (Carga ca : lc) {
@@ -558,7 +558,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void editCartaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCartaButtonActionPerformed
         int row = viewCargasTable.getSelectedRow();
         if (row != -1) {
-            int rut = (Integer) viewCargasTable.getModel().getValueAt(row, 0);
+            int rut = (int) viewCargasTable.getModel().getValueAt(row, 0);
             int id = mmc.getIdCargasByRut(rut);
 
             String[] arg = new String[2];
@@ -573,7 +573,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void deleteCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCargaButtonActionPerformed
         int row = viewCargasTable.getSelectedRow();
         if (row != -1) {
-            int rut = (Integer) viewCargasTable.getModel().getValueAt(row, 0);
+            int rut = (int) viewCargasTable.getModel().getValueAt(row, 0);
             Carga c = new Carga();
             c = c.getCargasByRut(rut);
             c.setIdEstado(0);
@@ -593,7 +593,7 @@ public class MainMenu extends javax.swing.JFrame {
                 pc.guardarPeriodo(p);
                 CardLayout cl = (CardLayout) (getContentPane().getLayout());
                 cl.show(getContentPane(), "mainViewCard");
-                int anio = (Integer) anioSelectorComboBox.getSelectedItem();
+                int anio = (int) anioSelectorComboBox.getSelectedItem();
                 if (anio != 0) {
                     while (((DefaultTableModel) mainViewPeriodoTable.getModel()).getRowCount() != 0) {
                         ((DefaultTableModel) mainViewPeriodoTable.getModel()).removeRow(0);
@@ -611,7 +611,7 @@ public class MainMenu extends javax.swing.JFrame {
                 pc.guardarPeriodo(p);
                 CardLayout cl = (CardLayout) (getContentPane().getLayout());
                 cl.show(getContentPane(), "mainViewCard");
-                int anio = (Integer) anioSelectorComboBox.getSelectedItem();
+                int anio = (int) anioSelectorComboBox.getSelectedItem();
                 if (anio != 0) {
                     while (((DefaultTableModel) mainViewPeriodoTable.getModel()).getRowCount() != 0) {
                         ((DefaultTableModel) mainViewPeriodoTable.getModel()).removeRow(0);
@@ -640,7 +640,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void anioSelectorComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_anioSelectorComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int year = (Integer) anioSelectorComboBox.getSelectedItem();
+            int year = (int) anioSelectorComboBox.getSelectedItem();
             if (year != 0) {
                 while (((DefaultTableModel) mainViewPeriodoTable.getModel()).getRowCount() != 0) {
                     ((DefaultTableModel) mainViewPeriodoTable.getModel()).removeRow(0);

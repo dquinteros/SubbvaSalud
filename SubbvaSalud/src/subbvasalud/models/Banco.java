@@ -30,7 +30,7 @@ public class Banco extends Conexion {
         String sql = "select * from banco";
         ResultSet result = null;
         connect();
-        LinkedList<Banco> listBancos = new LinkedList<Banco>();
+        LinkedList<Banco> listBancos = new LinkedList<>();
         try {
             result = consultar(sql);
             if (result != null) {
@@ -59,7 +59,7 @@ public class Banco extends Conexion {
         try {
             Banco b;
             b = new Banco(
-                    (Integer) r.getObject(1),
+                    (int) r.getObject(1),
                     (String) r.getObject(2)
             );
             return b;

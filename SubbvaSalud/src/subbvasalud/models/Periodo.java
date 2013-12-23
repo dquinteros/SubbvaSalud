@@ -122,7 +122,7 @@ public class Periodo extends Conexion {
         ResultSet result = null;
         connect();
         LinkedList<Periodo> listPeriodos;
-        listPeriodos = new LinkedList<>();
+        listPeriodos = new LinkedList<Periodo>();
 
         try {
             result = consultar(sql);
@@ -153,7 +153,7 @@ public class Periodo extends Conexion {
         ResultSet result = null;
         connect();
         LinkedList<Periodo> listPeriodos;
-        listPeriodos = new LinkedList<>();
+        listPeriodos = new LinkedList<Periodo>();
 
         try {
             result = consultar(sql);
@@ -183,9 +183,9 @@ public class Periodo extends Conexion {
         try {
             Periodo p;
             p = new Periodo(
-                    (int) r.getObject(1),
-                    (int) r.getObject(2),
-                    (int) r.getObject(3),
+                    (Integer) r.getObject(1),
+                    (Integer) r.getObject(2),
+                    (Integer) r.getObject(3),
                     (String) r.getObject(4)
             );
             return p;

@@ -129,7 +129,7 @@ public class SolicitudDeReembolso extends Conexion {
         ResultSet result = null;
         connect();
         LinkedList<SolicitudDeReembolso> listSolicitudDeReembolso;
-        listSolicitudDeReembolso = new LinkedList<>();
+        listSolicitudDeReembolso = new LinkedList<SolicitudDeReembolso>();
 
         try {
             result = consultar(sql);
@@ -160,7 +160,7 @@ public class SolicitudDeReembolso extends Conexion {
         ResultSet result = null;
         connect();
         LinkedList<SolicitudDeReembolso> listSolicitudDeReembolso;
-        listSolicitudDeReembolso = new LinkedList<>();
+        listSolicitudDeReembolso = new LinkedList<SolicitudDeReembolso>();
 
         try {
             result = consultar(sql);
@@ -245,11 +245,11 @@ public class SolicitudDeReembolso extends Conexion {
         try {
             SolicitudDeReembolso sr;
             sr = new SolicitudDeReembolso(
-                    (int) r.getObject(1),
-                    (int) r.getObject(2),
-                    (int) r.getObject(3),
+                    (Integer) r.getObject(1),
+                    (Integer) r.getObject(2),
+                    (Integer) r.getObject(3),
                     (Date) r.getObject(4),
-                    (int) r.getObject(5)
+                    (Integer) r.getObject(5)
             );
             return sr;
         } catch (SQLException e) {

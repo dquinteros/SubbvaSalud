@@ -81,7 +81,7 @@ public class Anio extends Conexion {
         ResultSet result = null;
         connect();
         LinkedList<Anio> listAnios;
-        listAnios = new LinkedList<>();
+        listAnios = new LinkedList<Anio>();
 
         try {
             result = consultar(sql);
@@ -165,8 +165,8 @@ public class Anio extends Conexion {
         try {
             Anio a;
             a = new Anio(
-                    (int) r.getObject(1),
-                    (int) r.getObject(2)
+                    (Integer)r.getObject(1),
+                    (Integer) r.getObject(2)
             );
             return a;
         } catch (SQLException e) {

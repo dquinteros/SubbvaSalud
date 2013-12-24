@@ -53,6 +53,7 @@ public class MainMenu extends javax.swing.JFrame {
         mmc.mostrarCargas((DefaultTableModel) viewCargasTable.getModel());
         TableRowFilterSupport.forTable(viewSociosTable).searchable(true).apply();
         TableRowFilterSupport.forTable(viewCargasTable).searchable(true).apply();
+        TableRowFilterSupport.forTable(mainViewPeriodoTable).searchable(true).apply();
         la = ac.fillAnioComboBox(anioSelectorComboBox);
     }
 
@@ -106,7 +107,6 @@ public class MainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);

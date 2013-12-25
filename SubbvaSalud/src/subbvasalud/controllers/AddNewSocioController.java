@@ -37,8 +37,8 @@ public class AddNewSocioController {
                 return 1;
             }
         } else {
-           s.setIdEstado(1);
-           int i = s.updateSocio(s);
+            s.setIdEstado(1);
+            int i = s.updateSocio(s);
             if (i == 0) {
                 return 0;
             } else {

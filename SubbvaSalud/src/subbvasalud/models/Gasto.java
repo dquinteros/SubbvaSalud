@@ -13,34 +13,36 @@ import java.util.LinkedList;
  *
  * @author damage
  */
-public class Banco extends Conexion {
+public class Gasto extends Conexion {
 
-    private int idBanco;
-    private String nombreBanco;
+    private int idGasto;
+    private String nombreGasto;
 
-    public Banco() {
+    public Gasto() {
     }
 
-    public Banco(int idBanco, String nombreBanco) {
-        this.idBanco = idBanco;
-        this.nombreBanco = nombreBanco;
+    public Gasto(int idGasto, String nombreGasto) {
+        this.idGasto = idGasto;
+        this.nombreGasto = nombreGasto;
     }
 
-    public LinkedList<Banco> getAllBancos() {
-        String sql = "select * from banco";
+    public LinkedList<Gasto> getAllPeriodos() {
+        String sql = "select * from gasto";
         ResultSet result = null;
         connect();
-        LinkedList<Banco> listBancos = new LinkedList<>();
+        LinkedList<Gasto> listGastos;
+        listGastos = new LinkedList<>();
+
         try {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-
-                    Banco newBanco = this.createBancoFromResultSet(result);
+                    System.out.println("Pasa");
+                    Gasto newGasto = this.createGastoFromResultSet(result);
                     boolean ans;
-                    ans = listBancos.add(newBanco);
+                    ans = listGastos.add(newGasto);
                     if (ans == true) {
-                        System.out.println("Banco " + newBanco.getNombreBanco() + " obtenido con exito.");
+                        System.out.println("Agregado");
                     }
                 }
             }
@@ -52,17 +54,17 @@ public class Banco extends Conexion {
         } finally {
             modelUtils.postSelectFinally(query, connection, result);
         }
-        return listBancos;
+        return listGastos;
     }
 
-    public Banco createBancoFromResultSet(ResultSet r) {
+    public Gasto createGastoFromResultSet(ResultSet r) {
         try {
-            Banco b;
-            b = new Banco(
+            Gasto g;
+            g = new Gasto(
                     (int) r.getObject(1),
                     (String) r.getObject(2)
             );
-            return b;
+            return g;
         } catch (SQLException e) {
             System.out.println(e.getSQLState());
             System.out.println(e.getMessage());
@@ -70,20 +72,20 @@ public class Banco extends Conexion {
         }
     }
 
-    public int getIdBanco() {
-        return idBanco;
+    public int getIdGasto() {
+        return idGasto;
     }
 
-    public void setIdBanco(int idBanco) {
-        this.idBanco = idBanco;
+    public void setIdGasto(int idGasto) {
+        this.idGasto = idGasto;
     }
 
-    public String getNombreBanco() {
-        return nombreBanco;
+    public String getNombreGasto() {
+        return nombreGasto;
     }
 
-    public void setNombreBanco(String nombreBanco) {
-        this.nombreBanco = nombreBanco;
+    public void setNombreGasto(String nombreGasto) {
+        this.nombreGasto = nombreGasto;
     }
 
 }

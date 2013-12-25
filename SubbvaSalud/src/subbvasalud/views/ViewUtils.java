@@ -26,6 +26,16 @@ public class ViewUtils {
         }
     }
 
+    public static void onlyNumbers(java.awt.event.KeyEvent evt, JTextField rutTextField, int maxChars) {
+        char c = evt.getKeyChar();
+        if (((!(Character.isDigit(c))) && (c != '\b'))) {
+            evt.consume();
+        }
+        if (rutTextField.getText().length() > maxChars) {
+            evt.consume();
+        }
+    }
+
     public static void onlyLetters(java.awt.event.KeyEvent evt, JTextField nameTextField, JTextField lastnameTextField) {
         char c = evt.getKeyChar();
         if (Character.isDigit(c) && (c == '\b')) {
@@ -42,8 +52,8 @@ public class ViewUtils {
             evt.consume();
         }
     }
-    
-     public static void maxLongInput(java.awt.event.KeyEvent evt, JTextField textField, int maxChars) {
+
+    public static void maxLongInput(java.awt.event.KeyEvent evt, JTextField textField, int maxChars) {
         char c = evt.getKeyChar();
         if (textField.getText().length() > maxChars) {
             evt.consume();

@@ -94,6 +94,8 @@ public class MainMenu extends javax.swing.JFrame {
         newPeriodoNuevoPeriodoButton = new javax.swing.JButton();
         newPeriodoSelectAnio = new com.toedter.calendar.JYearChooser();
         newPariodoCamposObligados = new javax.swing.JLabel();
+        valorUfLabel = new javax.swing.JLabel();
+        valorUfTextField = new javax.swing.JTextField();
         mainMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         mainViewMenuItem = new javax.swing.JMenuItem();
@@ -360,6 +362,14 @@ public class MainMenu extends javax.swing.JFrame {
 
         newPariodoCamposObligados.setText("* Campos obligatorios");
 
+        valorUfLabel.setText("Valor UF *");
+
+        valorUfTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                valorUfTextFieldKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout newPeriodoPanelLayout = new javax.swing.GroupLayout(newPeriodoPanel);
         newPeriodoPanel.setLayout(newPeriodoPanelLayout);
         newPeriodoPanelLayout.setHorizontalGroup(
@@ -367,22 +377,25 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(newPeriodoPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(newPeriodoPanelLayout.createSequentialGroup()
-                        .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newPeriodoNombreLabel)
-                            .addComponent(newPeriodoAnioLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newPeriodoNombreTextField)
-                            .addGroup(newPeriodoPanelLayout.createSequentialGroup()
-                                .addComponent(newPeriodoSelectAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newPeriodoPanelLayout.createSequentialGroup()
                         .addComponent(newPariodoCamposObligados)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
                         .addComponent(newPeriodoNuevoPeriodoButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(newPeriodoCancelarButton)))
+                        .addComponent(newPeriodoCancelarButton))
+                    .addGroup(newPeriodoPanelLayout.createSequentialGroup()
+                        .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(newPeriodoNombreLabel)
+                            .addComponent(newPeriodoAnioLabel)
+                            .addComponent(valorUfLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(newPeriodoNombreTextField)
+                            .addGroup(newPeriodoPanelLayout.createSequentialGroup()
+                                .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(newPeriodoSelectAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(valorUfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         newPeriodoPanelLayout.setVerticalGroup(
@@ -396,7 +409,11 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(newPeriodoAnioLabel))
                     .addComponent(newPeriodoSelectAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(valorUfLabel)
+                    .addComponent(valorUfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
                 .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newPeriodoCancelarButton)
                     .addComponent(newPeriodoNuevoPeriodoButton)
@@ -585,11 +602,11 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteCargaButtonActionPerformed
 
     private void newPeriodoNuevoPeriodoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPeriodoNuevoPeriodoButtonActionPerformed
-        if (!pc.validateNullMainFields(newPeriodoNombreTextField)) {
+        if (!pc.validateNullMainFields(newPeriodoNombreTextField, valorUfTextField)) {
             int year = newPeriodoSelectAnio.getYear();
             Anio a = ac.getAnioByAnioNumber(year);
             if (a.getId_anio() != 0) {
-                Periodo p = new Periodo(-1, a.getId_anio(), 1, newPeriodoNombreTextField.getText());
+                Periodo p = new Periodo(-1, a.getId_anio(), 1, newPeriodoNombreTextField.getText(), Integer.parseInt(valorUfTextField.getText()));
                 pc.guardarPeriodo(p);
                 CardLayout cl = (CardLayout) (getContentPane().getLayout());
                 cl.show(getContentPane(), "mainViewCard");
@@ -607,7 +624,7 @@ public class MainMenu extends javax.swing.JFrame {
                 newYear.setNumero_anio(year);
                 ac.guardarAnio(newYear);
                 Anio an = ac.getAnioByAnioNumber(year);
-                Periodo p = new Periodo(-1, an.getId_anio(), 1, newPeriodoNombreTextField.getText());
+                Periodo p = new Periodo(-1, an.getId_anio(), 1, newPeriodoNombreTextField.getText(), Integer.parseInt(valorUfTextField.getText()));
                 pc.guardarPeriodo(p);
                 CardLayout cl = (CardLayout) (getContentPane().getLayout());
                 cl.show(getContentPane(), "mainViewCard");
@@ -649,6 +666,10 @@ public class MainMenu extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_anioSelectorComboBoxItemStateChanged
+
+    private void valorUfTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorUfTextFieldKeyTyped
+        ViewUtils.onlyNumbers(evt, valorUfTextField, 6);
+    }//GEN-LAST:event_valorUfTextFieldKeyTyped
 
     private void refresh() {
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
@@ -726,6 +747,8 @@ public class MainMenu extends javax.swing.JFrame {
     private com.toedter.calendar.JYearChooser newPeriodoSelectAnio;
     private javax.swing.JMenuItem newSolicitudMenuItem;
     private javax.swing.JFileChooser selectSociosFile;
+    private javax.swing.JLabel valorUfLabel;
+    private javax.swing.JTextField valorUfTextField;
     private javax.swing.JMenuItem viewCargasMenuItem;
     private javax.swing.JPanel viewCargasPanel;
     private javax.swing.JScrollPane viewCargasScrollPanel;

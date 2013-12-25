@@ -224,7 +224,7 @@ public class Socio extends Conexion {
         }
         return newSocio;
     }
-    
+
     public Socio createSocioFromResultSet(ResultSet r) {
         try {
             Socio s;
@@ -246,8 +246,6 @@ public class Socio extends Conexion {
         }
     }
 
-    
-    
     public int getRutSocio() {
         return rutSocio;
     }

@@ -86,9 +86,7 @@ public class Carga extends Conexion {
             return null;
         }
     }
-    
-       
-     
+
     public int insertCarga(Carga c) {
         String sql = this.cargaToSqlInsert(c);
 
@@ -154,8 +152,8 @@ public class Carga extends Conexion {
         return listCargas;
     }
 
-     public LinkedList<Carga> getAllCargasByIdSocio(int id) {
-        String sql = "select * from carga where id_socio ="+id;
+    public LinkedList<Carga> getAllCargasByIdSocio(int id) {
+        String sql = "select * from carga where id_socio =" + id;
         ResultSet result = null;
         connect();
         LinkedList<Carga> listCargas;
@@ -184,8 +182,7 @@ public class Carga extends Conexion {
         }
         return listCargas;
     }
-    
-    
+
     public Carga getCargasById(int id) {
         String sql = cargaToSqlFindById(id);
         ResultSet result = null;
@@ -239,7 +236,6 @@ public class Carga extends Conexion {
         }
         return newCarga;
     }
-         
 
     public Carga createCargaFromResultSet(ResultSet r) {
         try {

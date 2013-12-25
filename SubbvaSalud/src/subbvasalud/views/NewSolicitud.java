@@ -20,20 +20,21 @@ import subbvasalud.models.Anio;
  * @author damage
  */
 public class NewSolicitud extends javax.swing.JDialog {
-    
+
     LinkedList<Socio> ls;
     Socio s;
     PeriodoController pc;
     AnioController ac;
     LinkedList<Anio> la;
+
     /**
      * Creates new form NewSolicitud
      */
     public NewSolicitud(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         ls = new LinkedList<>();
-         pc = new PeriodoController();
-         ac = new AnioController();
+        pc = new PeriodoController();
+        ac = new AnioController();
         s = new Socio();
         ls = s.getAllSocios();
         initComponents();
@@ -41,7 +42,7 @@ public class NewSolicitud extends javax.swing.JDialog {
         anioComboBox.removeAllItems();
         la = ac.fillAnioComboBox(anioComboBox);
         TextAutoCompleter textAutoAcompleter = new TextAutoCompleter(nameSocioNewSolicitudTextField);
-        for (Socio so :ls){
+        for (Socio so : ls) {
             textAutoAcompleter.addItem(so.getNombreSocio());
         }
         textAutoAcompleter.setMode(0);
@@ -288,7 +289,7 @@ public class NewSolicitud extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void rutSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioNewSolicitudTextFieldKeyTyped
-        String rut = rutSocioNewSolicitudTextField.getText()+evt.getKeyChar();
+        String rut = rutSocioNewSolicitudTextField.getText() + evt.getKeyChar();
         boolean rutValido = ViewUtils.validaRut(rut);
         if (rutValido) {
             Socio socioAux = new Socio();
@@ -302,16 +303,16 @@ public class NewSolicitud extends javax.swing.JDialog {
     }//GEN-LAST:event_rutSocioNewSolicitudTextFieldKeyTyped
 
     private void nameSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameSocioNewSolicitudTextFieldKeyTyped
-       String name = nameSocioNewSolicitudTextField.getText();
-       for (Socio so : ls){
-           if(so.getNombreSocio().equals(name)){
-               rutSocioNewSolicitudTextField.setText(so.getRutSocio()+"");
-           }
-       }
+        String name = nameSocioNewSolicitudTextField.getText();
+        for (Socio so : ls) {
+            if (so.getNombreSocio().equals(name)) {
+                rutSocioNewSolicitudTextField.setText(so.getRutSocio() + "");
+            }
+        }
     }//GEN-LAST:event_nameSocioNewSolicitudTextFieldKeyTyped
 
     private void anioComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_anioComboBoxItemStateChanged
-       if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
             int year = (int) anioComboBox.getSelectedItem();
             if (year != 0) {
                 while (((DefaultTableModel) periodoTable.getModel()).getRowCount() != 0) {

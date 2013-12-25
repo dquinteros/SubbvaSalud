@@ -82,13 +82,12 @@ public class SolicitudDeReembolso extends Conexion {
 
     public String solcitudToSqlFindBySocioAndPeriodo(int idSocio, int idPeriodo) {
         if (idSocio > 0) {
-            String sql = "SELECT * FROM solicitud_de_reembolso WHERE  id_socio=" + idSocio + " and id_periodo ="+idPeriodo+";";
+            String sql = "SELECT * FROM solicitud_de_reembolso WHERE  id_socio=" + idSocio + " and id_periodo =" + idPeriodo + ";";
             return sql;
         } else {
             return null;
         }
     }
-
 
     public int insertSolicitud(SolicitudDeReembolso sr) {
         String sql = this.solicitudToSqlInsert(sr);
@@ -154,7 +153,7 @@ public class SolicitudDeReembolso extends Conexion {
         }
         return listSolicitudDeReembolso;
     }
-    
+
     public LinkedList<SolicitudDeReembolso> getAllSolicitudBySocio(int idSocio) {
         String sql = "select * from solicitud_de_reembolso where id_socio =" + idSocio;
         ResultSet result = null;
@@ -212,8 +211,7 @@ public class SolicitudDeReembolso extends Conexion {
         }
         return newSolicitudDeReembolso;
     }
-    
-    
+
     public SolicitudDeReembolso getSolicitudByPeriodoAndSocio(int idSocio, int idPeriodo) {
         String sql = solcitudToSqlFindBySocioAndPeriodo(idSocio, idPeriodo);
         ResultSet result = null;

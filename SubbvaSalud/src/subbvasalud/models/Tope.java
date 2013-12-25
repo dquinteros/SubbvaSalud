@@ -3,19 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package subbvasalud.views;
+package subbvasalud.models;
 
 /**
  *
  * @author damage
  */
-public class NewMain {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        MainMenu.main(null);
-    }
+public class Tope {
 
 }

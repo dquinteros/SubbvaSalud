@@ -67,23 +67,29 @@ public class PeriodoController {
         }
     }
 
-    public boolean validateNullMainFields(JTextField nombrePeriodo) {
+    public boolean validateNullMainFields(JTextField nombrePeriodo, JTextField valorUF) {
 
-        if ((nombrePeriodo.getText().length() == 0)) {
+        if ((nombrePeriodo.getText().length() == 0) || (valorUF.getText().length() == 0)) {
 
             if (nombrePeriodo.getText().length() == 0) {
                 nombrePeriodo.setBackground(Color.red);
             }
 
+            if (valorUF.getText().length() == 0) {
+                valorUF.setBackground(Color.red);
+            }
+
             return true;
         }
 
-        if ("".equals(nombrePeriodo.getText())) {
+        if ("".equals(nombrePeriodo.getText()) || "".equals(valorUF.getText())) {
 
             if ("".equals(nombrePeriodo.getText())) {
                 nombrePeriodo.setBackground(Color.red);
             }
-
+            if ("".equals(valorUF.getText())) {
+                valorUF.setBackground(Color.red);
+            }
             return true;
         }
         return false;

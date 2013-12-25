@@ -33,7 +33,7 @@ public class EditCarga extends javax.swing.JDialog {
         s = new Socio();
         editController = new EditCargaController();
         c = editController.getCarga(id);
-        s =  s.getSociosById(c.getIdSocio());
+        s = s.getSociosById(c.getIdSocio());
         initComponents();
         rutTextField.setText(c.getRut() + "");
         nameTextField.setText(c.getNombre());
@@ -194,9 +194,9 @@ public class EditCarga extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelCargaButtonActionPerformed
 
     private void saveCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCargaButtonActionPerformed
-        
+
         int socio = mmc.getIdSociosByRut(Integer.parseInt(rutSocioTextField.getText()));
-        
+
         if (!editController.validateNullMainFields(rutTextField, nameTextField, rutSocioTextField)) {
             if (!ViewUtils.validaRut(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);
@@ -226,7 +226,7 @@ public class EditCarga extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         id = Integer.parseInt(args[0]);
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -256,7 +256,7 @@ public class EditCarga extends javax.swing.JDialog {
                 EditCarga dialog = new EditCarga(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {      
+                    public void windowClosing(java.awt.event.WindowEvent e) {
                     }
                 });
                 dialog.setVisible(true);

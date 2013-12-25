@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package subbvasalud.controllers;
 
 import java.awt.Color;
@@ -16,10 +15,9 @@ import subbvasalud.models.Socio;
  * @author damage
  */
 public class EditCargaController {
-    
+
     Carga c;
     Socio s;
-    
 
     public EditCargaController() {
         s = new Socio();
@@ -39,11 +37,9 @@ public class EditCargaController {
         return c.getCargasById(id);
     }
 
-   
-
     public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField, JTextField rutSocioTextField) {
 
-        if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0) || (rutSocioTextField.getText().length()==0)) {
+        if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0) || (rutSocioTextField.getText().length() == 0)) {
 
             if (rutTextField.getText().length() == 0) {
                 rutTextField.setBackground(Color.red);
@@ -70,5 +66,5 @@ public class EditCargaController {
         }
         return false;
     }
-    
+
 }

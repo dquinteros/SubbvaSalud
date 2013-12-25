@@ -204,7 +204,7 @@ public class NewCarga extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelNewCargasButtonActionPerformed
 
     private void aceptNewCargasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptNewCargasButtonActionPerformed
-        
+
         int socio = mmc.getIdSociosByRut(Integer.parseInt(rutSocioNewCargaTextField.getText()));
 
         if (!addController.validateNullMainFields(rutTextField, nameTextField, lastnameTextField, rutSocioNewCargaTextField)) {
@@ -212,7 +212,7 @@ public class NewCarga extends javax.swing.JDialog {
                 rutTextField.setBackground(Color.red);
                 JOptionPane.showMessageDialog(this, "El rut ingresado no es correcto", "Rut inválido", WIDTH);
             } else if (socio == (-1)) {
-                JOptionPane.showMessageDialog(this, "El socio con el rut "+rutSocioNewCargaTextField.getText()+" no existe", "Rut Socio no existe", WIDTH);
+                JOptionPane.showMessageDialog(this, "El socio con el rut " + rutSocioNewCargaTextField.getText() + " no existe", "Rut Socio no existe", WIDTH);
             } else {
                 Carga ca = new Carga(-1, socio, Integer.parseInt(rutTextField.getText()), lastnameTextField.getText() + " " + nameTextField.getText(), 1);
                 addController.guardarCarga(ca);

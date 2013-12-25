@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package subbvasalud.views;
 
 /**
@@ -127,7 +126,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarInsertNewDocByCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarInsertNewDocByCodeButtonActionPerformed
-        
+
     }//GEN-LAST:event_aceptarInsertNewDocByCodeButtonActionPerformed
 
     /**
@@ -164,7 +163,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        
+
                     }
                 });
                 dialog.setVisible(true);

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package subbvasalud.models;
 
 import java.sql.Connection;
@@ -44,18 +43,18 @@ public class Conexion {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
-    public ResultSet consultar(String sql){
+
+    public ResultSet consultar(String sql) {
         connect();
         ResultSet resultado = null;
         try {
             resultado = query.executeQuery(sql);
         } catch (SQLException e) {
-                System.out.println("Mensaje:"+e.getMessage());
-                System.out.println("Estado:"+e.getSQLState());
-                System.out.println("Codigo del error:"+e.getErrorCode());
-                JOptionPane.showMessageDialog(null, ""+e.getMessage());
-            }
+            System.out.println("Mensaje:" + e.getMessage());
+            System.out.println("Estado:" + e.getSQLState());
+            System.out.println("Codigo del error:" + e.getErrorCode());
+            JOptionPane.showMessageDialog(null, "" + e.getMessage());
+        }
         return resultado;
     }
 }

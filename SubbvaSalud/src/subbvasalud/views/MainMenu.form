@@ -513,26 +513,30 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="newPeriodoNombreLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="newPeriodoAnioLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="newPeriodoNombreTextField" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="newPeriodoSelectAnio" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="newPariodoCamposObligados" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="356" max="32767" attributes="0"/>
                           <Component id="newPeriodoNuevoPeriodoButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="newPeriodoCancelarButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="newPeriodoNombreLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="newPeriodoAnioLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="valorUfLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="newPeriodoNombreTextField" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="newPeriodoSelectAnio" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Component id="valorUfTextField" min="-2" pref="168" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -553,7 +557,12 @@
                       </Group>
                       <Component id="newPeriodoSelectAnio" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="306" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="valorUfLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="valorUfTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="268" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="newPeriodoCancelarButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="newPeriodoNuevoPeriodoButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -599,6 +608,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="* Campos obligatorios"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="valorUfLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Valor UF *"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="valorUfTextField">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="valorUfTextFieldKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

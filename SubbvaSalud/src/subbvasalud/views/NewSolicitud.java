@@ -9,7 +9,9 @@ import com.ezware.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import subbvasalud.models.Socio;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import java.awt.event.ItemEvent;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import subbvasalud.controllers.AnioController;
 import subbvasalud.controllers.PeriodoController;
@@ -78,8 +80,8 @@ public class NewSolicitud extends javax.swing.JDialog {
         anioLabel = new javax.swing.JLabel();
         newSolicitudMenuBar = new javax.swing.JMenuBar();
         newDocumentoMenuItem = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        docByCodeMenuItem = new javax.swing.JMenuItem();
+        docByTypeMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -247,18 +249,23 @@ public class NewSolicitud extends javax.swing.JDialog {
 
         newDocumentoMenuItem.setText(" Nuevo Documento");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Ingresar por código");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        docByCodeMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        docByCodeMenuItem.setText("Ingresar por código");
+        docByCodeMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                docByCodeMenuItemActionPerformed(evt);
             }
         });
-        newDocumentoMenuItem.add(jMenuItem1);
+        newDocumentoMenuItem.add(docByCodeMenuItem);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Ingresar por tipo");
-        newDocumentoMenuItem.add(jMenuItem2);
+        docByTypeMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        docByTypeMenuItem.setText("Ingresar por tipo");
+        docByTypeMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                docByTypeMenuItemActionPerformed(evt);
+            }
+        });
+        newDocumentoMenuItem.add(docByTypeMenuItem);
 
         newSolicitudMenuBar.add(newDocumentoMenuItem);
 
@@ -284,9 +291,9 @@ public class NewSolicitud extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void docByCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docByCodeMenuItemActionPerformed
         InsertNewDocByCode.main(null);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_docByCodeMenuItemActionPerformed
 
     private void rutSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioNewSolicitudTextFieldKeyTyped
         String rut = rutSocioNewSolicitudTextField.getText() + evt.getKeyChar();
@@ -322,6 +329,17 @@ public class NewSolicitud extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_anioComboBoxItemStateChanged
+
+    private void docByTypeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docByTypeMenuItemActionPerformed
+        String rutSocio = rutSocioNewSolicitudTextField.getText();
+        if (ViewUtils.validaRut(rutSocio)) {
+            String[] args = new String[1];
+            args[0] = rutSocio;
+            InsertNewDocByType.main(args);
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
+        }
+    }//GEN-LAST:event_docByTypeMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,14 +386,14 @@ public class NewSolicitud extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox anioComboBox;
     private javax.swing.JLabel anioLabel;
+    private javax.swing.JMenuItem docByCodeMenuItem;
+    private javax.swing.JMenuItem docByTypeMenuItem;
     private javax.swing.JScrollPane docScrollPanel;
     private javax.swing.JTable documentTable;
     private javax.swing.JPanel insertDocumentoPanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel nameSocioNewSolicitudLabel;
     private javax.swing.JTextField nameSocioNewSolicitudTextField;
     private javax.swing.JMenu newDocumentoMenuItem;

@@ -26,7 +26,7 @@ public class Gasto extends Conexion {
         this.nombreGasto = nombreGasto;
     }
 
-    public LinkedList<Gasto> getAllPeriodos() {
+    public LinkedList<Gasto> getAllGastos() {
         String sql = "select * from gasto";
         ResultSet result = null;
         connect();

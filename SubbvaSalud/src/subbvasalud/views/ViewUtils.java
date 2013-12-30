@@ -38,7 +38,7 @@ public class ViewUtils {
 
     public static void onlyLetters(java.awt.event.KeyEvent evt, JTextField nameTextField, JTextField lastnameTextField) {
         char c = evt.getKeyChar();
-        if (Character.isDigit(c) && (c == '\b')) {
+        if (Character.isDigit(c)) {
             evt.consume();
         }
         if ((nameTextField.getText().length() + lastnameTextField.getText().length()) > 45) {
@@ -48,7 +48,7 @@ public class ViewUtils {
 
     public static void onlyLetters(java.awt.event.KeyEvent evt, JTextField nameTextField) {
         char c = evt.getKeyChar();
-        if (Character.isDigit(c) && (c == '\b')) {
+        if (Character.isDigit(c)) {
             evt.consume();
         }
     }

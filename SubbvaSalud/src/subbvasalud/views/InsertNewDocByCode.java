@@ -37,6 +37,15 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         cancelarInsertNewDocByCodeButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
@@ -46,7 +55,13 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
 
         codigoInsertNewDocByCodeLabel.setText("Código");
 
-        montoInsertNewDocByCodeLabel.setText("Monto");
+        montoInsertNewDocByCodeLabel.setText("Monto Total");
+
+        codigoInsertNewDocByCodeTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoInsertNewDocByCodeTextFieldActionPerformed(evt);
+            }
+        });
 
         aceptarInsertNewDocByCodeButton.setText("Aceptar");
         aceptarInsertNewDocByCodeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -59,67 +74,133 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
 
         jLabel1.setText("Fecha");
 
+        jLabel3.setText("Monto no bonificado");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox1.setText("Medicamento permanente");
+        jCheckBox1.setEnabled(false);
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox2.setText("Documento por carga");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Rut");
+
+        jTextField2.setEditable(false);
+
+        jLabel5.setText("Nombre");
+
+        jTextField3.setEditable(false);
+
         javax.swing.GroupLayout insertNewDocByCodePanelLayout = new javax.swing.GroupLayout(insertNewDocByCodePanel);
         insertNewDocByCodePanel.setLayout(insertNewDocByCodePanelLayout);
         insertNewDocByCodePanelLayout.setHorizontalGroup(
             insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(insertNewDocByCodePanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(insertNewDocByCodePanelLayout.createSequentialGroup()
-                        .addGap(83, 83, 83)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(aceptarInsertNewDocByCodeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(cancelarInsertNewDocByCodeButton))
                     .addGroup(insertNewDocByCodePanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(codigoInsertNewDocByCodeLabel)
-                            .addComponent(montoInsertNewDocByCodeLabel)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(codigoInsertNewDocByCodeTextField)
-                            .addComponent(montoInsertNewDocByCodeTextField)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(27, 27, 27)
+                        .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(insertNewDocByCodePanelLayout.createSequentialGroup()
+                                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jCheckBox2)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                    .addComponent(codigoInsertNewDocByCodeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                    .addComponent(jTextField2))
+                                .addGap(18, 18, 18)
+                                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(montoInsertNewDocByCodeLabel)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jCheckBox1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, Short.MAX_VALUE)
+                                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(montoInsertNewDocByCodeTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField3))))
+                .addContainerGap())
         );
+
+        insertNewDocByCodePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {codigoInsertNewDocByCodeTextField, jDateChooser1, jTextField1, montoInsertNewDocByCodeTextField});
+
         insertNewDocByCodePanelLayout.setVerticalGroup(
             insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, insertNewDocByCodePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigoInsertNewDocByCodeLabel)
-                    .addComponent(codigoInsertNewDocByCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(montoInsertNewDocByCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(montoInsertNewDocByCodeLabel))
                 .addGap(18, 18, 18)
                 .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(montoInsertNewDocByCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(montoInsertNewDocByCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(codigoInsertNewDocByCodeLabel)
+                    .addComponent(codigoInsertNewDocByCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(insertNewDocByCodePanelLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel2))
+                    .addGroup(insertNewDocByCodePanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBox1))
+                    .addGroup(insertNewDocByCodePanelLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jCheckBox2)
+                        .addGap(18, 18, 18)
+                        .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))))
+                .addGap(21, 21, 21)
+                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptarInsertNewDocByCodeButton)
                     .addComponent(cancelarInsertNewDocByCodeButton))
                 .addContainerGap())
         );
 
+        insertNewDocByCodePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {codigoInsertNewDocByCodeTextField, jDateChooser1, jTextField1, montoInsertNewDocByCodeTextField});
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(insertNewDocByCodePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(insertNewDocByCodePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(insertNewDocByCodePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(insertNewDocByCodePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -128,6 +209,22 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
     private void aceptarInsertNewDocByCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarInsertNewDocByCodeButtonActionPerformed
 
     }//GEN-LAST:event_aceptarInsertNewDocByCodeButtonActionPerformed
+
+    private void codigoInsertNewDocByCodeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoInsertNewDocByCodeTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoInsertNewDocByCodeTextFieldActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,8 +274,17 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
     private javax.swing.JLabel codigoInsertNewDocByCodeLabel;
     private javax.swing.JTextField codigoInsertNewDocByCodeTextField;
     private javax.swing.JPanel insertNewDocByCodePanel;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel montoInsertNewDocByCodeLabel;
     private javax.swing.JTextField montoInsertNewDocByCodeTextField;
     // End of variables declaration//GEN-END:variables

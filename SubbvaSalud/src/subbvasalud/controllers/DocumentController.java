@@ -6,7 +6,9 @@
 
 package subbvasalud.controllers;
 
+import subbvasalud.models.DetalleSolicitud;
 import subbvasalud.models.SolicitudDeReembolso;
+import subbvasalud.models.TipoDeDocumento;
 
 /**
  *
@@ -14,7 +16,31 @@ import subbvasalud.models.SolicitudDeReembolso;
  */
 public class DocumentController {
     
-    SolicitudDeReembolso s;
+    DetalleSolicitud ds;
+    SolicitudDeReembolso sr;
+    SolicitudController src;
+    TipoDeDocumento td;
+
+    public DocumentController() {
+        ds = new DetalleSolicitud();
+        sr = new SolicitudDeReembolso();
+        src = new SolicitudController();
+        td = new TipoDeDocumento();
+    }
+    
+    
+   public int guardarDocumento(DetalleSolicitud dso){
+       
+         int i = ds.insertDetalle(dso);
+        if (i == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+       
+   }
+    
+    
     
     
     

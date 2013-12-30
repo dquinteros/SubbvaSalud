@@ -5,18 +5,37 @@
  */
 package subbvasalud.views;
 
+import com.mxrck.autocompleter.TextAutoCompleter;
+import java.awt.event.ItemEvent;
+import java.util.LinkedList;
+import subbvasalud.controllers.GastoController;
+import subbvasalud.models.Gasto;
+import subbvasalud.models.Prestacion;
+
 /**
  *
  * @author damage
  */
 public class InsertNewDocByType extends javax.swing.JDialog {
 
+    private LinkedList<Prestacion> lp;
+    private Prestacion pre;
+    private Gasto gasto;
+    private GastoController gc;
+    private static int rutSocio;
+    private TextAutoCompleter prestacionAutoComplete;
+
     /**
      * Creates new form InsertNewDocByType
      */
     public InsertNewDocByType(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        pre = new Prestacion();
+        lp = new LinkedList<>();
+        gasto = new Gasto();
+        gc = new GastoController();
         initComponents();
+
     }
 
     /**
@@ -29,13 +48,112 @@ public class InsertNewDocByType extends javax.swing.JDialog {
     private void initComponents() {
 
         InsertNewDocByTypePanel = new javax.swing.JPanel();
+        gastoLabel = new javax.swing.JLabel();
+        gastoComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        prestacionTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        previsionComboBox = new javax.swing.JComboBox();
+        medicamentoCheckBox = new javax.swing.JCheckBox();
+        montoTotalLabel = new javax.swing.JLabel();
+        totalTextField = new javax.swing.JTextField();
+        montoBonificableLabel = new javax.swing.JLabel();
+        bonificableTextField = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        cargaCheckBox = new javax.swing.JCheckBox();
+        rutLabel = new javax.swing.JLabel();
+        nombreLabel = new javax.swing.JLabel();
+        rutCargaTextField = new javax.swing.JTextField();
+        nombreCargaTextField = new javax.swing.JTextField();
+        docDateChooser = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         InsertNewDocByTypePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresar nuevo documento"));
 
-        jLabel1.setText("jLabel1");
+        gastoLabel.setText("Tipo de gasto*:");
+
+        gastoComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Ambulatorio", "Hospitalario", "Maternidad" }));
+        gastoComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                gastoComboBoxItemStateChanged(evt);
+            }
+        });
+
+        jLabel1.setText("Prestacion*");
+
+        prestacionTextField.setEnabled(false);
+
+        jLabel2.setText("Prevision*");
+
+        previsionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Fonasa", "Isapre", "No aplica" }));
+
+        medicamentoCheckBox.setText(" Medicamento permanente");
+        medicamentoCheckBox.setEnabled(false);
+        medicamentoCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medicamentoCheckBoxActionPerformed(evt);
+            }
+        });
+
+        montoTotalLabel.setText("Monto total");
+
+        totalTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                totalTextFieldKeyTyped(evt);
+            }
+        });
+
+        montoBonificableLabel.setText("Monto no bonificado");
+
+        bonificableTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bonificableTextFieldKeyTyped(evt);
+            }
+        });
+
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Aceptar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        cargaCheckBox.setText("Documento por carga");
+        cargaCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargaCheckBoxActionPerformed(evt);
+            }
+        });
+
+        rutLabel.setText("Rut");
+
+        nombreLabel.setText("Nombre");
+
+        rutCargaTextField.setEnabled(false);
+        rutCargaTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rutCargaTextFieldActionPerformed(evt);
+            }
+        });
+        rutCargaTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rutCargaTextFieldKeyTyped(evt);
+            }
+        });
+
+        nombreCargaTextField.setEnabled(false);
+
+        jLabel7.setText("Fecha*:");
 
         javax.swing.GroupLayout InsertNewDocByTypePanelLayout = new javax.swing.GroupLayout(InsertNewDocByTypePanel);
         InsertNewDocByTypePanel.setLayout(InsertNewDocByTypePanelLayout);
@@ -43,41 +161,179 @@ public class InsertNewDocByType extends javax.swing.JDialog {
             InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InsertNewDocByTypePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InsertNewDocByTypePanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
+                    .addGroup(InsertNewDocByTypePanelLayout.createSequentialGroup()
+                        .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(nombreLabel)
+                            .addComponent(rutLabel))
+                        .addGap(119, 119, 119)
+                        .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nombreCargaTextField)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InsertNewDocByTypePanelLayout.createSequentialGroup()
+                                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(rutCargaTextField)
+                                        .addComponent(previsionComboBox, 0, 207, Short.MAX_VALUE))
+                                    .addComponent(cargaCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(InsertNewDocByTypePanelLayout.createSequentialGroup()
+                        .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(gastoLabel)
+                            .addComponent(jLabel7))
+                        .addGap(93, 93, 93)
+                        .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(InsertNewDocByTypePanelLayout.createSequentialGroup()
+                                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(docDateChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(gastoComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 207, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(montoTotalLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(InsertNewDocByTypePanelLayout.createSequentialGroup()
+                                .addComponent(prestacionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(montoBonificableLabel)
+                                .addGap(18, 18, 18)
+                                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(medicamentoCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                    .addComponent(bonificableTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
+
+        InsertNewDocByTypePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bonificableTextField, docDateChooser, gastoComboBox, medicamentoCheckBox, prestacionTextField, previsionComboBox, rutCargaTextField, totalTextField});
+
         InsertNewDocByTypePanelLayout.setVerticalGroup(
             InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InsertNewDocByTypePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(docDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gastoLabel)
+                    .addComponent(gastoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(montoTotalLabel)
+                    .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(prestacionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(montoBonificableLabel)
+                    .addComponent(bonificableTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(previsionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(medicamentoCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(cargaCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rutLabel)
+                    .addComponent(rutCargaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreLabel)
+                    .addComponent(nombreCargaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
+
+        InsertNewDocByTypePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bonificableTextField, docDateChooser, gastoComboBox, medicamentoCheckBox, nombreCargaTextField, prestacionTextField, previsionComboBox, rutCargaTextField, totalTextField});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void medicamentoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicamentoCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_medicamentoCheckBoxActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void rutCargaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rutCargaTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rutCargaTextFieldActionPerformed
+
+    private void gastoComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_gastoComboBoxItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String item = (String) evt.getItem();
+            if (item.equals("Seleccionar")) {
+                prestacionTextField.setEnabled(false);
+            } else {
+                gasto = gc.getByName(item);
+                System.out.println(gasto.getIdGasto());
+                lp = pre.getAllPrestacionByGasto(gasto.getIdGasto());
+                prestacionTextField.setEnabled(true);
+                prestacionAutoComplete = new TextAutoCompleter(prestacionTextField);
+                prestacionAutoComplete.setMode(0);
+                prestacionAutoComplete.removeAll();
+                for (Prestacion p : lp) {
+                    prestacionAutoComplete.addItem(p.getNombrePrestacion());
+                }
+
+            }
+        }
+    }//GEN-LAST:event_gastoComboBoxItemStateChanged
+
+    private void cargaCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargaCheckBoxActionPerformed
+        if (cargaCheckBox.isSelected()) {
+            rutCargaTextField.setEnabled(true);
+            nombreCargaTextField.setEnabled(true);
+        } else {
+            rutCargaTextField.setEnabled(false);
+            nombreCargaTextField.setEnabled(false);
+        }
+    }//GEN-LAST:event_cargaCheckBoxActionPerformed
+
+    private void totalTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalTextFieldKeyTyped
+       ViewUtils.onlyNumbers(evt, totalTextField, 50);
+    }//GEN-LAST:event_totalTextFieldKeyTyped
+
+    private void bonificableTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bonificableTextFieldKeyTyped
+       ViewUtils.onlyNumbers(evt, bonificableTextField, 50);
+    }//GEN-LAST:event_bonificableTextFieldKeyTyped
+
+    private void rutCargaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutCargaTextFieldKeyTyped
+       ViewUtils.onlyLetters(evt, totalTextField);
+    }//GEN-LAST:event_rutCargaTextFieldKeyTyped
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
+        rutSocio = Integer.parseInt(args[0]);
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -108,7 +364,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+
                     }
                 });
                 dialog.setVisible(true);
@@ -118,6 +374,25 @@ public class InsertNewDocByType extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel InsertNewDocByTypePanel;
+    private javax.swing.JTextField bonificableTextField;
+    private javax.swing.JCheckBox cargaCheckBox;
+    private com.toedter.calendar.JDateChooser docDateChooser;
+    private javax.swing.JComboBox gastoComboBox;
+    private javax.swing.JLabel gastoLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JCheckBox medicamentoCheckBox;
+    private javax.swing.JLabel montoBonificableLabel;
+    private javax.swing.JLabel montoTotalLabel;
+    private javax.swing.JTextField nombreCargaTextField;
+    private javax.swing.JLabel nombreLabel;
+    private javax.swing.JTextField prestacionTextField;
+    private javax.swing.JComboBox previsionComboBox;
+    private javax.swing.JTextField rutCargaTextField;
+    private javax.swing.JLabel rutLabel;
+    private javax.swing.JTextField totalTextField;
     // End of variables declaration//GEN-END:variables
 }

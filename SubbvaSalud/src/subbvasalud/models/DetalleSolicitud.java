@@ -24,11 +24,12 @@ public class DetalleSolicitud extends Conexion {
     private int monto_total;
     private int no_bonificado;
     private int reembolso;
+    private int rut;
 
     public DetalleSolicitud() {
     }
 
-    public DetalleSolicitud(int id_detalle, int id_solicitud, int id_tipo, String nombre, Date fecha, int monto_total, int no_bonificado, int reembolso) {
+    public DetalleSolicitud(int id_detalle, int id_solicitud, int id_tipo, String nombre, Date fecha, int monto_total, int no_bonificado, int reembolso, int rut) {
         this.id_detalle = id_detalle;
         this.id_solicitud = id_solicitud;
         this.id_tipo = id_tipo;
@@ -37,8 +38,9 @@ public class DetalleSolicitud extends Conexion {
         this.monto_total = monto_total;
         this.no_bonificado = no_bonificado;
         this.reembolso = reembolso;
+        this.rut = rut;
     }
-
+    
     public String detalleToSqlInsert(DetalleSolicitud d) {
         if (d != null) {
             String sql = "INSERT INTO \"detalle_solicitud\""
@@ -58,7 +60,8 @@ public class DetalleSolicitud extends Conexion {
                     + d.getFecha() + ","
                     + d.getMonto_total() + ","
                     + d.getNo_bonificado() + ","
-                    + d.getReembolso()
+                    + d.getReembolso() + ","
+                    + d.getRut()
                     + ");";
             return sql;
         } else {
@@ -103,7 +106,7 @@ public class DetalleSolicitud extends Conexion {
             return null;
         }
     }
-
+         
     public int insertDetalle(DetalleSolicitud d) {
         String sql = this.detalleToSqlInsert(d);
 
@@ -140,6 +143,37 @@ public class DetalleSolicitud extends Conexion {
 
     public LinkedList<DetalleSolicitud> getAllDetalle() {
         String sql = "select * from detalle_solicitud";
+        ResultSet result = null;
+        connect();
+        LinkedList<DetalleSolicitud> listDetalles;
+        listDetalles = new LinkedList<>();
+
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                while (result.next()) {
+                    System.out.println("Pasa");
+                    DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
+                    boolean ans;
+                    ans = listDetalles.add(newDetalle);
+                    if (ans == true) {
+                        System.out.println("Agregado");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return listDetalles;
+    }
+    
+     public LinkedList<DetalleSolicitud> getAllDetalleByRut(int rut) {
+        String sql = "select * from detalle_solicitud where rut_documento = "+rut;
         ResultSet result = null;
         connect();
         LinkedList<DetalleSolicitud> listDetalles;
@@ -207,7 +241,8 @@ public class DetalleSolicitud extends Conexion {
                     (Date) r.getObject(5),
                     (int) r.getObject(6),
                     (int) r.getObject(7),
-                    (int) r.getObject(8)
+                    (int) r.getObject(8),
+                    (int) r.getObject(9)
             );
             return d;
         } catch (SQLException e) {
@@ -280,5 +315,15 @@ public class DetalleSolicitud extends Conexion {
     public void setReembolso(int reembolso) {
         this.reembolso = reembolso;
     }
+
+    public int getRut() {
+        return rut;
+    }
+
+    public void setRut(int rut) {
+        this.rut = rut;
+    }
+    
+    
 
 }

@@ -145,7 +145,7 @@ public class TipoDeDocumento extends Conexion {
     }
 
     public LinkedList<TipoDeDocumento> getAllTipoDocumentosBySearch(int id_gasto, int id_prestacion, int id_prevision) {
-        String sql = "select * from tipos_de_documento wherw (id_gasto = " + id_gasto + ") and (id_prestacion = " + id_prestacion + ") and (id_prevision=" + id_prevision + ")";
+        String sql = "select * from tipos_de_documento where (id_gasto = " + id_gasto + ") and (id_prestacion = " + id_prestacion + ") and (id_prevision=" + id_prevision + ")";
         ResultSet result = null;
         connect();
         LinkedList<TipoDeDocumento> listTipoDocumento;

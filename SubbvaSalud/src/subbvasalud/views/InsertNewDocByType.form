@@ -50,13 +50,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                          <Component id="aceptarButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="cancelarButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="previsionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="nombreLabel" min="-2" max="-2" attributes="0"/>
                               <Component id="rutLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -77,9 +77,9 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="prestacionLabel" min="-2" max="-2" attributes="0"/>
                               <Component id="gastoLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="fechaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -89,9 +89,15 @@
                                       <Component id="gastoComboBox" linkSize="3" alignment="0" pref="207" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="montoTotalLabel" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="montoTotalLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bonificacionLabel" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="totalTextField" linkSize="3" min="-2" pref="207" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="totalTextField" linkSize="3" min="-2" pref="207" max="-2" attributes="0"/>
+                                      <Component id="porcentajeTextField" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="prestacionTextField" linkSize="3" min="-2" pref="207" max="-2" attributes="0"/>
@@ -117,7 +123,11 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="docDateChooser" linkSize="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <Component id="fechaLabel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="bonificacionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="porcentajeTextField" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -128,14 +138,14 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="prestacionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="prestacionTextField" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="montoBonificableLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bonificableTextField" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="previsionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="previsionComboBox" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="medicamentoCheckBox" linkSize="1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
@@ -153,8 +163,8 @@
                   </Group>
                   <EmptySpace type="separate" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelarButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="aceptarButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -182,7 +192,7 @@
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="gastoComboBoxItemStateChanged"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="prestacionLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Prestacion*"/>
           </Properties>
@@ -191,8 +201,11 @@
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="prestacionTextFieldKeyTyped"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="previsionLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Prevision*"/>
           </Properties>
@@ -208,6 +221,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="previsionComboBoxItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="medicamentoCheckBox">
           <Properties>
@@ -238,20 +254,20 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="bonificableTextFieldKeyTyped"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="cancelarButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="aceptarButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aceptarButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="cargaCheckBox">
@@ -285,13 +301,29 @@
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nombreCargaTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="docDateChooser">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
+        <Component class="javax.swing.JLabel" name="fechaLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fecha*:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="bonificacionLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Bonificacion"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="porcentajeTextField">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="porcentajeTextFieldKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

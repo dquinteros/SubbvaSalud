@@ -292,7 +292,14 @@ public class NewSolicitud extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void docByCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docByCodeMenuItemActionPerformed
-        InsertNewDocByCode.main(null);
+String rutSocio = rutSocioNewSolicitudTextField.getText();
+        if (ViewUtils.validaRut(rutSocio)) {
+            String[] args = new String[1];
+            args[0] = rutSocio;
+            InsertNewDocByCode.main(args);
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
+        }        
     }//GEN-LAST:event_docByCodeMenuItemActionPerformed
 
     private void rutSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioNewSolicitudTextFieldKeyTyped

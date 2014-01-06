@@ -19,6 +19,7 @@ public class Gasto extends Conexion {
     private String nombreGasto;
 
     public Gasto() {
+        this.idGasto = -1;
     }
 
     public Gasto(int idGasto, String nombreGasto) {

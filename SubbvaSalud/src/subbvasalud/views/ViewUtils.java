@@ -35,13 +35,13 @@ public class ViewUtils {
             evt.consume();
         }
     }
-    
+
     public static void onlyNumbersMaxValue(java.awt.event.KeyEvent evt, JTextField rutTextField, int maxValue) {
         char c = evt.getKeyChar();
         if (((!(Character.isDigit(c))) && (c != '\b'))) {
             evt.consume();
         }
-        if (Integer.parseInt(rutTextField.getText())> maxValue) {
+        if (Integer.parseInt(rutTextField.getText()) > maxValue) {
             evt.consume();
         }
     }

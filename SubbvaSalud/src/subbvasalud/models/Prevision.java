@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package subbvasalud.models;
 
 import java.sql.ResultSet;
@@ -14,11 +13,13 @@ import java.util.LinkedList;
  *
  * @author damage
  */
-public class Prevision extends Conexion{
+public class Prevision extends Conexion {
+
     private int idPrevision;
     private String nombrePrevision;
 
     public Prevision() {
+        this.idPrevision = -1;
     }
 
     public LinkedList<Prevision> getAllPrevision() {
@@ -50,8 +51,8 @@ public class Prevision extends Conexion{
             modelUtils.postSelectFinally(query, connection, result);
         }
         return listPrevision;
-    }  
-    
+    }
+
     public Prevision createPrevisionFromResultSet(ResultSet r) {
         try {
             Prevision p;
@@ -66,7 +67,7 @@ public class Prevision extends Conexion{
             return null;
         }
     }
-    
+
     public Prevision(int idPrevision, String nombrePrevision) {
         this.idPrevision = idPrevision;
         this.nombrePrevision = nombrePrevision;
@@ -87,7 +88,5 @@ public class Prevision extends Conexion{
     public void setNombrePrevision(String nombrePrevision) {
         this.nombrePrevision = nombrePrevision;
     }
-    
-    
-    
+
 }

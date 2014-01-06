@@ -20,6 +20,7 @@ public class Prestacion extends Conexion {
     private String nombrePrestacion;
 
     public Prestacion() {
+        this.idPrestacion = -1;
     }
 
     public Prestacion(int idPrestacion, int idGasto, String nombrePrestacion) {

@@ -70,7 +70,7 @@ public class Carga extends Conexion {
     }
 
     public String cargaToSqlFindById(int id) {
-        if (id > 0) {
+        if (id >= 0) {
             String sql = "SELECT * FROM carga WHERE id_carga =" + id + ";";
             return sql;
         } else {

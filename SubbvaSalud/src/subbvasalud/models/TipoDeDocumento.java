@@ -70,7 +70,7 @@ public class TipoDeDocumento extends Conexion {
         }
     }
 
-    public String tipoDocumnentoToSqlFindById(int id) {
+    public String tipoDocumentoToSqlFindById(int id) {
         if (id > 0) {
             String sql = "SELECT * FROM tipos_de_documento WHERE id_tipo =" + id + ";";
             return sql;
@@ -173,6 +173,33 @@ public class TipoDeDocumento extends Conexion {
             modelUtils.postSelectFinally(query, connection, result);
         }
         return listTipoDocumento;
+    }
+
+    public TipoDeDocumento getTipoDeDocumentosById(int id) {
+        String sql = tipoDocumentoToSqlFindById(id);
+        ResultSet result = null;
+        connect();
+        TipoDeDocumento newTipoDeDocumento = new TipoDeDocumento();
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                if (result.next()) {
+                    System.out.println("Pasa");
+                    newTipoDeDocumento = this.createTipoDocumentoFromResultSet(result);
+                    if (newTipoDeDocumento != null) {
+                        System.out.println("Agregado");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return newTipoDeDocumento;
     }
 
     public TipoDeDocumento createTipoDocumentoFromResultSet(ResultSet r) {

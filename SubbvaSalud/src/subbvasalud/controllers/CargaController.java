@@ -60,14 +60,14 @@ public class CargaController {
 
     public Carga getCargaByRutCargaAndSocio(int rutCarga, int rutSocio) {
         if (ViewUtils.validaRut(rutCarga)) {
-           LinkedList<Carga> cargas = this.getCargasByRutSocio(rutSocio);
-           if(cargas!=null){
-               for(Carga ca:cargas){
-                   if(ca.getRut() == rutCarga){
-                       return ca;
-                   }
-               }
-           }
+            LinkedList<Carga> cargas = this.getCargasByRutSocio(rutSocio);
+            if (cargas != null) {
+                for (Carga ca : cargas) {
+                    if (ca.getRut() == rutCarga) {
+                        return ca;
+                    }
+                }
+            }
         }
         return null;
     }

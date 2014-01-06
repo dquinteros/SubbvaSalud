@@ -8,12 +8,14 @@ package subbvasalud.views;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import java.awt.event.ItemEvent;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import subbvasalud.controllers.CargaController;
 import subbvasalud.controllers.GastoController;
 import subbvasalud.models.Carga;
 import subbvasalud.models.Gasto;
+import subbvasalud.models.Periodo;
 import subbvasalud.models.Prestacion;
 import subbvasalud.models.Prevision;
 import subbvasalud.models.TipoDeDocumento;
@@ -31,6 +33,9 @@ public class InsertNewDocByType extends javax.swing.JDialog {
     private GastoController gc;
     private CargaController cc;
     private static int rutSocio;
+    private static Periodo periodo;
+    private static Date fechaSolicitud;
+
     private TextAutoCompleter prestacionAutoComplete;
 
     private Gasto gastoSelected;
@@ -185,11 +190,6 @@ public class InsertNewDocByType extends javax.swing.JDialog {
         nombreLabel.setText("Nombre");
 
         rutCargaTextField.setEnabled(false);
-        rutCargaTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rutCargaTextFieldActionPerformed(evt);
-            }
-        });
         rutCargaTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 rutCargaTextFieldKeyTyped(evt);
@@ -335,7 +335,36 @@ public class InsertNewDocByType extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void medicamentoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicamentoCheckBoxActionPerformed
-        // TODO add your handling code here:
+        boolean flagPrestacion = prestacionSelected.getNombrePrestacion().trim().equals("");
+        boolean flagPrevision = previsionSelected.getNombrePrevision().trim().equals("");
+        if (!flagPrestacion && !flagPrevision) {
+            int idGasto = gastoSelected.getIdGasto();
+            int idPrestacion = prestacionSelected.getIdPrestacion();
+            int idPrevision = previsionSelected.getIdPrevision();
+            LinkedList<TipoDeDocumento> tipos = tipo.getAllTipoDocumentosBySearch(idGasto, idPrestacion, idPrevision);
+            if (tipos != null) {
+                if (tipos.size() == 1) {
+                    tipo = tipos.get(0);
+                    porcentajeTextField.setText(tipo.getPorcentaje_tipo() + "");
+                } else if (tipos.size() > 1) {
+                    if (!medicamentoCheckBox.isSelected()) {
+                        for (TipoDeDocumento tipoDeDocumento : tipos) {
+                            if (tipoDeDocumento.getId_tipo() < 1000) {
+                                tipo = tipoDeDocumento;
+                                porcentajeTextField.setText(tipo.getPorcentaje_tipo() + "");
+                            }
+                        }
+                    } else {
+                        for (TipoDeDocumento tipoDeDocumento : tipos) {
+                            if (tipoDeDocumento.getId_tipo() >= 1000) {
+                                tipo = tipoDeDocumento;
+                                porcentajeTextField.setText(tipo.getPorcentaje_tipo() + "");
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_medicamentoCheckBoxActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
@@ -343,12 +372,23 @@ public class InsertNewDocByType extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
     private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aceptarButtonActionPerformed
+        Date fechaDocumento = docDateChooser.getDate();
+        if (fechaDocumento != null) {
+            long diff = fechaSolicitud.getTime() - fechaDocumento.getTime();
+            long daysDiff = diff / (24 * 60 * 60 * 1000);
+            if (daysDiff < 60) {
+                if (gastoSelected.getIdGasto() >= 0 && prestacionSelected.getIdPrestacion() >= 0 && previsionSelected.getIdPrevision() >= 0) {
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debe seleccionar un gasto, una prestacion y una prevision", "Selecionar tipo de documento", WIDTH);
 
-    private void rutCargaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rutCargaTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rutCargaTextFieldActionPerformed
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El docuemento tiene mas de 60 días de antiguedad", "Documento rechazado", WIDTH);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha", "Fecha no seleccionada", WIDTH);
+        }
+    }//GEN-LAST:event_aceptarButtonActionPerformed
 
     private void gastoComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_gastoComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -437,7 +477,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                         previsionSelected = prevision;
                     }
                 }
-                if (!prestacionSelected.getNombrePrestacion().trim().equals("")) {
+                if (prestacionSelected.getIdPrestacion() >= 0) {
                     int idGasto = gastoSelected.getIdGasto();
                     int idPrestacion = prestacionSelected.getIdPrestacion();
                     int idPrevision = previsionSelected.getIdPrevision();
@@ -477,11 +517,11 @@ public class InsertNewDocByType extends javax.swing.JDialog {
             if (!gastoSelected.getNombreGasto().isEmpty()) {
                 LinkedList<Prestacion> prestaciones = pres.getAllPrestacionByGasto(gastoSelected.getIdGasto());
                 for (Prestacion prestacion : prestaciones) {
-                    if(prestacion.getNombrePrestacion().trim().equals(nombrePrestacion)){
-                        prestacionSelected = prestacion;                        
+                    if (prestacion.getNombrePrestacion().trim().equals(nombrePrestacion)) {
+                        prestacionSelected = prestacion;
                     }
                 }
-                if (!previsionSelected.getNombrePrevision().isEmpty()) {
+                if (previsionSelected.getIdPrevision() >= 0) {
                     int idGasto = gastoSelected.getIdGasto();
                     int idPrestacion = prestacionSelected.getIdPrestacion();
                     int idPrevision = previsionSelected.getIdPrevision();
@@ -520,9 +560,11 @@ public class InsertNewDocByType extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[], Periodo p, Date fecha) {
 
         rutSocio = Integer.parseInt(args[0]);
+        periodo = p;
+        fechaSolicitud = fecha;
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

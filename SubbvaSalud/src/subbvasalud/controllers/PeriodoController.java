@@ -59,7 +59,9 @@ public class PeriodoController {
         if ((lp != null) && (a != null)) {
             for (Periodo p : lp) {
                 Object[] obj = new Object[2];
-                obj[0] = p.getNombre_periodo();
+                obj[0] = p.getId_periodo();
+                obj[1] = p.getNombre_periodo();
+
                 tableModel.addRow(obj);
             }
         } else {

@@ -11,6 +11,7 @@ import static java.awt.image.ImageObserver.WIDTH;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import subbvasalud.controllers.CargaController;
 import subbvasalud.controllers.GastoController;
 import subbvasalud.models.Carga;
@@ -73,7 +74,8 @@ public class InsertNewDocByType extends javax.swing.JDialog {
             textAutoAcompleter.addItem(so.getNombre());
         }
         textAutoAcompleter.setMode(0);
-
+        prestacionAutoComplete = new TextAutoCompleter(prestacionTextField);
+        prestacionAutoComplete.setMode(0);
     }
 
     /**
@@ -207,7 +209,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
 
         bonificacionLabel.setText("Bonificacion");
 
-        porcentajeTextField.setEnabled(false);
+        porcentajeTextField.setFocusable(false);
         porcentajeTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 porcentajeTextFieldKeyTyped(evt);
@@ -324,11 +326,14 @@ public class InsertNewDocByType extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -378,9 +383,18 @@ public class InsertNewDocByType extends javax.swing.JDialog {
             long daysDiff = diff / (24 * 60 * 60 * 1000);
             if (daysDiff < 60) {
                 if (gastoSelected.getIdGasto() >= 0 && prestacionSelected.getIdPrestacion() >= 0 && previsionSelected.getIdPrevision() >= 0) {
+                    if (!porcentajeTextField.getText().trim().equals("")) {
+                        int monto = Integer.parseInt(bonificableTextField.getText());
+                        if (monto > 0) {
+
+                        } else {
+                            JOptionPane.showMessageDialog(this, "No se encontró monto de reembolso para el tipo de documento", "Montos no validos", WIDTH);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontró porcentaje un reembolso para el tipo de documento", "Reembolso no valido", WIDTH);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "Debe seleccionar un gasto, una prestacion y una prevision", "Selecionar tipo de documento", WIDTH);
-
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "El docuemento tiene mas de 60 días de antiguedad", "Documento rechazado", WIDTH);
@@ -400,8 +414,6 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                 System.out.println(gasto.getIdGasto());
                 lp = pres.getAllPrestacionByGasto(gasto.getIdGasto());
                 prestacionTextField.setEnabled(true);
-                prestacionAutoComplete = new TextAutoCompleter(prestacionTextField);
-                prestacionAutoComplete.setMode(0);
                 prestacionAutoComplete.removeAll();
                 for (Prestacion p : lp) {
                     prestacionAutoComplete.addItem(p.getNombrePrestacion());
@@ -440,10 +452,10 @@ public class InsertNewDocByType extends javax.swing.JDialog {
         if (rutValido) {
             Carga cargaAux;
             cargaAux = cc.getCargaByRutCargaAndSocio(Integer.parseInt(rut), rutSocio);
-            if ((cargaAux.getNombre() != null)) {
-                nombreCargaTextField.setText(cargaAux.getNombre());
-            } else {
-                JOptionPane.showMessageDialog(this, "La carga no existe o no corresponde al socio ingresado", "Carga erronea", WIDTH);
+            if (cargaAux != null) {
+                if ((cargaAux.getNombre() != null)) {
+                    nombreCargaTextField.setText(cargaAux.getNombre());
+                }
             }
         }
         ViewUtils.onlyRutNumbers(evt, rutCargaTextField, 9);
@@ -473,7 +485,9 @@ public class InsertNewDocByType extends javax.swing.JDialog {
             } else {
                 LinkedList<Prevision> previsiones = prev.getAllPrevision();
                 for (Prevision prevision : previsiones) {
-                    if (prevision.getNombrePrevision().equals(item)) {
+                    System.out.println(prevision.getNombrePrevision());
+                    System.out.println(item);
+                    if (prevision.getNombrePrevision().trim().equals(item)) {
                         previsionSelected = prevision;
                     }
                 }
@@ -481,8 +495,10 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                     int idGasto = gastoSelected.getIdGasto();
                     int idPrestacion = prestacionSelected.getIdPrestacion();
                     int idPrevision = previsionSelected.getIdPrevision();
+                    System.out.println(idGasto + " " + idPrestacion + " " + idPrevision);
                     LinkedList<TipoDeDocumento> tipos = tipo.getAllTipoDocumentosBySearch(idGasto, idPrestacion, idPrevision);
                     if (tipos != null) {
+                        porcentajeTextField.setText("");
                         if (tipos.size() == 1) {
                             tipo = tipos.get(0);
                             porcentajeTextField.setText(tipo.getPorcentaje_tipo() + "");
@@ -527,6 +543,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                     int idPrevision = previsionSelected.getIdPrevision();
                     LinkedList<TipoDeDocumento> tipos = tipo.getAllTipoDocumentosBySearch(idGasto, idPrestacion, idPrevision);
                     if (tipos != null) {
+                        porcentajeTextField.setText("");
                         if (tipos.size() == 1) {
                             tipo = tipos.get(0);
                             porcentajeTextField.setText(tipo.getPorcentaje_tipo() + "");
@@ -559,6 +576,8 @@ public class InsertNewDocByType extends javax.swing.JDialog {
 
     /**
      * @param args the command line arguments
+     * @param p
+     * @param fecha
      */
     public static void main(String args[], Periodo p, Date fecha) {
 

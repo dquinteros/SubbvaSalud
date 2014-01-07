@@ -16,19 +16,22 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import subbvasalud.controllers.AnioController;
 import subbvasalud.controllers.PeriodoController;
+import subbvasalud.controllers.SolicitudController;
 import subbvasalud.models.Anio;
 import subbvasalud.models.Periodo;
+import subbvasalud.models.SolicitudDeReembolso;
 
 /**
  *
  * @author damage
  */
 public class NewSolicitud extends javax.swing.JDialog {
-    
+
     LinkedList<Socio> ls;
     Socio s;
     PeriodoController pc;
     AnioController ac;
+    SolicitudController sc;
     LinkedList<Anio> la;
 
     /**
@@ -38,6 +41,7 @@ public class NewSolicitud extends javax.swing.JDialog {
         super(parent, modal);
         ls = new LinkedList<>();
         pc = new PeriodoController();
+        sc = new SolicitudController();
         ac = new AnioController();
         s = new Socio();
         ls = s.getAllSocios();
@@ -156,9 +160,9 @@ public class NewSolicitud extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(docScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(insertDocumentoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalReembolsoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addGroup(insertDocumentoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(totalReembolsoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -308,7 +312,7 @@ public class NewSolicitud extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
         }
     }//GEN-LAST:event_docByCodeMenuItemActionPerformed
-    
+
     private void rutSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioNewSolicitudTextFieldKeyTyped
         String rut = rutSocioNewSolicitudTextField.getText() + evt.getKeyChar();
         boolean rutValido = ViewUtils.validaRut(rut);
@@ -322,7 +326,7 @@ public class NewSolicitud extends javax.swing.JDialog {
         }
         ViewUtils.onlyRutNumbers(evt, rutSocioNewSolicitudTextField, 9);
     }//GEN-LAST:event_rutSocioNewSolicitudTextFieldKeyTyped
-    
+
     private void nameSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameSocioNewSolicitudTextFieldKeyTyped
         String name = nameSocioNewSolicitudTextField.getText();
         for (Socio so : ls) {
@@ -331,7 +335,7 @@ public class NewSolicitud extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_nameSocioNewSolicitudTextFieldKeyTyped
-    
+
     private void anioComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_anioComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int year = (int) anioComboBox.getSelectedItem();
@@ -343,9 +347,9 @@ public class NewSolicitud extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_anioComboBoxItemStateChanged
-    
+
     private void docByTypeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docByTypeMenuItemActionPerformed
-        
+
         int row = periodoTable.getSelectedRow();
         String rutSocio = rutSocioNewSolicitudTextField.getText();
         Date fecha = selectDateNewSolicitudDateChooser.getDate();
@@ -355,8 +359,14 @@ public class NewSolicitud extends javax.swing.JDialog {
                     Periodo p = new Periodo();
                     p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
                     String[] args = new String[1];
-                    args[0] = rutSocio;                    
-                    InsertNewDocByType.main(args, p, fecha);
+                    args[0] = rutSocio;
+                    s = s.getSociosByRut(Integer.parseInt(rutSocio));
+                    if (s != null) {
+                        SolicitudDeReembolso sdr = new SolicitudDeReembolso(-1, s.getIdSocio(),p.getId_periodo() , fecha, );
+                        InsertNewDocByType.main(args, p, fecha);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "Debe deleccionar uan fecha antes de ingresar un documento", "Fecha no seleccionada", WIDTH);
                 }
@@ -366,9 +376,9 @@ public class NewSolicitud extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
         }
-        
+
     }//GEN-LAST:event_docByTypeMenuItemActionPerformed
-    
+
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelarButtonActionPerformed
@@ -407,7 +417,7 @@ public class NewSolicitud extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        
+
                     }
                 });
                 dialog.setVisible(true);

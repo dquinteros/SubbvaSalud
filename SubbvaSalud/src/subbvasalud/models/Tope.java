@@ -16,14 +16,14 @@ import java.util.LinkedList;
 public class Tope extends Conexion {
 
     private int idTope;
-    private float tope;
+    private Double tope;
     private int monedaTope;
     private int tipoTope;
 
     public Tope() {
     }
 
-    public Tope(int idTope, float tope, int monedaTope, int tipoTope) {
+    public Tope(int idTope, Double tope, int monedaTope, int tipoTope) {
         this.idTope = idTope;
         this.tope = tope;
         this.monedaTope = monedaTope;
@@ -41,12 +41,12 @@ public class Tope extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Tope newTope = this.createTopeFromResultSet(result);
                     boolean ans;
                     ans = listTopes.add(newTope);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -79,10 +79,10 @@ public class Tope extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newTope = this.createTopeFromResultSet(result);
                     if (newTope != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -102,7 +102,7 @@ public class Tope extends Conexion {
             Tope p;
             p = new Tope(
                     (int) r.getObject(1),
-                    (float) r.getObject(2),
+                    (Double) r.getObject(2),
                     (int) r.getObject(3),
                     (int) r.getObject(4)
             );
@@ -122,11 +122,11 @@ public class Tope extends Conexion {
         this.idTope = idTope;
     }
 
-    public float getTope() {
+    public Double getTope() {
         return tope;
     }
 
-    public void setTope(float tope) {
+    public void setTope(Double tope) {
         this.tope = tope;
     }
 

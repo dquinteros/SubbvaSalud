@@ -151,12 +151,12 @@ public class Socio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Socio newSocio = this.createSocioFromResultSet(result);
                     boolean ans;
                     ans = listSocios.add(newSocio);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -180,10 +180,10 @@ public class Socio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newSocio = this.createSocioFromResultSet(result);
                     if (newSocio != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -207,10 +207,10 @@ public class Socio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newSocio = this.createSocioFromResultSet(result);
                     if (newSocio != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }

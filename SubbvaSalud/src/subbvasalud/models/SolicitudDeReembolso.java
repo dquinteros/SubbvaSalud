@@ -5,10 +5,20 @@
  */
 package subbvasalud.models;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,17 +45,21 @@ public class SolicitudDeReembolso extends Conexion {
 
     public String solicitudToSqlInsert(SolicitudDeReembolso sr) {
         if (sr != null) {
+            Calendar cal = Calendar.getInstance();
+            DateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+            format.format(sr.getFecha());
+            cal = format.getCalendar();
             String sql = "INSERT INTO \"solicitud_de_reembolso\""
                     + "(\"id_solicitud\","
                     + "\"id_socio\","
                     + "\"id_periodo\","
                     + "\"fecha_recepcion_solicitud\","
-                    + "\"tota_solicitud\")"
+                    + "\"total_solicidtud\")"
                     + " VALUES("
                     + " NULL,"
                     + sr.getIdSocio() + ","
                     + sr.getIdPeriodo() + ","
-                    + " '" + sr.getFecha() + "',"
+                    + " '" + cal.getTime() + "',"
                     + sr.getMontoTotal()
                     + ");";
             return sql;
@@ -56,13 +70,17 @@ public class SolicitudDeReembolso extends Conexion {
 
     public String solicitudToSqlUpdate(SolicitudDeReembolso sr) {
         if (sr != null) {
+            Calendar cal = Calendar.getInstance();
+            DateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+            format.format(sr.getFecha());
+            cal = format.getCalendar();
             String sql = "UPDATE \"solicitud_de_reembolso\""
                     + " SET"
                     + " id_socio = " + sr.getIdSocio() + ","
-                    + " fecha_recepcion_solicitud = \"" + sr.getFecha() + "\","
-                    + " id_periodo = " + sr.getIdPeriodo()
-                    + " total_solicitud = " + sr.getMontoTotal()
-                    + " WHERE id_carga= " + sr.getIdSolicitud()
+                    + " fecha_recepcion_solicitud = \"" + cal.getTime() + "\","
+                    + " id_periodo = " + sr.getIdPeriodo() + ","
+                    + " total_solicidtud = " + sr.getMontoTotal()
+                    + " WHERE id_solicitud= " + sr.getIdSolicitud()
                     + ";";
             System.out.println(sql);
             return sql;
@@ -134,12 +152,12 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     SolicitudDeReembolso newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
                     boolean ans;
                     ans = listSolicitudDeReembolso.add(newSolicitudDeReembolso);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -165,12 +183,12 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     SolicitudDeReembolso newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
                     boolean ans;
                     ans = listSolicitudDeReembolso.add(newSolicitudDeReembolso);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -194,10 +212,10 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
                     if (newSolicitudDeReembolso != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -221,10 +239,10 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
                     if (newSolicitudDeReembolso != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -246,7 +264,7 @@ public class SolicitudDeReembolso extends Conexion {
                     (int) r.getObject(1),
                     (int) r.getObject(2),
                     (int) r.getObject(3),
-                    (Date) r.getObject(4),
+                    (Date) r.getTimestamp(4),
                     (int) r.getObject(5)
             );
             return sr;
@@ -254,6 +272,20 @@ public class SolicitudDeReembolso extends Conexion {
             System.out.println(e.getSQLState());
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    public Date DeStringADate(String fecha) {
+        SimpleDateFormat formato = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        String strFecha = fecha;
+        Date fechaDate = null;
+        try {
+            fechaDate = formato.parse(strFecha);
+            System.out.println(fechaDate.toString());
+            return fechaDate;
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+            return fechaDate;
         }
     }
 

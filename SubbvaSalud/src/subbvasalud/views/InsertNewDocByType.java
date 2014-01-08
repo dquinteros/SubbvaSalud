@@ -11,10 +11,12 @@ import static java.awt.image.ImageObserver.WIDTH;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import subbvasalud.controllers.CargaController;
+import subbvasalud.controllers.DocumentController;
+import subbvasalud.controllers.DocumentUtils;
 import subbvasalud.controllers.GastoController;
 import subbvasalud.models.Carga;
+import subbvasalud.models.DetalleSolicitud;
 import subbvasalud.models.Gasto;
 import subbvasalud.models.Periodo;
 import subbvasalud.models.Prestacion;
@@ -28,15 +30,15 @@ import subbvasalud.models.TipoDeDocumento;
 public class InsertNewDocByType extends javax.swing.JDialog {
 
     private LinkedList<Prestacion> lp;
-    private Prestacion pres;
-    private Prevision prev;
+    private final Prestacion pres;
+    private final Prevision prev;
     private Gasto gasto;
-    private GastoController gc;
-    private CargaController cc;
+    private final GastoController gc;
+    private final CargaController cc;
     private static int rutSocio;
     private static Periodo periodo;
     private static Date fechaSolicitud;
-
+    private static int idSolicitud;
     private TextAutoCompleter prestacionAutoComplete;
 
     private Gasto gastoSelected;
@@ -313,7 +315,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                 .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
                     .addComponent(nombreCargaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(InsertNewDocByTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarButton)
                     .addComponent(aceptarButton))
@@ -330,10 +332,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(InsertNewDocByTypePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -377,7 +376,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
     private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
-        Date fechaDocumento = docDateChooser.getDate();
+        Date fechaDocumento = (Date) docDateChooser.getDate();
         if (fechaDocumento != null) {
             long diff = fechaSolicitud.getTime() - fechaDocumento.getTime();
             long daysDiff = diff / (24 * 60 * 60 * 1000);
@@ -385,10 +384,33 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                 if (gastoSelected.getIdGasto() >= 0 && prestacionSelected.getIdPrestacion() >= 0 && previsionSelected.getIdPrevision() >= 0) {
                     if (!porcentajeTextField.getText().trim().equals("")) {
                         int monto = Integer.parseInt(bonificableTextField.getText());
-                        if (monto > 0) {
+                        int montoTotal = Integer.parseInt(totalTextField.getText());
+                        if (monto > 0 && montoTotal > 0) {
+                            if ((montoTotal - monto) >= 0) {
+                                int idTipo = tipo.getId_tipo();
+                                if (idTipo == 194 || idTipo == 144 || idTipo == 113 || idTipo == 116) {
+                                    int rutCarga = Integer.parseInt(rutCargaTextField.getText().trim());
+                                    if (ViewUtils.validaCargaByRut(rutSocio, rutCarga)) {
+                                        int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, Integer.parseInt(rutCargaTextField.getText()), periodo);
+                                        DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, prestacionSelected.getNombrePrestacion(), fechaDocumento, montoTotal, monto, reembolso, rutCarga);
+                                        DocumentController dc = new DocumentController();
+                                        dc.guardarDocumento(ds);
+                                    } else {
+                                        JOptionPane.showMessageDialog(this, "El rut de la carga es incorrecto o no fue ingresado", "Error rut de la carga", WIDTH);
+                                    }
+                                } else {
+                                    int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);
+                                    DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, prestacionSelected.getNombrePrestacion(), fechaDocumento, montoTotal, monto, reembolso, rutSocio);
+                                    DocumentController dc = new DocumentController();
+                                    dc.guardarDocumento(ds);
 
+                                }
+
+                            } else {
+                                JOptionPane.showMessageDialog(this, "El monto total debe ser mayor o igual que el monto no bonificado", "Montos no validos", WIDTH);
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(this, "No se encontró monto de reembolso para el tipo de documento", "Montos no validos", WIDTH);
+                            JOptionPane.showMessageDialog(this, "Los montos deben ser mayores que 0", "Montos no validos", WIDTH);
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "No se encontró porcentaje un reembolso para el tipo de documento", "Reembolso no valido", WIDTH);
@@ -545,9 +567,11 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                     if (tipos != null) {
                         porcentajeTextField.setText("");
                         if (tipos.size() == 1) {
+                             medicamentoCheckBox.setEnabled(false);
                             tipo = tipos.get(0);
                             porcentajeTextField.setText(tipo.getPorcentaje_tipo() + "");
                         } else if (tipos.size() > 1) {
+                            medicamentoCheckBox.setEnabled(true);
                             if (!medicamentoCheckBox.isSelected()) {
                                 for (TipoDeDocumento tipoDeDocumento : tipos) {
                                     if (tipoDeDocumento.getId_tipo() < 1000) {
@@ -582,6 +606,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
     public static void main(String args[], Periodo p, Date fecha) {
 
         rutSocio = Integer.parseInt(args[0]);
+        idSolicitud = Integer.parseInt(args[1]);
         periodo = p;
         fechaSolicitud = fecha;
 

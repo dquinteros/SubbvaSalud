@@ -133,12 +133,12 @@ public class Periodo extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Periodo newPeriodo = this.createPeriodoFromResultSet(result);
                     boolean ans;
                     ans = listPeriodos.add(newPeriodo);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -164,12 +164,12 @@ public class Periodo extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Periodo newPeriodo = this.createPeriodoFromResultSet(result);
                     boolean ans;
                     ans = listPeriodos.add(newPeriodo);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -211,10 +211,10 @@ public class Periodo extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newPeriodo = this.createPeriodoFromResultSet(result);
                     if (newPeriodo != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -238,10 +238,10 @@ public class Periodo extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newCarga = this.createPeriodoFromResultSet(result);
                     if (newCarga != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }

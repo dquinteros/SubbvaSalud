@@ -8,6 +8,8 @@ package subbvasalud.views;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import subbvasalud.models.Carga;
+import subbvasalud.models.Socio;
 import subbvasalud.models.TipoCuenta;
 
 /**
@@ -130,4 +132,29 @@ public class ViewUtils {
         return validacion;
     }
 
+    public static boolean validaCargaByRut(String rutSocio, String rutCarga) {
+        return validaCargaByRut(Integer.parseInt(rutSocio), Integer.parseInt(rutCarga));
+    }
+
+    public static boolean validaCargaByRut(String rutSocio, int rutCarga) {
+        return validaCargaByRut(Integer.parseInt(rutSocio), rutCarga);
+    }
+
+    public static boolean validaCargaByRut(int rutSocio, String rutCarga) {
+        return validaCargaByRut(rutSocio, Integer.parseInt(rutCarga));
+    }
+
+    public static boolean validaCargaByRut(int rutSocio, int rutCarga) {
+        if (!ViewUtils.validaRut(rutSocio) || !validaRut(rutCarga)) {
+            Socio s = new Socio();
+            Carga c = new Carga();
+            s = s.getSociosByRut(rutSocio);
+            c = c.getCargasByRut(rutCarga);
+            if (s == null || c == null) {
+                return false;
+            } else return c.getIdSocio() == s.getIdSocio();
+        } else {
+            return false;
+        }
+    }
 }

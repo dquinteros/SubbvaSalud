@@ -87,12 +87,12 @@ public class Anio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Anio newAnio = this.createAnioFromResultSet(result);
                     boolean ans;
                     ans = listAnios.add(newAnio);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -116,10 +116,10 @@ public class Anio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newAnio = this.createAnioFromResultSet(result);
                     if (newAnio != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -143,10 +143,10 @@ public class Anio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newAnio = this.createAnioFromResultSet(result);
                     if (newAnio != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }

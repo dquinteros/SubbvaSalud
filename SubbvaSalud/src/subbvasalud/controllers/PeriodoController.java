@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import subbvasalud.models.Anio;
-import subbvasalud.models.Carga;
 import subbvasalud.models.Periodo;
 
 /**

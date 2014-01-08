@@ -39,12 +39,12 @@ public class Condicion extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Condicion newCondicion = this.createCondicionFromResultSet(result);
                     boolean ans;
                     ans = listCondiciones.add(newCondicion);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }

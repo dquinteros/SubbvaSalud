@@ -7,6 +7,9 @@ package subbvasalud.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -43,6 +46,10 @@ public class DetalleSolicitud extends Conexion {
 
     public String detalleToSqlInsert(DetalleSolicitud d) {
         if (d != null) {
+            Calendar cal = Calendar.getInstance();
+            DateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+            format.format(d.getFecha());
+            cal = format.getCalendar();
             String sql = "INSERT INTO \"detalle_solicitud\""
                     + "(\"id_detalle\","
                     + "\"id_solicitud\","
@@ -58,12 +65,13 @@ public class DetalleSolicitud extends Conexion {
                     + d.getId_solicitud() + ","
                     + d.getId_tipo() + ","
                     + " '" + d.getNombre() + "',"
-                    + d.getFecha() + ","
+                    + " '"+cal.getTime() + "',"
                     + d.getMonto_total() + ","
                     + d.getNo_bonificado() + ","
                     + d.getReembolso() + ","
                     + d.getRut()
                     + ");";
+            System.out.println(sql);
             return sql;
         } else {
             return null;
@@ -72,12 +80,16 @@ public class DetalleSolicitud extends Conexion {
 
     public String detalleToSqlUpdate(DetalleSolicitud d) {
         if (d != null) {
+              Calendar cal = Calendar.getInstance();
+            DateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+            format.format(d.getFecha());
+            cal = format.getCalendar();
             String sql = "UPDATE \"detalle_solicitud\""
                     + " SET"
                     + " id_solicitud = " + d.getId_solicitud() + ","
                     + " id_tipo = " + d.getId_tipo() + ","
                     + " nombre_documento = \"" + d.getNombre() + "\","
-                    + " fecha_emision_documento = " + d.getFecha() + ","
+                    + " fecha_emision_documento = " + cal.getTime() + ","
                     + " monto_total_documento = " + d.getMonto_total() + ","
                     + " monto_no_bonificado_documento = " + d.getNo_bonificado() + ","
                     + " monto_reembolso_documento = " + d.getReembolso() + ","
@@ -154,12 +166,12 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
                     boolean ans;
                     ans = listDetalles.add(newDetalle);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -185,12 +197,43 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
                     boolean ans;
                     ans = listDetalles.add(newDetalle);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return listDetalles;
+    }
+    
+     public LinkedList<DetalleSolicitud> getAllDetallebyIdSolicitud(int id) {
+        String sql = "select * from detalle_solicitud where id_solicitud = " + id;
+        ResultSet result = null;
+        connect();
+        LinkedList<DetalleSolicitud> listDetalles;
+        listDetalles = new LinkedList<>();
+
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                while (result.next()) {
+                     
+                    DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
+                    boolean ans;
+                    ans = listDetalles.add(newDetalle);
+                    if (ans == true) {
+                         
                     }
                 }
             }
@@ -216,12 +259,12 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
                     boolean ans;
                     ans = listDetalles.add(newDetalle);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -245,10 +288,10 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newDetalle = this.createDetalleFromResultSet(result);
                     if (newDetalle != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -271,7 +314,7 @@ public class DetalleSolicitud extends Conexion {
                     (int) r.getObject(2),
                     (int) r.getObject(3),
                     (String) r.getObject(4),
-                    (Date) r.getObject(5),
+                    (Date) r.getTimestamp(5),
                     (int) r.getObject(6),
                     (int) r.getObject(7),
                     (int) r.getObject(8),

@@ -132,12 +132,12 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Carga newCarga = this.createCargaFromResultSet(result);
                     boolean ans;
                     ans = listCargas.add(newCarga);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -163,12 +163,12 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Carga newCarga = this.createCargaFromResultSet(result);
                     boolean ans;
                     ans = listCargas.add(newCarga);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -192,10 +192,10 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newCarga = this.createCargaFromResultSet(result);
                     if (newCarga != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -219,10 +219,10 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    System.out.println("Pasa");
+                     
                     newCarga = this.createCargaFromResultSet(result);
                     if (newCarga != null) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }

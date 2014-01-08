@@ -40,12 +40,12 @@ public class Prestacion extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Prestacion newPrestacion = this.createPrestacionFromResultSet(result);
                     boolean ans;
                     ans = listPrestacion.add(newPrestacion);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }
@@ -71,12 +71,12 @@ public class Prestacion extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    System.out.println("Pasa");
+                     
                     Prestacion newPrestacion = this.createPrestacionFromResultSet(result);
                     boolean ans;
                     ans = listPrestacion.add(newPrestacion);
                     if (ans == true) {
-                        System.out.println("Agregado");
+                         
                     }
                 }
             }

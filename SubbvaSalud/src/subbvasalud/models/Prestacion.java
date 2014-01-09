@@ -40,12 +40,12 @@ public class Prestacion extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Prestacion newPrestacion = this.createPrestacionFromResultSet(result);
                     boolean ans;
                     ans = listPrestacion.add(newPrestacion);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -71,12 +71,12 @@ public class Prestacion extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Prestacion newPrestacion = this.createPrestacionFromResultSet(result);
                     boolean ans;
                     ans = listPrestacion.add(newPrestacion);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -89,6 +89,29 @@ public class Prestacion extends Conexion {
             modelUtils.postSelectFinally(query, connection, result);
         }
         return listPrestacion;
+    }
+
+    public Prestacion getPrestacionById(int id) {
+        String sql = "select * from prestacion where id_prestacion = " + idGasto + ";";
+        ResultSet result = null;
+        connect();
+         Prestacion newPrestacion = new Prestacion();
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                while (result.next()) {
+                    newPrestacion = this.createPrestacionFromResultSet(result);                    
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return newPrestacion;
     }
 
     public Prestacion createPrestacionFromResultSet(ResultSet r) {

@@ -132,12 +132,12 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Carga newCarga = this.createCargaFromResultSet(result);
                     boolean ans;
                     ans = listCargas.add(newCarga);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -163,12 +163,12 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Carga newCarga = this.createCargaFromResultSet(result);
                     boolean ans;
                     ans = listCargas.add(newCarga);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -192,10 +192,10 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newCarga = this.createCargaFromResultSet(result);
                     if (newCarga != null) {
-                         
+
                     }
                 }
             }
@@ -219,10 +219,10 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newCarga = this.createCargaFromResultSet(result);
                     if (newCarga != null) {
-                         
+
                     }
                 }
             }

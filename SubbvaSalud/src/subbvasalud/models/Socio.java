@@ -151,12 +151,12 @@ public class Socio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Socio newSocio = this.createSocioFromResultSet(result);
                     boolean ans;
                     ans = listSocios.add(newSocio);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -180,10 +180,10 @@ public class Socio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newSocio = this.createSocioFromResultSet(result);
                     if (newSocio != null) {
-                         
+
                     }
                 }
             }
@@ -207,10 +207,10 @@ public class Socio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newSocio = this.createSocioFromResultSet(result);
                     if (newSocio != null) {
-                         
+
                     }
                 }
             }

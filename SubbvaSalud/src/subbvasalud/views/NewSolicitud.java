@@ -92,6 +92,14 @@ public class NewSolicitud extends javax.swing.JDialog {
         docByTypeMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         newSolicitudPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Nueva Solicitud"));
         newSolicitudPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -126,6 +134,12 @@ public class NewSolicitud extends javax.swing.JDialog {
 
         selectDateNewSolicitudLabel.setText("Fecha de recepción");
 
+        selectDateNewSolicitudDateChooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                selectDateNewSolicitudDateChooserPropertyChange(evt);
+            }
+        });
+
         insertDocumentoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Documentos Ingresados"));
 
         documentTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -139,20 +153,24 @@ public class NewSolicitud extends javax.swing.JDialog {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        documentTable.setColumnSelectionAllowed(true);
         docScrollPanel.setViewportView(documentTable);
+        documentTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         totalReembolsoTextField.setEditable(false);
         totalReembolsoTextField.setToolTipText("");
-        totalReembolsoTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalReembolsoTextFieldActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Total Reembolso");
 
@@ -173,9 +191,9 @@ public class NewSolicitud extends javax.swing.JDialog {
             .addGroup(insertDocumentoPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(docScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(insertDocumentoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalReembolsoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalReembolsoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -196,7 +214,22 @@ public class NewSolicitud extends javax.swing.JDialog {
             new String [] {
                 "Codigo", "Periodo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        periodoTable.setToolTipText("");
+        periodoTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        periodoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                periodoTableMouseClicked(evt);
+            }
+        });
         periodoScrollPanel.setViewportView(periodoTable);
 
         anioComboBox.addItemListener(new java.awt.event.ItemListener() {
@@ -319,13 +352,36 @@ public class NewSolicitud extends javax.swing.JDialog {
 
     private void docByCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docByCodeMenuItemActionPerformed
         String rutSocio = rutSocioNewSolicitudTextField.getText();
+        int row = periodoTable.getSelectedRow();
+        Date fecha = selectDateNewSolicitudDateChooser.getDate();
         if (ViewUtils.validaRut(rutSocio)) {
-            String[] args = new String[1];
-            args[0] = rutSocio;
-            InsertNewDocByCode.main(args);
+            if (row != -1) {
+                if (fecha != null) {
+                    Periodo p = new Periodo();
+                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
+                    String[] args = new String[2];
+                    args[0] = rutSocio;
+
+                    s = s.getSociosByRut(Integer.parseInt(rutSocio));
+                    if (s != null) {
+                        int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
+                        SolicitudDeReembolso sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), fecha, montoTotal);
+                        idSol = sc.guardarSolicitudCondicional(sdr);
+                        args[1] = idSol + "";
+                        InsertNewDocByCode.main(args, p, fecha);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debe deleccionar uan fecha antes de ingresar un documento", "Fecha no seleccionada", WIDTH);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un periodo antes de ingresar un documento", "Periodo no seleccionado", WIDTH);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
         }
+        refresh();
     }//GEN-LAST:event_docByCodeMenuItemActionPerformed
 
     private void rutSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioNewSolicitudTextFieldKeyTyped
@@ -340,6 +396,8 @@ public class NewSolicitud extends javax.swing.JDialog {
             }
         }
         ViewUtils.onlyRutNumbers(evt, rutSocioNewSolicitudTextField, 9);
+        guardarSolicitud();
+        refresh();
     }//GEN-LAST:event_rutSocioNewSolicitudTextFieldKeyTyped
 
     private void nameSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameSocioNewSolicitudTextFieldKeyTyped
@@ -349,6 +407,8 @@ public class NewSolicitud extends javax.swing.JDialog {
                 rutSocioNewSolicitudTextField.setText(so.getRutSocio() + "");
             }
         }
+        guardarSolicitud();
+        refresh();
     }//GEN-LAST:event_nameSocioNewSolicitudTextFieldKeyTyped
 
     private void anioComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_anioComboBoxItemStateChanged
@@ -402,19 +462,29 @@ public class NewSolicitud extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelarButtonActionPerformed
 
     private void newSolicitudPanelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newSolicitudPanelFocusGained
-     refresh();
+        refresh();
     }//GEN-LAST:event_newSolicitudPanelFocusGained
 
     private void newSolicitudPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newSolicitudPanelMouseClicked
         refresh();
     }//GEN-LAST:event_newSolicitudPanelMouseClicked
 
-    private void totalReembolsoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalReembolsoTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalReembolsoTextFieldActionPerformed
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        refresh();
+    }//GEN-LAST:event_formWindowGainedFocus
 
-    private void refresh(){
-       if (idSol >= 0) {
+    private void periodoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_periodoTableMouseClicked
+        guardarSolicitud();
+        refresh();
+    }//GEN-LAST:event_periodoTableMouseClicked
+
+    private void selectDateNewSolicitudDateChooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_selectDateNewSolicitudDateChooserPropertyChange
+        guardarSolicitud();
+        refresh();
+    }//GEN-LAST:event_selectDateNewSolicitudDateChooserPropertyChange
+
+    private void refresh() {
+        if (idSol >= 0) {
             while (((DefaultTableModel) documentTable.getModel()).getRowCount() != 0) {
                 ((DefaultTableModel) documentTable.getModel()).removeRow(0);
             }
@@ -427,10 +497,29 @@ public class NewSolicitud extends javax.swing.JDialog {
             suma += (int) ((DefaultTableModel) documentTable.getModel()).getValueAt(i, 4);
         }
         totalReembolsoTextField.setText(suma + "");
-        JOptionPane.showMessageDialog(this, "Id Solicitud"+idSol, "id sol", WIDTH);
 
     }
-    
+
+    public void guardarSolicitud() {
+        String rutSocio = rutSocioNewSolicitudTextField.getText();
+        int row = periodoTable.getSelectedRow();
+        Date fecha = selectDateNewSolicitudDateChooser.getDate();
+        if (ViewUtils.validaRut(rutSocio)) {
+            if (row != -1) {
+                if (fecha != null) {
+                    Periodo p = new Periodo();
+                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
+                    s = s.getSociosByRut(Integer.parseInt(rutSocio));
+                    if (s != null) {
+                        int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
+                        SolicitudDeReembolso sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), fecha, montoTotal);
+                        idSol = sc.guardarSolicitudCondicional(sdr);
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * @param args the command line arguments
      */

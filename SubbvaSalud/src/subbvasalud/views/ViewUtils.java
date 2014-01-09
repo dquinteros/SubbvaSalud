@@ -152,7 +152,9 @@ public class ViewUtils {
             c = c.getCargasByRut(rutCarga);
             if (s == null || c == null) {
                 return false;
-            } else return c.getIdSocio() == s.getIdSocio();
+            } else {
+                return c.getIdSocio() == s.getIdSocio();
+            }
         } else {
             return false;
         }

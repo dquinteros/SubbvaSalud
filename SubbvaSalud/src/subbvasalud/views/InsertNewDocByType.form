@@ -3,6 +3,7 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="modal" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -55,12 +56,11 @@
                           <Component id="cancelarButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="previsionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="nombreLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="rutLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="rutLabel" linkSize="4" max="32767" attributes="0"/>
+                              <Component id="nombreLabel" linkSize="4" pref="75" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="nombreCargaTextField" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
@@ -69,19 +69,20 @@
                                           <Component id="rutCargaTextField" linkSize="3" max="32767" attributes="0"/>
                                           <Component id="previsionComboBox" linkSize="3" pref="207" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="cargaCheckBox" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="cargaCheckBox" linkSize="3" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="prestacionLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="gastoLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="fechaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="gastoLabel" linkSize="4" max="32767" attributes="0"/>
+                              <Component id="fechaLabel" linkSize="4" alignment="0" max="32767" attributes="0"/>
+                              <Component id="prestacionLabel" linkSize="4" alignment="0" max="32767" attributes="0"/>
+                              <Component id="previsionLabel" linkSize="4" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -90,8 +91,8 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="montoTotalLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="bonificacionLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="montoTotalLabel" linkSize="6" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bonificacionLabel" linkSize="6" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -102,7 +103,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="prestacionTextField" linkSize="3" min="-2" pref="207" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="montoBonificableLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="montoBonificableLabel" linkSize="6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="medicamentoCheckBox" linkSize="3" pref="207" max="32767" attributes="0"/>
@@ -150,7 +151,7 @@
                       <Component id="medicamentoCheckBox" linkSize="1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="cargaCheckBox" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="cargaCheckBox" linkSize="1" min="-2" pref="23" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="rutLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -180,11 +181,12 @@
         <Component class="javax.swing.JComboBox" name="gastoComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
+              <StringArray count="5">
                 <StringItem index="0" value="Seleccionar"/>
                 <StringItem index="1" value="Ambulatorio"/>
                 <StringItem index="2" value="Hospitalario"/>
                 <StringItem index="3" value="Maternidad"/>
+                <StringItem index="4" value=""/>
               </StringArray>
             </Property>
           </Properties>
@@ -194,7 +196,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="prestacionLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Prestacion*"/>
+            <Property name="text" type="java.lang.String" value="Prestacion*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="prestacionTextField">
@@ -207,7 +209,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="previsionLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Prevision*"/>
+            <Property name="text" type="java.lang.String" value="Prevision*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="previsionComboBox">
@@ -236,7 +238,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="montoTotalLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Monto total"/>
+            <Property name="text" type="java.lang.String" value="Monto total*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="totalTextField">
@@ -246,7 +248,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="montoBonificableLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Monto no bonificado"/>
+            <Property name="text" type="java.lang.String" value="Monto no bonificado*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="bonificableTextField">
@@ -280,12 +282,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="rutLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Rut"/>
+            <Property name="text" type="java.lang.String" value="Rut*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="nombreLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre"/>
+            <Property name="text" type="java.lang.String" value="Nombre*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="rutCargaTextField">

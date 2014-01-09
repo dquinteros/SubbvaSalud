@@ -33,12 +33,12 @@ public class Prevision extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Prevision newPrevision = this.createPrevisionFromResultSet(result);
                     boolean ans;
                     ans = listPrevision.add(newPrevision);
                     if (ans == true) {
-                         
+
                     }
                 }
             }

@@ -38,12 +38,12 @@ public class Gasto extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Gasto newGasto = this.createGastoFromResultSet(result);
                     boolean ans;
                     ans = listGastos.add(newGasto);
                     if (ans == true) {
-                         
+
                     }
                 }
             }

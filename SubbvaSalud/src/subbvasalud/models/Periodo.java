@@ -133,12 +133,12 @@ public class Periodo extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Periodo newPeriodo = this.createPeriodoFromResultSet(result);
                     boolean ans;
                     ans = listPeriodos.add(newPeriodo);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -164,12 +164,12 @@ public class Periodo extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Periodo newPeriodo = this.createPeriodoFromResultSet(result);
                     boolean ans;
                     ans = listPeriodos.add(newPeriodo);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -211,10 +211,10 @@ public class Periodo extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newPeriodo = this.createPeriodoFromResultSet(result);
                     if (newPeriodo != null) {
-                         
+
                     }
                 }
             }
@@ -238,10 +238,10 @@ public class Periodo extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newCarga = this.createPeriodoFromResultSet(result);
                     if (newCarga != null) {
-                         
+
                     }
                 }
             }

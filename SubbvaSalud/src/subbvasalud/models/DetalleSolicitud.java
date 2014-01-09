@@ -8,10 +8,14 @@ package subbvasalud.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -65,7 +69,7 @@ public class DetalleSolicitud extends Conexion {
                     + d.getId_solicitud() + ","
                     + d.getId_tipo() + ","
                     + " '" + d.getNombre() + "',"
-                    + " '"+cal.getTime() + "',"
+                    + " '" + cal.getTime() + "',"
                     + d.getMonto_total() + ","
                     + d.getNo_bonificado() + ","
                     + d.getReembolso() + ","
@@ -80,7 +84,7 @@ public class DetalleSolicitud extends Conexion {
 
     public String detalleToSqlUpdate(DetalleSolicitud d) {
         if (d != null) {
-              Calendar cal = Calendar.getInstance();
+            Calendar cal = Calendar.getInstance();
             DateFormat format = new SimpleDateFormat("yyyy/mm/dd");
             format.format(d.getFecha());
             cal = format.getCalendar();
@@ -166,12 +170,12 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
                     boolean ans;
                     ans = listDetalles.add(newDetalle);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -197,12 +201,12 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
                     boolean ans;
                     ans = listDetalles.add(newDetalle);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -216,8 +220,8 @@ public class DetalleSolicitud extends Conexion {
         }
         return listDetalles;
     }
-    
-     public LinkedList<DetalleSolicitud> getAllDetallebyIdSolicitud(int id) {
+
+    public LinkedList<DetalleSolicitud> getAllDetallebyIdSolicitud(int id) {
         String sql = "select * from detalle_solicitud where id_solicitud = " + id;
         ResultSet result = null;
         connect();
@@ -228,12 +232,12 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
                     boolean ans;
                     ans = listDetalles.add(newDetalle);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -259,12 +263,12 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
                     boolean ans;
                     ans = listDetalles.add(newDetalle);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -288,10 +292,10 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newDetalle = this.createDetalleFromResultSet(result);
                     if (newDetalle != null) {
-                         
+
                     }
                 }
             }
@@ -309,12 +313,16 @@ public class DetalleSolicitud extends Conexion {
     public DetalleSolicitud createDetalleFromResultSet(ResultSet r) {
         try {
             DetalleSolicitud d;
+
+            SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+            Date date = df.parse((String) r.getObject(5));
+
             d = new DetalleSolicitud(
                     (int) r.getObject(1),
                     (int) r.getObject(2),
                     (int) r.getObject(3),
                     (String) r.getObject(4),
-                    (Date) r.getTimestamp(5),
+                    date,
                     (int) r.getObject(6),
                     (int) r.getObject(7),
                     (int) r.getObject(8),
@@ -325,7 +333,11 @@ public class DetalleSolicitud extends Conexion {
             System.out.println(e.getSQLState());
             System.out.println(e.getMessage());
             return null;
+        } catch (ParseException ex) {
+            Logger.getLogger(DetalleSolicitud.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
+
     }
 
     public int getId_detalle() {

@@ -41,12 +41,12 @@ public class Tope extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     Tope newTope = this.createTopeFromResultSet(result);
                     boolean ans;
                     ans = listTopes.add(newTope);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -79,10 +79,10 @@ public class Tope extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newTope = this.createTopeFromResultSet(result);
                     if (newTope != null) {
-                         
+
                     }
                 }
             }

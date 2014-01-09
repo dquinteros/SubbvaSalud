@@ -5,20 +5,14 @@
  */
 package subbvasalud.models;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.FieldPosition;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -152,12 +146,12 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     SolicitudDeReembolso newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
                     boolean ans;
                     ans = listSolicitudDeReembolso.add(newSolicitudDeReembolso);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -183,12 +177,12 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                     
+
                     SolicitudDeReembolso newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
                     boolean ans;
                     ans = listSolicitudDeReembolso.add(newSolicitudDeReembolso);
                     if (ans == true) {
-                         
+
                     }
                 }
             }
@@ -212,10 +206,10 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
                     if (newSolicitudDeReembolso != null) {
-                         
+
                     }
                 }
             }
@@ -239,10 +233,10 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                     
+
                     newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
                     if (newSolicitudDeReembolso != null) {
-                         
+
                     }
                 }
             }

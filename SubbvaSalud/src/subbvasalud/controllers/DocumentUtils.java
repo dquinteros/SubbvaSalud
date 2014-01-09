@@ -44,7 +44,7 @@ public class DocumentUtils {
     public static int calculaReeembolso(TipoDeDocumento tipo, int monto, int rut, Periodo periodo) {
 
         int reembolso = 0;
-        System.out.println("Rut: "+rut);
+        System.out.println("Rut: " + rut);
         if (ViewUtils.validaRut(rut)) {
             LinkedList<Tope> topes = getTopebyDocType(tipo);
             if (topes.size() == 1) {
@@ -71,22 +71,22 @@ public class DocumentUtils {
                 if (tope.getMonedaTope() == 0) {
                     int uf = periodo.getValor_uf();
                     System.out.println("UF:" + uf);
-                    System.out.println("Porcentaje: "+tipo.getPorcentaje_tipo());
+                    System.out.println("Porcentaje: " + tipo.getPorcentaje_tipo());
                     reembolso = (monto * tipo.getPorcentaje_tipo()) / 100;
                     int acumulado = getSumaDeMontosByRut(rut, tope, periodo);
-                    int total = reembolso + acumulado;                    
-                    System.out.println("Total Acumulado: "+acumulado);
-                    System.out.println("Reembolso: "+reembolso);
+                    int total = reembolso + acumulado;
+                    System.out.println("Total Acumulado: " + acumulado);
+                    System.out.println("Reembolso: " + reembolso);
                     if (total > (tope.getTope() * uf)) {
                         reembolso = (int) (reembolso - (total - (tope.getTope() * uf)));
                     }
                 } else {
-                    System.out.println("Porcentaje: "+tipo.getPorcentaje_tipo());
+                    System.out.println("Porcentaje: " + tipo.getPorcentaje_tipo());
                     reembolso = (monto * tipo.getPorcentaje_tipo()) / 100;
                     int acumulado = getSumaDeMontosByRut(rut, tope, periodo);
                     int total = reembolso + acumulado;
-                    System.out.println("Total Acumulado: "+acumulado);
-                    System.out.println("Reembolso: "+reembolso);
+                    System.out.println("Total Acumulado: " + acumulado);
+                    System.out.println("Reembolso: " + reembolso);
                     if (total > tope.getTope()) {
                         reembolso = (int) (reembolso - (total - tope.getTope()));
                     }
@@ -118,9 +118,9 @@ public class DocumentUtils {
 
     public static int getSumaDeMontosByRut(int rut, Tope tope, Periodo periodo) {
         LinkedList<DetalleSolicitud> documentos = getAllDocByIdYear(periodo.getId_anio(), rut);
-        System.out.println("Documentos: "+ documentos.size());
+        System.out.println("Documentos: " + documentos.size());
         LinkedList<TipoDeDocumento> tipos = getTiposbyTope(tope);
-        System.out.println("Tipos: "+tipos.size());
+        System.out.println("Tipos: " + tipos.size());
         int suma = 0;
 
         for (DetalleSolicitud doc : documentos) {
@@ -136,7 +136,7 @@ public class DocumentUtils {
     public static LinkedList<DetalleSolicitud> getAllDocByIdYear(int id, int rut) {
         Periodo periodo = new Periodo();
         LinkedList<Periodo> periodos = periodo.getAllPeriodosByYear(id);
-        System.out.println("Periodos: "+periodos.size());
+        System.out.println("Periodos: " + periodos.size());
         LinkedList<SolicitudDeReembolso> solicitudes = new LinkedList<>();
 
         SolicitudDeReembolso sdr = new SolicitudDeReembolso();
@@ -144,14 +144,14 @@ public class DocumentUtils {
             LinkedList<SolicitudDeReembolso> auxSoli = sdr.getAllSolicitudByPeriodo(per.getId_periodo());
             solicitudes.addAll(auxSoli);
         }
-        System.out.println("Solicitudes: "+solicitudes.size());
+        System.out.println("Solicitudes: " + solicitudes.size());
         LinkedList<DetalleSolicitud> detalles = new LinkedList<>();
         DetalleSolicitud ds = new DetalleSolicitud();
         for (SolicitudDeReembolso solicitud : solicitudes) {
             LinkedList<DetalleSolicitud> detalleAux = ds.getAllDetallebyIdSolicitud(solicitud.getIdSolicitud(), rut);
             detalles.addAll(detalleAux);
         }
-        System.out.println("Detalles: "+detalles.size());
+        System.out.println("Detalles: " + detalles.size());
         return detalles;
     }
 

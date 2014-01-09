@@ -5,13 +5,14 @@
  */
 package subbvasalud.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
+import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 import subbvasalud.models.DetalleSolicitud;
 import subbvasalud.models.Periodo;
 import subbvasalud.models.Socio;
 import subbvasalud.models.SolicitudDeReembolso;
-import subbvasalud.models.TipoDeDocumento;
 
 /**
  *
@@ -67,6 +68,7 @@ public class SolicitudController {
     }
 
     public void mostrarDetalle(DefaultTableModel tableModel, int id) {
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         LinkedList<DetalleSolicitud> lds = new LinkedList<>();
         DetalleSolicitud ds = new DetalleSolicitud();
         lds = ds.getAllDetallebyIdSolicitud(id);
@@ -78,7 +80,7 @@ public class SolicitudController {
                 obj[2] = d.getMonto_total();
                 obj[3] = d.getNo_bonificado();
                 obj[4] = d.getReembolso();
-                obj[5] = d.getFecha().toString();
+                obj[5] = f.format(d.getFecha());
                 tableModel.addRow(obj);
             }
         } else {

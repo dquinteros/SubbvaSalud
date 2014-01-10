@@ -23,6 +23,7 @@ public class NewCarga extends javax.swing.JDialog {
 
     /**
      * Creates new form NewCarga
+     *
      * @param parent
      * @param modal
      */
@@ -206,9 +207,10 @@ public class NewCarga extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelNewCargasButtonActionPerformed
 
     private void aceptNewCargasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptNewCargasButtonActionPerformed
-
-        int socio = mmc.getIdSociosByRut(Integer.parseInt(rutSocioNewCargaTextField.getText()));
-
+        int socio = -1;
+        if (ViewUtils.validaRut(rutSocioNewCargaTextField.getText())) {
+            socio = mmc.getIdSociosByRut(rutSocioNewCargaTextField.getText());
+        }
         if (!addController.validateNullMainFields(rutTextField, nameTextField, lastnameTextField, rutSocioNewCargaTextField)) {
             if (!ViewUtils.validaRut(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);
@@ -216,7 +218,7 @@ public class NewCarga extends javax.swing.JDialog {
             } else if (socio == (-1)) {
                 JOptionPane.showMessageDialog(this, "El socio con el rut " + rutSocioNewCargaTextField.getText() + " no existe", "Rut Socio no existe", WIDTH);
             } else {
-                Carga ca = new Carga(-1, socio, Integer.parseInt(rutTextField.getText()), lastnameTextField.getText() + " " + nameTextField.getText(), 1);
+                Carga ca = new Carga(-1, socio, rutTextField.getText(), lastnameTextField.getText() + " " + nameTextField.getText(), 1);
                 addController.guardarCarga(ca);
                 this.dispose();
             }

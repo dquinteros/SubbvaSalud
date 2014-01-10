@@ -8,6 +8,7 @@ package subbvasalud.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import subbvasalud.views.ViewUtils;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.LinkedList;
 public class Socio extends Conexion {
 
     private int idSocio;
-    private int rutSocio;
+    private String rutSocio;
     private String nombreSocio;
     private String cuentaBancariaSocio;
     private int tipoCuentaSocio;
@@ -44,7 +45,7 @@ public class Socio extends Conexion {
      * @param idEstado
      * @param bancoSocio
      */
-    public Socio(int idSocio, int rutSocio, String nombreSocio, String cuentaBancariaSocio, int tipoCuentaSocio, int presupuestoSocio, int idEstado, int bancoSocio) {
+    public Socio(int idSocio, String rutSocio, String nombreSocio, String cuentaBancariaSocio, int tipoCuentaSocio, int presupuestoSocio, int idEstado, int bancoSocio) {
         this.idSocio = idSocio;
         this.rutSocio = rutSocio;
         this.nombreSocio = nombreSocio;
@@ -73,7 +74,7 @@ public class Socio extends Conexion {
                     + "\"id_banco\")"
                     + " VALUES("
                     + " NULL,"
-                    + s.getRutSocio() + ","
+                    + " '" + s.getRutSocio() + "',"
                     + " '" + s.getNombreSocio() + "',"
                     + " '" + s.getCuentaBancariaSocio() + "',"
                     + s.getTipoCuentaSocio() + ","
@@ -96,7 +97,7 @@ public class Socio extends Conexion {
         if (s != null) {
             String sql = "UPDATE \"socio\""
                     + " SET"
-                    + " rut_socio = " + s.getRutSocio() + ","
+                    + " rut_socio = \"" + s.getRutSocio() + "\","
                     + " nombre_socio = \"" + s.getNombreSocio() + "\","
                     + " cuenta_bancaria_socio = \"" + s.getCuentaBancariaSocio() + "\","
                     + " tipo_cuenta_socio = " + s.getTipoCuentaSocio() + ","
@@ -131,9 +132,9 @@ public class Socio extends Conexion {
      * @param rut
      * @return
      */
-    public String socioToSqlFindByRut(int rut) {
-        if (rut > 0) {
-            String sql = "SELECT * FROM socio WHERE rut_socio =" + rut + ";";
+    public String socioToSqlFindByRut(String rut) {
+        if (ViewUtils.validaRut(rut)) {
+            String sql = "SELECT * FROM socio WHERE rut_socio = '" + rut + "';";
             return sql;
         } else {
             return null;
@@ -256,7 +257,7 @@ public class Socio extends Conexion {
      * @param rut
      * @return
      */
-    public Socio getSociosByRut(int rut) {
+    public Socio getSociosByRut(String rut) {
         String sql = socioToSqlFindByRut(rut);
         ResultSet result = null;
         connect();
@@ -293,7 +294,7 @@ public class Socio extends Conexion {
             Socio s;
             s = new Socio(
                     (int) r.getObject(1),
-                    (int) r.getObject(2),
+                    (String) r.getObject(2),
                     (String) r.getObject(3),
                     (String) r.getObject(4),
                     (int) r.getObject(5),
@@ -313,7 +314,7 @@ public class Socio extends Conexion {
      *
      * @return
      */
-    public int getRutSocio() {
+    public String getRutSocio() {
         return rutSocio;
     }
 
@@ -321,7 +322,7 @@ public class Socio extends Conexion {
      *
      * @param rutSocio
      */
-    public void setRutSocio(int rutSocio) {
+    public void setRutSocio(String rutSocio) {
         this.rutSocio = rutSocio;
     }
 

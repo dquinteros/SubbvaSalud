@@ -21,6 +21,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import subbvasalud.models.Banco;
 import subbvasalud.models.Socio;
 import org.apache.poi.ss.usermodel.*;
+import subbvasalud.models.Carga;
 import subbvasalud.views.ViewUtils;
 
 /**
@@ -56,15 +57,22 @@ public class AddNewSocioController {
         }
         return 0;
     }
-    
-    public void setAllSociosDisabled(){
+
+    public void setAllSociosDisabled() {
         Socio o = new Socio();
         LinkedList<Socio> socios = o.getAllSocios();
         for (Socio socio : socios) {
             socio.setIdEstado(0);
             o.updateSocio(socio);
         }
+        Carga c = new Carga();
+        LinkedList<Carga> cargas = c.getAllCargas();
+        for (Carga carga : cargas) {
+            carga.setIdEstado(0);
+            c.updateCarga(carga);
+        }
     }
+
     /**
      *
      * @param file
@@ -85,34 +93,38 @@ public class AddNewSocioController {
             style.setFillPattern(CellStyle.THIN_FORWARD_DIAG);
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator(); 
+                Iterator<Cell> cellIterator = row.cellIterator();
                 int i = 0;
-                int rut = -1, tipoCuenta = -1;
-                String name = null, cuenta = null;
+                int tipoCuenta = -1;
+                String name = null, cuenta = null, rut = null;
                 while (cellIterator.hasNext() && i < 4) {
                     Cell cell = cellIterator.next();
                     switch (i) {
                         case 0:
                             rut = getRut(cell);
+                            System.out.println("Rut: " + rut);
                             break;
                         case 1:
                             name = getName(cell);
+                            System.out.println("Name: " + name);
                             break;
                         case 2:
                             cuenta = getCuenta(cell);
+                            System.out.println("Cuenta: " + cuenta);
                             break;
                         case 3:
                             tipoCuenta = getTipoCuenta(cell);
+                            System.out.println("Tipo cuenta: " + tipoCuenta);
                             break;
                     }
                     i++;
                 }
-                if ((rut == -1) || (name == null)) {
-                    row.setRowStyle(style);                    
-                } else if((cuenta == null) || (tipoCuenta == -1)) {
+                if ((rut == null) || (name == null)) {
+                    row.setRowStyle(style);
+                } else if ((cuenta == null) || (tipoCuenta == -1)) {
                     Socio socio = new Socio(-1, rut, name, "0", 0, 0, 1, 504);
                     socios.add(socio);
-                } else{
+                } else {
                     Socio socio = new Socio(-1, rut, name, cuenta, tipoCuenta, 0, 1, 504);
                     socios.add(socio);
                 }
@@ -137,13 +149,14 @@ public class AddNewSocioController {
      * @param cell
      * @return
      */
-    public int getRut(Cell cell) {
+    public String getRut(Cell cell) {
         cell.setCellType(Cell.CELL_TYPE_STRING);
         String stringRut = cell.getStringCellValue();
+        stringRut = stringRut.replaceFirst("^0+(?!$)", "");
         if (ViewUtils.validaRut(stringRut)) {
-            return Integer.parseInt(stringRut);
+            return stringRut;
         } else {
-            return -1;
+            return null;
         }
     }
 
@@ -155,7 +168,8 @@ public class AddNewSocioController {
     public String getName(Cell cell) {
         cell.setCellType(Cell.CELL_TYPE_STRING);
         String name = cell.getStringCellValue();
-        if (ViewUtils.isAlpha(name.toLowerCase()) && (name.trim().length() <= 45)) {
+        System.out.println("nombre: " + name);
+        if (ViewUtils.isAlpha(name) && (name.trim().length() <= 45)) {
             return name.trim();
         } else {
             return null;

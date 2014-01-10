@@ -24,9 +24,9 @@ public class ViewUtils {
      * @return
      */
     public static boolean isAlpha(String name) {
-        return name.matches("[a-zA-Z]+");
+        return name.matches("[a-zA-Z Ñ]+");
     }
-    
+
     /**
      *
      * @param name
@@ -195,12 +195,17 @@ public class ViewUtils {
             }
             if (dv == (char) (s != 0 ? s + 47 : 75)) {
                 validacion = true;
+            } else {
+                validaRut(rut.replaceAll("11", "K"));
             }
 
         } catch (java.lang.NumberFormatException e) {
+            return validacion;
         } catch (Exception e) {
+            return validacion;
         }
         return validacion;
+
     }
 
     /**
@@ -210,36 +215,6 @@ public class ViewUtils {
      * @return
      */
     public static boolean validaCargaByRut(String rutSocio, String rutCarga) {
-        return validaCargaByRut(Integer.parseInt(rutSocio), Integer.parseInt(rutCarga));
-    }
-
-    /**
-     *
-     * @param rutSocio
-     * @param rutCarga
-     * @return
-     */
-    public static boolean validaCargaByRut(String rutSocio, int rutCarga) {
-        return validaCargaByRut(Integer.parseInt(rutSocio), rutCarga);
-    }
-
-    /**
-     *
-     * @param rutSocio
-     * @param rutCarga
-     * @return
-     */
-    public static boolean validaCargaByRut(int rutSocio, String rutCarga) {
-        return validaCargaByRut(rutSocio, Integer.parseInt(rutCarga));
-    }
-
-    /**
-     *
-     * @param rutSocio
-     * @param rutCarga
-     * @return
-     */
-    public static boolean validaCargaByRut(int rutSocio, int rutCarga) {
         if (!ViewUtils.validaRut(rutSocio) || !validaRut(rutCarga)) {
             Socio s = new Socio();
             Carga c = new Carga();

@@ -74,7 +74,7 @@ public class MainMenuController {
      * @param rut
      * @return
      */
-    public int getIdSociosByRut(int rut) {
+    public int getIdSociosByRut(String rut) {
         Socio so = new Socio();
         so = so.getSociosByRut(rut);
         if (so.getNombreSocio() != null) {
@@ -92,7 +92,7 @@ public class MainMenuController {
      */
     public int getIdCargasByRut(int rut) {
         for (Carga ca : lc) {
-            if (ca.getRut() == rut) {
+            if (ca.getRut().equals(rut)) {
                 return ca.getIdCarga();
             }
         }

@@ -15,6 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import subbvasalud.controllers.AddNewCargaController;
 import subbvasalud.controllers.AnioController;
 import subbvasalud.controllers.EditCargaController;
 import subbvasalud.controllers.EditSocioController;
@@ -56,7 +57,7 @@ public class MainMenu extends javax.swing.JFrame {
         TableRowFilterSupport.forTable(viewCargasTable).searchable(true).apply();
         TableRowFilterSupport.forTable(mainViewPeriodoTable).searchable(true).apply();
         la = ac.fillAnioComboBox(anioSelectorComboBox);
-        selectSociosFile.setFileFilter(new FileNameExtensionFilter("Documentos de Microsoft Excel", "xls", "xlsx"));
+        selectFile.setFileFilter(new FileNameExtensionFilter("Documentos de Microsoft Excel", "xls", "xlsx"));
     }
 
     /**
@@ -68,7 +69,14 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        selectSociosFile = new javax.swing.JFileChooser();
+        selectFile = new javax.swing.JFileChooser();
+        mainView = new javax.swing.JPanel();
+        mainViewAnioLabel = new javax.swing.JLabel();
+        mainViewPeriodoScrollPanel = new javax.swing.JScrollPane();
+        mainViewPeriodoTable = new javax.swing.JTable();
+        mainViewSolicitudScrollPanel = new javax.swing.JScrollPane();
+        mainViewSolicitudTable = new javax.swing.JTable();
+        anioSelectorComboBox = new javax.swing.JComboBox();
         viewSociosPanel = new javax.swing.JPanel();
         viewSociosScrollPanel = new javax.swing.JScrollPane();
         viewSociosTable = new javax.swing.JTable();
@@ -91,19 +99,13 @@ public class MainMenu extends javax.swing.JFrame {
         newPariodoCamposObligados = new javax.swing.JLabel();
         valorUfLabel = new javax.swing.JLabel();
         valorUfTextField = new javax.swing.JTextField();
-        mainView = new javax.swing.JPanel();
-        mainViewAnioLabel = new javax.swing.JLabel();
-        mainViewPeriodoScrollPanel = new javax.swing.JScrollPane();
-        mainViewPeriodoTable = new javax.swing.JTable();
-        mainViewSolicitudScrollPanel = new javax.swing.JScrollPane();
-        mainViewSolicitudTable = new javax.swing.JTable();
-        anioSelectorComboBox = new javax.swing.JComboBox();
         mainMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         mainViewMenuItem = new javax.swing.JMenuItem();
-        loadFileSociosMenuItem = new javax.swing.JMenuItem();
-        newPeriodoMenuItem = new javax.swing.JMenuItem();
         newSolicitudMenuItem = new javax.swing.JMenuItem();
+        newPeriodoMenuItem = new javax.swing.JMenuItem();
+        loadFileSociosMenuItem = new javax.swing.JMenuItem();
+        loadFileCArgasMenuItem = new javax.swing.JMenuItem();
         viewMenu = new javax.swing.JMenu();
         viewSociosMenuItem = new javax.swing.JMenuItem();
         viewCargasMenuItem = new javax.swing.JMenuItem();
@@ -121,6 +123,88 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new java.awt.CardLayout());
+
+        mainView.setBorder(javax.swing.BorderFactory.createTitledBorder("Inicio"));
+
+        mainViewAnioLabel.setText("Año ");
+
+        mainViewPeriodoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Período"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        mainViewPeriodoTable.setColumnSelectionAllowed(true);
+        mainViewPeriodoTable.getTableHeader().setReorderingAllowed(false);
+        mainViewPeriodoScrollPanel.setViewportView(mainViewPeriodoTable);
+        mainViewPeriodoTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        mainViewSolicitudTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Rut", "Nombre", "Monto", "Solicitud"
+            }
+        ));
+        mainViewSolicitudScrollPanel.setViewportView(mainViewSolicitudTable);
+
+        anioSelectorComboBox.setEditable(true);
+        anioSelectorComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                anioSelectorComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+        anioSelectorComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                anioSelectorComboBoxItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout mainViewLayout = new javax.swing.GroupLayout(mainView);
+        mainView.setLayout(mainViewLayout);
+        mainViewLayout.setHorizontalGroup(
+            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainViewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainViewLayout.createSequentialGroup()
+                        .addComponent(mainViewAnioLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(anioSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(mainViewPeriodoScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mainViewSolicitudScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        mainViewLayout.setVerticalGroup(
+            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainViewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mainViewAnioLabel)
+                    .addComponent(anioSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(mainViewPeriodoScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(mainViewSolicitudScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(mainView, "mainViewCard");
 
         viewSociosPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Ver Socios"));
 
@@ -344,89 +428,12 @@ public class MainMenu extends javax.swing.JFrame {
 
         getContentPane().add(newPeriodoPanel, "newPeriodoCard");
 
-        mainView.setBorder(javax.swing.BorderFactory.createTitledBorder("Inicio"));
-
-        mainViewAnioLabel.setText("Año ");
-
-        mainViewPeriodoTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Período"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        mainViewPeriodoTable.setColumnSelectionAllowed(true);
-        mainViewPeriodoTable.getTableHeader().setReorderingAllowed(false);
-        mainViewPeriodoScrollPanel.setViewportView(mainViewPeriodoTable);
-        mainViewPeriodoTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
-        mainViewSolicitudTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Rut", "Nombre", "Monto", "Solicitud"
-            }
-        ));
-        mainViewSolicitudScrollPanel.setViewportView(mainViewSolicitudTable);
-
-        anioSelectorComboBox.setEditable(true);
-        anioSelectorComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                anioSelectorComboBoxPopupMenuWillBecomeVisible(evt);
-            }
-        });
-        anioSelectorComboBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                anioSelectorComboBoxItemStateChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout mainViewLayout = new javax.swing.GroupLayout(mainView);
-        mainView.setLayout(mainViewLayout);
-        mainViewLayout.setHorizontalGroup(
-            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainViewLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainViewLayout.createSequentialGroup()
-                        .addComponent(mainViewAnioLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(anioSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(mainViewPeriodoScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mainViewSolicitudScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        mainViewLayout.setVerticalGroup(
-            mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainViewLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(mainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mainViewAnioLabel)
-                    .addComponent(anioSelectorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(mainViewPeriodoScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(mainViewSolicitudScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(mainView, "mainViewCard");
-
         fileMenu.setText("Archivo");
+        fileMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileMenuActionPerformed(evt);
+            }
+        });
 
         mainViewMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         mainViewMenuItem.setText("Inicio");
@@ -437,13 +444,14 @@ public class MainMenu extends javax.swing.JFrame {
         });
         fileMenu.add(mainViewMenuItem);
 
-        loadFileSociosMenuItem.setText("Cargar archivo de socios");
-        loadFileSociosMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        newSolicitudMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        newSolicitudMenuItem.setText("Nueva Solicitud");
+        newSolicitudMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadFileSociosMenuItemActionPerformed(evt);
+                newSolicitudMenuItemActionPerformed(evt);
             }
         });
-        fileMenu.add(loadFileSociosMenuItem);
+        fileMenu.add(newSolicitudMenuItem);
 
         newPeriodoMenuItem.setText("Nuevo periodo");
         newPeriodoMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -453,14 +461,16 @@ public class MainMenu extends javax.swing.JFrame {
         });
         fileMenu.add(newPeriodoMenuItem);
 
-        newSolicitudMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        newSolicitudMenuItem.setText("Nueva Solicitud");
-        newSolicitudMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        loadFileSociosMenuItem.setText("Cargar archivo de socios");
+        loadFileSociosMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newSolicitudMenuItemActionPerformed(evt);
+                loadFileSociosMenuItemActionPerformed(evt);
             }
         });
-        fileMenu.add(newSolicitudMenuItem);
+        fileMenu.add(loadFileSociosMenuItem);
+
+        loadFileCArgasMenuItem.setText("Cargar archivo de cargas legales");
+        fileMenu.add(loadFileCArgasMenuItem);
 
         mainMenu.add(fileMenu);
 
@@ -506,9 +516,9 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_viewSociosMenuItemActionPerformed
 
     private void loadFileSociosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFileSociosMenuItemActionPerformed
-        int rv = selectSociosFile.showOpenDialog(getContentPane());
+        int rv = selectFile.showOpenDialog(getContentPane());
         if (rv == JFileChooser.APPROVE_OPTION) {
-            File file = selectSociosFile.getSelectedFile();
+            File file = selectFile.getSelectedFile();
             AddNewSocioController socioController = new AddNewSocioController();
             socioController.cargaMasivaSocios(file);
         }
@@ -531,13 +541,17 @@ public class MainMenu extends javax.swing.JFrame {
     private void editSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSocioButtonActionPerformed
         int row = viewSociosTable.getSelectedRow();
         if (row != -1) {
-            int rut = (int) viewSociosTable.getModel().getValueAt(row, 0);
-            int id = mmc.getIdSociosByRut(rut);
+            String rut = (String) viewSociosTable.getModel().getValueAt(row, 0);
+            if (ViewUtils.validaRut(rut)) {
+                int id = mmc.getIdSociosByRut(rut);
 
-            String[] arg = new String[2];
-            arg[0] = id + "";
-            arg[1] = viewSociosTable.toString();
-            EditSocio.main(arg);
+                String[] arg = new String[2];
+                arg[0] = id + "";
+                arg[1] = viewSociosTable.toString();
+                EditSocio.main(arg);
+            } else {
+                JOptionPane.showMessageDialog(this, "El rut del socio seleccionado es incorrecto.", "Rut Invlido", WIDTH);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Para editar debe seleccionar un socio.", "Seleccionar Socio", WIDTH);
         }
@@ -550,18 +564,22 @@ public class MainMenu extends javax.swing.JFrame {
     private void deleteSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSocioButtonActionPerformed
         int row = viewSociosTable.getSelectedRow();
         if (row != -1) {
-            int rut = (int) viewSociosTable.getModel().getValueAt(row, 0);
+            String rut = (String) viewSociosTable.getModel().getValueAt(row, 0);
             Socio s = new Socio();
-            s = s.getSociosByRut(rut);
-            s.setIdEstado(0);
-            LinkedList<Carga> lc = new LinkedList<>();
-            Carga c = new Carga();
-            lc = c.getAllCargasByIdSocio(s.getIdSocio());
-            for (Carga ca : lc) {
-                ca.setIdEstado(0);
-                ec.editarCarga(ca);
+            if (ViewUtils.validaRut(rut)) {
+                s = s.getSociosByRut(rut);
+                s.setIdEstado(0);
+                LinkedList<Carga> lc = new LinkedList<>();
+                Carga c = new Carga();
+                lc = c.getAllCargasByIdSocio(s.getIdSocio());
+                for (Carga ca : lc) {
+                    ca.setIdEstado(0);
+                    ec.editarCarga(ca);
+                }
+                es.editarSocio(s);
+            } else {
+                JOptionPane.showMessageDialog(this, "El rut del socio seleccionado es incorrecto.", "Rut Invlido", WIDTH);
             }
-            es.editarSocio(s);
         } else {
             JOptionPane.showMessageDialog(this, "Para eliminar debe seleccionar un socio.", "Seleccionar Socio", WIDTH);
         }
@@ -594,11 +612,16 @@ public class MainMenu extends javax.swing.JFrame {
     private void deleteCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCargaButtonActionPerformed
         int row = viewCargasTable.getSelectedRow();
         if (row != -1) {
-            int rut = (int) viewCargasTable.getModel().getValueAt(row, 0);
-            Carga c = new Carga();
-            c = c.getCargasByRut(rut);
-            c.setIdEstado(0);
-            ec.editarCarga(c);
+            String rut = (String) viewCargasTable.getModel().getValueAt(row, 0);
+            if (ViewUtils.validaRut(rut)) {
+                Carga c = new Carga();
+                c = c.getCargasByRut(rut);
+                c.setIdEstado(0);
+                ec.editarCarga(c);
+            } else {
+                JOptionPane.showMessageDialog(this, "El rut del socio seleccionado es incorrecto.", "Rut Invlido", WIDTH);
+
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Para eliminar debe seleccionar un socio.", "Seleccionar Socio", WIDTH);
         }
@@ -632,7 +655,11 @@ public class MainMenu extends javax.swing.JFrame {
                 pc.guardarPeriodo(p);
                 CardLayout cl = (CardLayout) (getContentPane().getLayout());
                 cl.show(getContentPane(), "mainViewCard");
-                int anio = (int) anioSelectorComboBox.getSelectedItem();
+                int anio = 0;
+                try {
+                    anio = (int) anioSelectorComboBox.getSelectedItem();
+                } catch (NullPointerException e) {
+                }
                 if (anio != 0) {
                     while (((DefaultTableModel) mainViewPeriodoTable.getModel()).getRowCount() != 0) {
                         ((DefaultTableModel) mainViewPeriodoTable.getModel()).removeRow(0);
@@ -674,6 +701,15 @@ public class MainMenu extends javax.swing.JFrame {
     private void valorUfTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorUfTextFieldKeyTyped
         ViewUtils.onlyNumbers(evt, valorUfTextField, 6);
     }//GEN-LAST:event_valorUfTextFieldKeyTyped
+
+    private void fileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuActionPerformed
+        int rv = selectFile.showOpenDialog(getContentPane());
+        if (rv == JFileChooser.APPROVE_OPTION) {
+            File file = selectFile.getSelectedFile();
+            AddNewCargaController cargaController = new AddNewCargaController();
+            cargaController.cargaMasivaCargasLegales(file);
+        }
+    }//GEN-LAST:event_fileMenuActionPerformed
 
     private void refresh() {
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
@@ -731,6 +767,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenu editMenu;
     private javax.swing.JButton editSocioButton;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem loadFileCArgasMenuItem;
     private javax.swing.JMenuItem loadFileSociosMenuItem;
     private javax.swing.JMenuBar mainMenu;
     private javax.swing.JPanel mainView;
@@ -750,7 +787,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel newPeriodoPanel;
     private com.toedter.calendar.JYearChooser newPeriodoSelectAnio;
     private javax.swing.JMenuItem newSolicitudMenuItem;
-    private javax.swing.JFileChooser selectSociosFile;
+    private javax.swing.JFileChooser selectFile;
     private javax.swing.JLabel valorUfLabel;
     private javax.swing.JTextField valorUfTextField;
     private javax.swing.JMenuItem viewCargasMenuItem;

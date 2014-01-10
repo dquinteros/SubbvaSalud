@@ -28,7 +28,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
 
     private static Periodo periodo;
     private static Date fechaSolicitud;
-    private static int rutSocio;
+    private static String rutSocio;
     private static int idSolicitud;
 
     private TipoDeDocumento tipo;
@@ -260,9 +260,9 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                                 Prestacion prestacionSelected = new Prestacion();
                                 prestacionSelected = prestacionSelected.getPrestacionById(tipo.getId_prestacion());
                                 if (idTipo == 194 || idTipo == 144 || idTipo == 113 || idTipo == 116) {
-                                    int rutCarga = Integer.parseInt(rutCargaTextField.getText().trim());
+                                    String rutCarga = rutCargaTextField.getText().trim();
                                     if (ViewUtils.validaCargaByRut(rutSocio, rutCarga)) {
-                                        int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, Integer.parseInt(rutCargaTextField.getText()), periodo);
+                                        int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutCargaTextField.getText(), periodo);
                                         DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, prestacionSelected.getNombrePrestacion(), fechaDocumento, montoT, monto, reembolso, rutCarga);
                                         DocumentController dc = new DocumentController();
                                         dc.guardarDocumento(ds);
@@ -383,7 +383,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
      */
     public static void main(String args[], Periodo p, Date fecha) {
 
-        rutSocio = Integer.parseInt(args[0]);
+        rutSocio = args[0];
         idSolicitud = Integer.parseInt(args[1]);
         periodo = p;
         fechaSolicitud = fecha;

@@ -364,7 +364,7 @@ public class NewSolicitud extends javax.swing.JDialog {
                     String[] args = new String[2];
                     args[0] = rutSocio;
 
-                    s = s.getSociosByRut(Integer.parseInt(rutSocio));
+                    s = s.getSociosByRut(rutSocio);
                     if (s != null) {
                         int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
                         SolicitudDeReembolso sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), fecha, montoTotal);
@@ -391,7 +391,7 @@ public class NewSolicitud extends javax.swing.JDialog {
         boolean rutValido = ViewUtils.validaRut(rut);
         if (rutValido) {
             Socio socioAux = new Socio();
-            socioAux = socioAux.getSociosByRut(Integer.parseInt(rut));
+            socioAux = socioAux.getSociosByRut(rut);
             System.out.println(socioAux.getNombreSocio());
             if ((socioAux.getNombreSocio() != null)) {
                 nameSocioNewSolicitudTextField.setText(socioAux.getNombreSocio());
@@ -437,7 +437,7 @@ public class NewSolicitud extends javax.swing.JDialog {
                     String[] args = new String[2];
                     args[0] = rutSocio;
 
-                    s = s.getSociosByRut(Integer.parseInt(rutSocio));
+                    s = s.getSociosByRut(rutSocio);
                     if (s != null) {
                         int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
                         SolicitudDeReembolso sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), fecha, montoTotal);
@@ -514,7 +514,7 @@ public class NewSolicitud extends javax.swing.JDialog {
                 if (fecha != null) {
                     Periodo p = new Periodo();
                     p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
-                    s = s.getSociosByRut(Integer.parseInt(rutSocio));
+                    s = s.getSociosByRut(rutSocio);
                     if (s != null) {
                         int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
                         SolicitudDeReembolso sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), fecha, montoTotal);

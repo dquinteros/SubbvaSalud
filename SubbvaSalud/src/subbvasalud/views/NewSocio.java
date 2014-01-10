@@ -251,7 +251,7 @@ public class NewSocio extends javax.swing.JDialog {
                 for (TipoCuenta tc : listTipoCuenta) {
                     tipo = tc.getNombreCuenta().equals((String) accounTypeComboBox.getSelectedItem()) ? tc.getIdCuenta() : -1;
                 }
-                Socio so = new Socio(-1, Integer.parseInt(rutTextField.getText()), lastnameTextField.getText() + " " + nameTextField.getText(), accountTextField.getText(), tipo, 0, 1, banco);
+                Socio so = new Socio(-1, rutTextField.getText(), lastnameTextField.getText() + " " + nameTextField.getText(), accountTextField.getText(), tipo, 0, 1, banco);
                 addController.guardarSocio(so);
                 this.dispose();
             }

@@ -26,6 +26,7 @@ public class EditCarga extends javax.swing.JDialog {
 
     /**
      * Creates new form EditCarga
+     *
      * @param parent
      * @param modal
      */
@@ -196,9 +197,10 @@ public class EditCarga extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelCargaButtonActionPerformed
 
     private void saveCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCargaButtonActionPerformed
-
-        int socio = mmc.getIdSociosByRut(Integer.parseInt(rutSocioTextField.getText()));
-
+         int socio = -1;
+        if (!ViewUtils.validaRut(rutTextField.getText())) {
+           socio = mmc.getIdSociosByRut(rutSocioTextField.getText());
+        }
         if (!editController.validateNullMainFields(rutTextField, nameTextField, rutSocioTextField)) {
             if (!ViewUtils.validaRut(rutTextField.getText())) {
                 rutTextField.setBackground(Color.red);
@@ -206,7 +208,7 @@ public class EditCarga extends javax.swing.JDialog {
             } else if (socio == (-1)) {
                 JOptionPane.showMessageDialog(this, "El socio con el rut " + rutSocioTextField.getText() + " no existe", "Rut Socio no existe", WIDTH);
             } else {
-                c.setRut(Integer.parseInt(rutTextField.getText()));
+                c.setRut(rutTextField.getText());
                 c.setNombre(nameTextField.getText());
                 c.setIdSocio(socio);
                 editController.editarCarga(c);

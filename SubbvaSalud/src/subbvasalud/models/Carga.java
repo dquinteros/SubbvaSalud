@@ -8,6 +8,7 @@ package subbvasalud.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import subbvasalud.views.ViewUtils;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Carga extends Conexion {
 
     private int idCarga;
     private int idSocio;
-    private int rut;
+    private String rut;
     private String nombre;
     private int idEstado;
 
@@ -35,7 +36,7 @@ public class Carga extends Conexion {
      * @param nombre
      * @param idEstado
      */
-    public Carga(int idCarga, int idSocio, int rut, String nombre, int idEstado) {
+    public Carga(int idCarga, int idSocio, String rut, String nombre, int idEstado) {
         this.idCarga = idCarga;
         this.idSocio = idSocio;
         this.rut = rut;
@@ -59,7 +60,7 @@ public class Carga extends Conexion {
                     + " VALUES("
                     + " NULL,"
                     + c.getIdSocio() + ","
-                    + c.getRut() + ","
+                    + " '" + c.getRut() + "',"
                     + " '" + c.getNombre() + "',"
                     + c.getIdEstado()
                     + ");";
@@ -109,8 +110,8 @@ public class Carga extends Conexion {
      * @param rut
      * @return
      */
-    public String cargaToSqlFindByRut(int rut) {
-        if (rut > 0) {
+    public String cargaToSqlFindByRut(String rut) {
+        if (ViewUtils.validaRut(rut)) {
             String sql = "SELECT * FROM carga WHERE rut_carga =" + rut + ";";
             return sql;
         } else {
@@ -203,7 +204,7 @@ public class Carga extends Conexion {
      * @return
      */
     public LinkedList<Carga> getAllCargasByIdSocio(int id) {
-        String sql = "select * from carga where id_socio =" + id;
+        String sql = "select * from carga where id_socio =" + id + " and id_estado = 1";
         ResultSet result = null;
         connect();
         LinkedList<Carga> listCargas;
@@ -270,7 +271,7 @@ public class Carga extends Conexion {
      * @param rut
      * @return
      */
-    public Carga getCargasByRut(int rut) {
+    public Carga getCargasByRut(String rut) {
         String sql = cargaToSqlFindByRut(rut);
         ResultSet result = null;
         connect();
@@ -308,7 +309,7 @@ public class Carga extends Conexion {
             c = new Carga(
                     (int) r.getObject(1),
                     (int) r.getObject(2),
-                    (int) r.getObject(3),
+                    (String) r.getObject(3),
                     (String) r.getObject(4),
                     (int) r.getObject(5)
             );
@@ -356,7 +357,7 @@ public class Carga extends Conexion {
      *
      * @return
      */
-    public int getRut() {
+    public String getRut() {
         return rut;
     }
 
@@ -364,7 +365,7 @@ public class Carga extends Conexion {
      *
      * @param rut
      */
-    public void setRut(int rut) {
+    public void setRut(String rut) {
         this.rut = rut;
     }
 

@@ -6,7 +6,23 @@
 package subbvasalud.controllers;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import subbvasalud.models.Carga;
 import subbvasalud.models.Socio;
 
@@ -96,5 +112,82 @@ public class AddNewCargaController {
             return true;
         }
         return false;
+    }
+
+    public void cargaMasivaCargasLegales(File file) {
+        if (file.exists() && file.isFile() && file.canRead()) {
+            LinkedList<Carga> cargas = cargaArchivo(file);
+            setAllSociosDisabled();
+            for (Carga socios : cargas) {
+                guardarCarga(socios);
+            }
+        }
+    }
+
+    private LinkedList<Carga> cargaArchivo(File file) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+//        try {
+//
+//            //Get the workbook instance for XLS file
+//            Workbook workbook = WorkbookFactory.create(file);
+//            //Get first sheet from the workbook
+//            Sheet sheet = workbook.getSheetAt(0);
+//            //Get iterator to all the rows in current sheet
+//            Iterator<Row> rowIterator = sheet.iterator();
+//            LinkedList<Socio> socios = new LinkedList<>();
+//            CellStyle style = workbook.createCellStyle();
+//            style.setFillBackgroundColor(IndexedColors.RED.getIndex());
+//            style.setFillPattern(CellStyle.THIN_FORWARD_DIAG);
+//            while (rowIterator.hasNext()) {
+//                Row row = rowIterator.next();
+//                Iterator<Cell> cellIterator = row.cellIterator(); 
+//                int i = 0;
+//                int rutSocio = -1,rutCarga = -1, tipoCuenta = -1;
+//                String name = null, cuenta = null;
+//                while (cellIterator.hasNext() && i < 4) {
+//                    Cell cell = cellIterator.next();
+//                    switch (i) {
+//                        case 0:
+//                            rut = getRut(cell);
+//                            break;
+//                        case 1:
+//                            name = getName(cell);
+//                            break;
+//                        case 2:
+//                            cuenta = getCuenta(cell);
+//                            break;
+//                        case 3:
+//                            tipoCuenta = getTipoCuenta(cell);
+//                            break;
+//                    }
+//                    i++;
+//                }
+//                if ((rut == -1) || (name == null)) {
+//                    row.setRowStyle(style);                    
+//                } else if((cuenta == null) || (tipoCuenta == -1)) {
+//                    Socio socio = new Socio(-1, rut, name, "0", 0, 0, 1, 504);
+//                    socios.add(socio);
+//                } else{
+//                    Socio socio = new Socio(-1, rut, name, cuenta, tipoCuenta, 0, 1, 504);
+//                    socios.add(socio);
+//                }
+//            }
+//            try (FileOutputStream out = new FileOutputStream(file.getName())) {
+//                workbook.write(out);
+//            }
+//            return socios;
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InvalidFormatException ex) {
+//            Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//        }
+//        return null;
+    }
+
+    private void setAllSociosDisabled() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

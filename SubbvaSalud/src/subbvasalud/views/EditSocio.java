@@ -238,7 +238,7 @@ public class EditSocio extends javax.swing.JDialog {
                 for (TipoCuenta tc : listTipoCuenta) {
                     tipo = tc.getNombreCuenta().equals((String) accounTypeComboBox.getSelectedItem()) ? tc.getIdCuenta() : tipo;
                 }
-                s.setRutSocio(Integer.parseInt(rutTextField.getText()));
+                s.setRutSocio(rutTextField.getText());
                 s.setNombreSocio(nameTextField.getText());
                 s.setBancoSocio(banco);
                 s.setCuentaBancariaSocio(accountTextField.getText());

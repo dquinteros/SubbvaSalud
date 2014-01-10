@@ -32,7 +32,7 @@ public class CargaController {
      * @param rut
      * @return
      */
-    public LinkedList<Carga> getCargasByRutSocio(int rut) {
+    public LinkedList<Carga> getCargasByRutSocio(String rut) {
         if (ViewUtils.validaRut(rut)) {
             LinkedList<Carga> cargas;
             Socio socio = null;
@@ -51,38 +51,16 @@ public class CargaController {
 
     /**
      *
-     * @param rut
-     * @return
-     */
-    public LinkedList<Carga> getCargasByRutSocio(String rut) {
-        if (ViewUtils.validaRut(rut)) {
-            LinkedList<Carga> cargas;
-            Socio socio = null;
-            socio = s.getSociosByRut(Integer.parseInt(rut));
-            if (socio != null) {
-                if (!socio.getNombreSocio().isEmpty()) {
-                    cargas = c.getAllCargasByIdSocio(socio.getIdSocio());
-                    return cargas;
-                }
-            }
-            return null;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     *
      * @param rutCarga
      * @param rutSocio
      * @return
      */
-    public Carga getCargaByRutCargaAndSocio(int rutCarga, int rutSocio) {
+    public Carga getCargaByRutCargaAndSocio(int rutCarga, String rutSocio) {
         if (ViewUtils.validaRut(rutCarga)) {
             LinkedList<Carga> cargas = this.getCargasByRutSocio(rutSocio);
             if (cargas != null) {
                 for (Carga ca : cargas) {
-                    if (ca.getRut() == rutCarga) {
+                    if (ca.getRut().equals(rutCarga)) {
                         return ca;
                     }
                 }

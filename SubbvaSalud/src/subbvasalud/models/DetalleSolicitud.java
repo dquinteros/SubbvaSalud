@@ -31,7 +31,7 @@ public class DetalleSolicitud extends Conexion {
     private int monto_total;
     private int no_bonificado;
     private int reembolso;
-    private int rut;
+    private String rut;
 
     /**
      *
@@ -51,7 +51,7 @@ public class DetalleSolicitud extends Conexion {
      * @param reembolso
      * @param rut
      */
-    public DetalleSolicitud(int id_detalle, int id_solicitud, int id_tipo, String nombre, Date fecha, int monto_total, int no_bonificado, int reembolso, int rut) {
+    public DetalleSolicitud(int id_detalle, int id_solicitud, int id_tipo, String nombre, Date fecha, int monto_total, int no_bonificado, int reembolso, String rut) {
         this.id_detalle = id_detalle;
         this.id_solicitud = id_solicitud;
         this.id_tipo = id_tipo;
@@ -93,7 +93,7 @@ public class DetalleSolicitud extends Conexion {
                     + d.getMonto_total() + ","
                     + d.getNo_bonificado() + ","
                     + d.getReembolso() + ","
-                    + d.getRut()
+                    + " '" + d.getRut() + "'"
                     + ");";
             System.out.println(sql);
             return sql;
@@ -245,8 +245,8 @@ public class DetalleSolicitud extends Conexion {
      * @param rut
      * @return
      */
-    public LinkedList<DetalleSolicitud> getAllDetallebyIdSolicitud(int id, int rut) {
-        String sql = "select * from detalle_solicitud where id_solicitud = " + id + " and rut_documento = " + rut;
+    public LinkedList<DetalleSolicitud> getAllDetallebyIdSolicitud(int id, String rut) {
+        String sql = "select * from detalle_solicitud where id_solicitud = " + id + " and rut_documento = '" + rut + "';";
         ResultSet result = null;
         connect();
         LinkedList<DetalleSolicitud> listDetalles;
@@ -401,7 +401,7 @@ public class DetalleSolicitud extends Conexion {
                     (int) r.getObject(6),
                     (int) r.getObject(7),
                     (int) r.getObject(8),
-                    (int) r.getObject(9)
+                    (String) r.getObject(9)
             );
             return d;
         } catch (SQLException e) {
@@ -547,7 +547,7 @@ public class DetalleSolicitud extends Conexion {
      *
      * @return
      */
-    public int getRut() {
+    public String getRut() {
         return rut;
     }
 
@@ -555,7 +555,7 @@ public class DetalleSolicitud extends Conexion {
      *
      * @param rut
      */
-    public void setRut(int rut) {
+    public void setRut(String rut) {
         this.rut = rut;
     }
 

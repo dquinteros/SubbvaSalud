@@ -54,7 +54,7 @@ public class DocumentUtils {
      * @param periodo
      * @return
      */
-    public static int calculaReeembolso(TipoDeDocumento tipo, int monto, int rut, Periodo periodo) {
+    public static int calculaReeembolso(TipoDeDocumento tipo, int monto, String rut, Periodo periodo) {
 
         int reembolso = 0;
         System.out.println("Rut: " + rut);
@@ -84,7 +84,7 @@ public class DocumentUtils {
      * @param rut
      * @return
      */
-    public static int calculaReembolsoUnaCondicion(TipoDeDocumento tipo, int monto, Tope tope, Periodo periodo, int rut) {
+    public static int calculaReembolsoUnaCondicion(TipoDeDocumento tipo, int monto, Tope tope, Periodo periodo, String rut) {
         int reembolso = 0;
         if (tope.getTope() != 0) {
             if (tope.getTipoTope() == 1) {
@@ -145,7 +145,7 @@ public class DocumentUtils {
      * @param periodo
      * @return
      */
-    public static int getSumaDeMontosByRut(int rut, Tope tope, Periodo periodo) {
+    public static int getSumaDeMontosByRut(String rut, Tope tope, Periodo periodo) {
         LinkedList<DetalleSolicitud> documentos = getAllDocByIdYear(periodo.getId_anio(), rut);
         System.out.println("Documentos: " + documentos.size());
         LinkedList<TipoDeDocumento> tipos = getTiposbyTope(tope);
@@ -168,7 +168,7 @@ public class DocumentUtils {
      * @param rut
      * @return
      */
-    public static LinkedList<DetalleSolicitud> getAllDocByIdYear(int id, int rut) {
+    public static LinkedList<DetalleSolicitud> getAllDocByIdYear(int id, String rut) {
         Periodo periodo = new Periodo();
         LinkedList<Periodo> periodos = periodo.getAllPeriodosByYear(id);
         System.out.println("Periodos: " + periodos.size());

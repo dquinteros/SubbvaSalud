@@ -23,12 +23,20 @@ public class PeriodoController {
     AnioController ac;
     LinkedList<Periodo> lp;
 
+    /**
+     *
+     */
     public PeriodoController() {
         p = new Periodo();
         a = new Anio();
         ac = new AnioController();
     }
 
+    /**
+     *
+     * @param pe
+     * @return
+     */
     public int guardarPeriodo(Periodo pe) {
 
         int i = p.insertPeriodo(pe);
@@ -39,6 +47,11 @@ public class PeriodoController {
         }
     }
 
+    /**
+     *
+     * @param pe
+     * @return
+     */
     public int editarPeriodo(Periodo pe) {
         int i = p.updatePeriodo(p);
         if (i == 0) {
@@ -48,10 +61,20 @@ public class PeriodoController {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Periodo getPeriodo(int id) {
         return p.getPeriodoById(id);
     }
 
+    /**
+     *
+     * @param tableModel
+     * @param anio
+     */
     public void mostrarPeriodos(DefaultTableModel tableModel, int anio) {
         a = a.getAnioByYear(anio);
         lp = p.getAllPeriodosByYear(a.getId_anio());
@@ -68,6 +91,12 @@ public class PeriodoController {
         }
     }
 
+    /**
+     *
+     * @param nombrePeriodo
+     * @param valorUF
+     * @return
+     */
     public boolean validateNullMainFields(JTextField nombrePeriodo, JTextField valorUF) {
 
         if ((nombrePeriodo.getText().length() == 0) || (valorUF.getText().length() == 0)) {

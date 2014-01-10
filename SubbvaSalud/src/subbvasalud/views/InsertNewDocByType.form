@@ -186,7 +186,7 @@
                 <StringItem index="1" value="Ambulatorio"/>
                 <StringItem index="2" value="Hospitalario"/>
                 <StringItem index="3" value="Maternidad"/>
-                <StringItem index="4" value=""/>
+                <StringItem index="4" value="Otro"/>
               </StringArray>
             </Property>
           </Properties>

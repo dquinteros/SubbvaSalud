@@ -33,9 +33,24 @@ public class DetalleSolicitud extends Conexion {
     private int reembolso;
     private int rut;
 
+    /**
+     *
+     */
     public DetalleSolicitud() {
     }
 
+    /**
+     *
+     * @param id_detalle
+     * @param id_solicitud
+     * @param id_tipo
+     * @param nombre
+     * @param fecha
+     * @param monto_total
+     * @param no_bonificado
+     * @param reembolso
+     * @param rut
+     */
     public DetalleSolicitud(int id_detalle, int id_solicitud, int id_tipo, String nombre, Date fecha, int monto_total, int no_bonificado, int reembolso, int rut) {
         this.id_detalle = id_detalle;
         this.id_solicitud = id_solicitud;
@@ -48,6 +63,11 @@ public class DetalleSolicitud extends Conexion {
         this.rut = rut;
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public String detalleToSqlInsert(DetalleSolicitud d) {
         if (d != null) {
             Calendar cal = Calendar.getInstance();
@@ -82,6 +102,11 @@ public class DetalleSolicitud extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public String detalleToSqlUpdate(DetalleSolicitud d) {
         if (d != null) {
             Calendar cal = Calendar.getInstance();
@@ -107,6 +132,11 @@ public class DetalleSolicitud extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String detalleToSqlFindById(int id) {
         if (id > 0) {
             String sql = "SELECT * FROM detalle_solicitud WHERE id_solicitud =" + id + ";";
@@ -116,6 +146,11 @@ public class DetalleSolicitud extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public String detalleToSqlFindByNombre(String name) {
         if (name != null) {
             String sql = "SELECT * FROM detalle_solicitud WHERE nombre_documento = \"" + name + "\" ;";
@@ -125,6 +160,11 @@ public class DetalleSolicitud extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public int insertDetalle(DetalleSolicitud d) {
         String sql = this.detalleToSqlInsert(d);
 
@@ -142,6 +182,11 @@ public class DetalleSolicitud extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public int updateDetalle(DetalleSolicitud d) {
         String sql = this.detalleToSqlUpdate(d);
 
@@ -159,6 +204,10 @@ public class DetalleSolicitud extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<DetalleSolicitud> getAllDetalle() {
         String sql = "select * from detalle_solicitud";
         ResultSet result = null;
@@ -190,6 +239,12 @@ public class DetalleSolicitud extends Conexion {
         return listDetalles;
     }
 
+    /**
+     *
+     * @param id
+     * @param rut
+     * @return
+     */
     public LinkedList<DetalleSolicitud> getAllDetallebyIdSolicitud(int id, int rut) {
         String sql = "select * from detalle_solicitud where id_solicitud = " + id + " and rut_documento = " + rut;
         ResultSet result = null;
@@ -221,6 +276,11 @@ public class DetalleSolicitud extends Conexion {
         return listDetalles;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public LinkedList<DetalleSolicitud> getAllDetallebyIdSolicitud(int id) {
         String sql = "select * from detalle_solicitud where id_solicitud = " + id;
         ResultSet result = null;
@@ -252,6 +312,11 @@ public class DetalleSolicitud extends Conexion {
         return listDetalles;
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public LinkedList<DetalleSolicitud> getAllDetalleByRut(int rut) {
         String sql = "select * from detalle_solicitud where rut_documento = " + rut;
         ResultSet result = null;
@@ -283,6 +348,11 @@ public class DetalleSolicitud extends Conexion {
         return listDetalles;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public DetalleSolicitud getDetalleById(int id) {
         String sql = detalleToSqlFindById(id);
         ResultSet result = null;
@@ -310,6 +380,11 @@ public class DetalleSolicitud extends Conexion {
         return newDetalle;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public DetalleSolicitud createDetalleFromResultSet(ResultSet r) {
         try {
             DetalleSolicitud d;
@@ -340,74 +415,146 @@ public class DetalleSolicitud extends Conexion {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_detalle() {
         return id_detalle;
     }
 
+    /**
+     *
+     * @param id_detalle
+     */
     public void setId_detalle(int id_detalle) {
         this.id_detalle = id_detalle;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_solicitud() {
         return id_solicitud;
     }
 
+    /**
+     *
+     * @param id_solicitud
+     */
     public void setId_solicitud(int id_solicitud) {
         this.id_solicitud = id_solicitud;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_tipo() {
         return id_tipo;
     }
 
+    /**
+     *
+     * @param id_tipo
+     */
     public void setId_tipo(int id_tipo) {
         this.id_tipo = id_tipo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getFecha() {
         return fecha;
     }
 
+    /**
+     *
+     * @param fecha
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMonto_total() {
         return monto_total;
     }
 
+    /**
+     *
+     * @param monto_total
+     */
     public void setMonto_total(int monto_total) {
         this.monto_total = monto_total;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNo_bonificado() {
         return no_bonificado;
     }
 
+    /**
+     *
+     * @param no_bonificado
+     */
     public void setNo_bonificado(int no_bonificado) {
         this.no_bonificado = no_bonificado;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getReembolso() {
         return reembolso;
     }
 
+    /**
+     *
+     * @param reembolso
+     */
     public void setReembolso(int reembolso) {
         this.reembolso = reembolso;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getRut() {
         return rut;
     }
 
+    /**
+     *
+     * @param rut
+     */
     public void setRut(int rut) {
         this.rut = rut;
     }

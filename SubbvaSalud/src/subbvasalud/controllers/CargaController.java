@@ -19,11 +19,19 @@ public class CargaController {
     Carga c;
     Socio s;
 
+    /**
+     *
+     */
     public CargaController() {
         s = new Socio();
         c = new Carga();
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public LinkedList<Carga> getCargasByRutSocio(int rut) {
         if (ViewUtils.validaRut(rut)) {
             LinkedList<Carga> cargas;
@@ -41,6 +49,11 @@ public class CargaController {
         }
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public LinkedList<Carga> getCargasByRutSocio(String rut) {
         if (ViewUtils.validaRut(rut)) {
             LinkedList<Carga> cargas;
@@ -58,6 +71,12 @@ public class CargaController {
         }
     }
 
+    /**
+     *
+     * @param rutCarga
+     * @param rutSocio
+     * @return
+     */
     public Carga getCargaByRutCargaAndSocio(int rutCarga, int rutSocio) {
         if (ViewUtils.validaRut(rutCarga)) {
             LinkedList<Carga> cargas = this.getCargasByRutSocio(rutSocio);

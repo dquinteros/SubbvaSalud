@@ -14,9 +14,16 @@ import subbvasalud.models.Gasto;
  */
 public class GastoController {
 
+    /**
+     *
+     */
     public GastoController() {
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Gasto> getAll() {
         Gasto g = new Gasto();
         LinkedList<Gasto> lg = new LinkedList<>();
@@ -29,6 +36,11 @@ public class GastoController {
 
     }
 
+    /**
+     *
+     * @param nombre
+     * @return
+     */
     public Gasto getByName(String nombre) {
         Gasto g = new Gasto();
         LinkedList<Gasto> lg = new LinkedList<>();

@@ -120,7 +120,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
 
         gastoLabel.setText("Tipo de gasto*:");
 
-        gastoComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Ambulatorio", "Hospitalario", "Maternidad", "" }));
+        gastoComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Ambulatorio", "Hospitalario", "Maternidad", "Otro" }));
         gastoComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 gastoComboBoxItemStateChanged(evt);
@@ -405,7 +405,12 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                                         JOptionPane.showMessageDialog(this, "El rut de la carga es incorrecto o no fue ingresado", "Error rut de la carga", WIDTH);
                                     }
                                 } else {
-                                    int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);
+                                    int reembolso = 0;
+                                     if (tipo.getId_tipo() == 400) {
+                                        reembolso = (Integer.parseInt(porcentajeTextField.getText()) * monto) / 100;
+                                    } else {
+                                        reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);
+                                    }
                                     DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, prestacionSelected.getNombrePrestacion(), fechaDocumento, montoTotal, monto, reembolso, rutSocio);
                                     DocumentController dc = new DocumentController();
                                     dc.guardarDocumento(ds);
@@ -530,6 +535,13 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                         if (tipos.size() == 1) {
                             tipo = tipos.get(0);
                             porcentajeTextField.setText(tipo.getPorcentaje_tipo() + "");
+                            if (tipo.getId_tipo() == 400) {
+                                porcentajeTextField.setFocusable(true);
+                                porcentajeTextField.setEditable(true);
+                            } else {
+                                porcentajeTextField.setFocusable(false);
+                                porcentajeTextField.setEditable(false);
+                            }
                         } else if (tipos.size() > 1) {
                             if (!medicamentoCheckBox.isSelected()) {
                                 for (TipoDeDocumento tipoDeDocumento : tipos) {
@@ -576,6 +588,13 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                             medicamentoCheckBox.setEnabled(false);
                             tipo = tipos.get(0);
                             porcentajeTextField.setText(tipo.getPorcentaje_tipo() + "");
+                            if (tipo.getId_tipo() == 0) {
+                                porcentajeTextField.setFocusable(true);
+                                porcentajeTextField.setEditable(true);
+                            } else {
+                                porcentajeTextField.setFocusable(false);
+                                porcentajeTextField.setEditable(false);
+                            }
                         } else if (tipos.size() > 1) {
                             medicamentoCheckBox.setEnabled(true);
                             if (!medicamentoCheckBox.isSelected()) {

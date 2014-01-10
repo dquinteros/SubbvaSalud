@@ -21,6 +21,11 @@ import subbvasalud.views.ViewUtils;
  */
 public class DocumentUtils {
 
+    /**
+     *
+     * @param tipo
+     * @return
+     */
     public static LinkedList<Tope> getTopebyDocType(TipoDeDocumento tipo) {
         Condicion auxCondicion = new Condicion();
         LinkedList<Condicion> condiciones = auxCondicion.getAllCondiciones();
@@ -41,6 +46,14 @@ public class DocumentUtils {
         return ans;
     }
 
+    /**
+     *
+     * @param tipo
+     * @param monto
+     * @param rut
+     * @param periodo
+     * @return
+     */
     public static int calculaReeembolso(TipoDeDocumento tipo, int monto, int rut, Periodo periodo) {
 
         int reembolso = 0;
@@ -62,6 +75,15 @@ public class DocumentUtils {
         return reembolso;
     }
 
+    /**
+     *
+     * @param tipo
+     * @param monto
+     * @param tope
+     * @param periodo
+     * @param rut
+     * @return
+     */
     public static int calculaReembolsoUnaCondicion(TipoDeDocumento tipo, int monto, Tope tope, Periodo periodo, int rut) {
         int reembolso = 0;
         if (tope.getTope() != 0) {
@@ -116,6 +138,13 @@ public class DocumentUtils {
         return reembolso;
     }
 
+    /**
+     *
+     * @param rut
+     * @param tope
+     * @param periodo
+     * @return
+     */
     public static int getSumaDeMontosByRut(int rut, Tope tope, Periodo periodo) {
         LinkedList<DetalleSolicitud> documentos = getAllDocByIdYear(periodo.getId_anio(), rut);
         System.out.println("Documentos: " + documentos.size());
@@ -133,6 +162,12 @@ public class DocumentUtils {
         return suma;
     }
 
+    /**
+     *
+     * @param id
+     * @param rut
+     * @return
+     */
     public static LinkedList<DetalleSolicitud> getAllDocByIdYear(int id, int rut) {
         Periodo periodo = new Periodo();
         LinkedList<Periodo> periodos = periodo.getAllPeriodosByYear(id);
@@ -155,6 +190,11 @@ public class DocumentUtils {
         return detalles;
     }
 
+    /**
+     *
+     * @param tope
+     * @return
+     */
     public static LinkedList<TipoDeDocumento> getTiposbyTope(Tope tope) {
         Condicion auxCondicion = new Condicion();
         LinkedList<Condicion> condiciones = auxCondicion.getAllCondiciones();
@@ -167,7 +207,7 @@ public class DocumentUtils {
         LinkedList<TipoDeDocumento> ans = new LinkedList<>();
         for (Condicion cond : docCondList) {
             TipoDeDocumento newTipoDoc = new TipoDeDocumento();
-            newTipoDoc = newTipoDoc.getTipoDeDocumentosById(cond.getIdTipo());
+            newTipoDoc = newTipoDoc.getTipoDocumentoById(cond.getIdTipo());
             ans.add(newTipoDoc);
         }
         return ans;

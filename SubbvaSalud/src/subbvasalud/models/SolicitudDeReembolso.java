@@ -26,9 +26,20 @@ public class SolicitudDeReembolso extends Conexion {
     private Date fecha;
     private int montoTotal;
 
+    /**
+     *
+     */
     public SolicitudDeReembolso() {
     }
 
+    /**
+     *
+     * @param idSolicitud
+     * @param idSocio
+     * @param idPeriodo
+     * @param fecha
+     * @param montoTotal
+     */
     public SolicitudDeReembolso(int idSolicitud, int idSocio, int idPeriodo, Date fecha, int montoTotal) {
         this.idSolicitud = idSolicitud;
         this.idSocio = idSocio;
@@ -37,6 +48,11 @@ public class SolicitudDeReembolso extends Conexion {
         this.montoTotal = montoTotal;
     }
 
+    /**
+     *
+     * @param sr
+     * @return
+     */
     public String solicitudToSqlInsert(SolicitudDeReembolso sr) {
         if (sr != null) {
             Calendar cal = Calendar.getInstance();
@@ -62,6 +78,11 @@ public class SolicitudDeReembolso extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param sr
+     * @return
+     */
     public String solicitudToSqlUpdate(SolicitudDeReembolso sr) {
         if (sr != null) {
             Calendar cal = Calendar.getInstance();
@@ -83,6 +104,11 @@ public class SolicitudDeReembolso extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String solicitudToSqlFindById(int id) {
         if (id > 0) {
             String sql = "SELECT * FROM solicitud_de_reembolso WHERE id_solicitud =" + id + ";";
@@ -92,6 +118,12 @@ public class SolicitudDeReembolso extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param idSocio
+     * @param idPeriodo
+     * @return
+     */
     public String solcitudToSqlFindBySocioAndPeriodo(int idSocio, int idPeriodo) {
         if (idSocio > 0) {
             String sql = "SELECT * FROM solicitud_de_reembolso WHERE  id_socio=" + idSocio + " and id_periodo =" + idPeriodo + ";";
@@ -101,6 +133,11 @@ public class SolicitudDeReembolso extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param sr
+     * @return
+     */
     public int insertSolicitud(SolicitudDeReembolso sr) {
         String sql = this.solicitudToSqlInsert(sr);
 
@@ -118,6 +155,11 @@ public class SolicitudDeReembolso extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @param sr
+     * @return
+     */
     public int updateSolicitud(SolicitudDeReembolso sr) {
         String sql = this.solicitudToSqlUpdate(sr);
 
@@ -135,6 +177,11 @@ public class SolicitudDeReembolso extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @param idPeriodo
+     * @return
+     */
     public LinkedList<SolicitudDeReembolso> getAllSolicitudByPeriodo(int idPeriodo) {
         String sql = "select * from solicitud_de_reembolso where id_periodo =" + idPeriodo;
         ResultSet result = null;
@@ -166,6 +213,11 @@ public class SolicitudDeReembolso extends Conexion {
         return listSolicitudDeReembolso;
     }
 
+    /**
+     *
+     * @param idSocio
+     * @return
+     */
     public LinkedList<SolicitudDeReembolso> getAllSolicitudBySocio(int idSocio) {
         String sql = "select * from solicitud_de_reembolso where id_socio =" + idSocio;
         ResultSet result = null;
@@ -197,6 +249,11 @@ public class SolicitudDeReembolso extends Conexion {
         return listSolicitudDeReembolso;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public SolicitudDeReembolso getSolicitudById(int id) {
         String sql = solicitudToSqlFindById(id);
         ResultSet result = null;
@@ -224,6 +281,12 @@ public class SolicitudDeReembolso extends Conexion {
         return newSolicitudDeReembolso;
     }
 
+    /**
+     *
+     * @param idSocio
+     * @param idPeriodo
+     * @return
+     */
     public SolicitudDeReembolso getSolicitudByPeriodoAndSocio(int idSocio, int idPeriodo) {
         String sql = solcitudToSqlFindBySocioAndPeriodo(idSocio, idPeriodo);
         ResultSet result = null;
@@ -251,6 +314,11 @@ public class SolicitudDeReembolso extends Conexion {
         return newSolicitudDeReembolso;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public SolicitudDeReembolso createSolicitudDeReembolsoFromResultSet(ResultSet r) {
         try {
             SolicitudDeReembolso sr;
@@ -269,6 +337,11 @@ public class SolicitudDeReembolso extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param fecha
+     * @return
+     */
     public Date DeStringADate(String fecha) {
         SimpleDateFormat formato = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         String strFecha = fecha;
@@ -283,42 +356,82 @@ public class SolicitudDeReembolso extends Conexion {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdSolicitud() {
         return idSolicitud;
     }
 
+    /**
+     *
+     * @param idSolicitud
+     */
     public void setIdSolicitud(int idSolicitud) {
         this.idSolicitud = idSolicitud;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdSocio() {
         return idSocio;
     }
 
+    /**
+     *
+     * @param idSocio
+     */
     public void setIdSocio(int idSocio) {
         this.idSocio = idSocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdPeriodo() {
         return idPeriodo;
     }
 
+    /**
+     *
+     * @param idPeriodo
+     */
     public void setIdPeriodo(int idPeriodo) {
         this.idPeriodo = idPeriodo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getFecha() {
         return fecha;
     }
 
+    /**
+     *
+     * @param fecha
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMontoTotal() {
         return montoTotal;
     }
 
+    /**
+     *
+     * @param montoTotal
+     */
     public void setMontoTotal(int montoTotal) {
         this.montoTotal = montoTotal;
     }

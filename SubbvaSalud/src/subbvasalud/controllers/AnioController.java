@@ -17,10 +17,18 @@ public class AnioController {
 
     Anio a;
 
+    /**
+     *
+     */
     public AnioController() {
         a = new Anio();
     }
 
+    /**
+     *
+     * @param a
+     * @return
+     */
     public int guardarAnio(Anio a) {
         int i = a.insertAnio(a);
         if (i == 0) {
@@ -30,6 +38,11 @@ public class AnioController {
         }
     }
 
+    /**
+     *
+     * @param year
+     * @return
+     */
     public Anio getAnioByAnioNumber(int year) {
         Anio a = new Anio();
         a = a.getAnioByYear(year);
@@ -39,6 +52,11 @@ public class AnioController {
         return null;
     }
 
+    /**
+     *
+     * @param anioComboBox
+     * @return
+     */
     public LinkedList<Anio> fillAnioComboBox(JComboBox anioComboBox) {
         LinkedList<Anio> listAnios = a.getAllAnios();
         for (Anio a : listAnios) {

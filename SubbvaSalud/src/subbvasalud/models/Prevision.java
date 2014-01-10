@@ -18,10 +18,17 @@ public class Prevision extends Conexion {
     private int idPrevision;
     private String nombrePrevision;
 
+    /**
+     *
+     */
     public Prevision() {
         this.idPrevision = -1;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Prevision> getAllPrevision() {
         String sql = "select * from prevision";
         ResultSet result = null;
@@ -53,6 +60,11 @@ public class Prevision extends Conexion {
         return listPrevision;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public Prevision createPrevisionFromResultSet(ResultSet r) {
         try {
             Prevision p;
@@ -68,23 +80,44 @@ public class Prevision extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param idPrevision
+     * @param nombrePrevision
+     */
     public Prevision(int idPrevision, String nombrePrevision) {
         this.idPrevision = idPrevision;
         this.nombrePrevision = nombrePrevision;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdPrevision() {
         return idPrevision;
     }
 
+    /**
+     *
+     * @param idPrevision
+     */
     public void setIdPrevision(int idPrevision) {
         this.idPrevision = idPrevision;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombrePrevision() {
         return nombrePrevision;
     }
 
+    /**
+     *
+     * @param nombrePrevision
+     */
     public void setNombrePrevision(String nombrePrevision) {
         this.nombrePrevision = nombrePrevision;
     }

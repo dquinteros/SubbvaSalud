@@ -23,6 +23,8 @@ public class NewCarga extends javax.swing.JDialog {
 
     /**
      * Creates new form NewCarga
+     * @param parent
+     * @param modal
      */
     public NewCarga(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

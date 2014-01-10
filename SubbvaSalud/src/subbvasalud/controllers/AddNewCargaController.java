@@ -19,11 +19,19 @@ public class AddNewCargaController {
     Carga c;
     Socio s;
 
+    /**
+     *
+     */
     public AddNewCargaController() {
         s = new Socio();
         c = new Carga();
     }
 
+    /**
+     *
+     * @param ca
+     * @return
+     */
     public int guardarCarga(Carga ca) {
         c = c.getCargasByRut(ca.getRut());
         if (c.getNombre() == null) {
@@ -44,6 +52,14 @@ public class AddNewCargaController {
         }
     }
 
+    /**
+     *
+     * @param rutTextField
+     * @param nameTextField
+     * @param lastnameTextField
+     * @param rutSocioTextField
+     * @return
+     */
     public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField, JTextField lastnameTextField, JTextField rutSocioTextField) {
 
         if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0) || (lastnameTextField.getText().length() == 0) || (rutSocioTextField.getText().length() == 0)) {

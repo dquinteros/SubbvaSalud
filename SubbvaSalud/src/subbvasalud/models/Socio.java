@@ -26,10 +26,24 @@ public class Socio extends Conexion {
 
     private static final int COLUMNAS = 8;
 
+    /**
+     *
+     */
     public Socio() {
 
     }
 
+    /**
+     *
+     * @param idSocio
+     * @param rutSocio
+     * @param nombreSocio
+     * @param cuentaBancariaSocio
+     * @param tipoCuentaSocio
+     * @param presupuestoSocio
+     * @param idEstado
+     * @param bancoSocio
+     */
     public Socio(int idSocio, int rutSocio, String nombreSocio, String cuentaBancariaSocio, int tipoCuentaSocio, int presupuestoSocio, int idEstado, int bancoSocio) {
         this.idSocio = idSocio;
         this.rutSocio = rutSocio;
@@ -41,6 +55,11 @@ public class Socio extends Conexion {
         this.bancoSocio = bancoSocio;
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public String socioToSqlInsert(Socio s) {
         if (s != null) {
             String sql = "INSERT INTO \"socio\""
@@ -68,6 +87,11 @@ public class Socio extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public String socioToSqlUpdate(Socio s) {
         if (s != null) {
             String sql = "UPDATE \"socio\""
@@ -88,6 +112,11 @@ public class Socio extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String socioToSqlFindById(int id) {
         if (id > 0) {
             String sql = "SELECT * FROM socio WHERE id_socio =" + id + ";";
@@ -97,6 +126,11 @@ public class Socio extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public String socioToSqlFindByRut(int rut) {
         if (rut > 0) {
             String sql = "SELECT * FROM socio WHERE rut_socio =" + rut + ";";
@@ -106,6 +140,11 @@ public class Socio extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public int insertSocio(Socio s) {
         String sql = this.socioToSqlInsert(s);
 
@@ -123,6 +162,11 @@ public class Socio extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public int updateSocio(Socio s) {
         String sql = this.socioToSqlUpdate(s);
 
@@ -140,6 +184,10 @@ public class Socio extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Socio> getAllSocios() {
         String sql = "select * from socio where id_estado = 1";
         ResultSet result = null;
@@ -171,6 +219,11 @@ public class Socio extends Conexion {
         return listSocios;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Socio getSociosById(int id) {
         String sql = socioToSqlFindById(id);
         ResultSet result = null;
@@ -198,6 +251,11 @@ public class Socio extends Conexion {
         return newSocio;
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public Socio getSociosByRut(int rut) {
         String sql = socioToSqlFindByRut(rut);
         ResultSet result = null;
@@ -225,6 +283,11 @@ public class Socio extends Conexion {
         return newSocio;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public Socio createSocioFromResultSet(ResultSet r) {
         try {
             Socio s;
@@ -246,66 +309,130 @@ public class Socio extends Conexion {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getRutSocio() {
         return rutSocio;
     }
 
+    /**
+     *
+     * @param rutSocio
+     */
     public void setRutSocio(int rutSocio) {
         this.rutSocio = rutSocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombreSocio() {
         return nombreSocio;
     }
 
+    /**
+     *
+     * @param nombreSocio
+     */
     public void setNombreSocio(String nombreSocio) {
         this.nombreSocio = nombreSocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCuentaBancariaSocio() {
         return cuentaBancariaSocio;
     }
 
+    /**
+     *
+     * @param cuentaBancariaSocio
+     */
     public void setCuentaBancariaSocio(String cuentaBancariaSocio) {
         this.cuentaBancariaSocio = cuentaBancariaSocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTipoCuentaSocio() {
         return tipoCuentaSocio;
     }
 
+    /**
+     *
+     * @param tipoCuentaSocio
+     */
     public void setTipoCuentaSocio(int tipoCuentaSocio) {
         this.tipoCuentaSocio = tipoCuentaSocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdSocio() {
         return idSocio;
     }
 
+    /**
+     *
+     * @param idSocio
+     */
     public void setIdSocio(int idSocio) {
         this.idSocio = idSocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdEstado() {
         return idEstado;
     }
 
+    /**
+     *
+     * @param idEstado
+     */
     public void setIdEstado(int idEstado) {
         this.idEstado = idEstado;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPresupuestoSocio() {
         return presupuestoSocio;
     }
 
+    /**
+     *
+     * @param presupuestoSocio
+     */
     public void setPresupuestoSocio(int presupuestoSocio) {
         this.presupuestoSocio = presupuestoSocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBancoSocio() {
         return bancoSocio;
     }
 
+    /**
+     *
+     * @param bancoSocio
+     */
     public void setBancoSocio(int bancoSocio) {
         this.bancoSocio = bancoSocio;
     }

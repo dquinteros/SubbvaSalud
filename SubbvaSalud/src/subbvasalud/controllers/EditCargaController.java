@@ -19,11 +19,19 @@ public class EditCargaController {
     Carga c;
     Socio s;
 
+    /**
+     *
+     */
     public EditCargaController() {
         s = new Socio();
         c = new Carga();
     }
 
+    /**
+     *
+     * @param ca
+     * @return
+     */
     public int editarCarga(Carga ca) {
         int i = c.updateCarga(ca);
         if (i == 0) {
@@ -33,10 +41,22 @@ public class EditCargaController {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Carga getCarga(int id) {
         return c.getCargasById(id);
     }
 
+    /**
+     *
+     * @param rutTextField
+     * @param nameTextField
+     * @param rutSocioTextField
+     * @return
+     */
     public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField, JTextField rutSocioTextField) {
 
         if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0) || (rutSocioTextField.getText().length() == 0)) {

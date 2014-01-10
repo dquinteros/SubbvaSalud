@@ -21,9 +21,20 @@ public class Carga extends Conexion {
     private String nombre;
     private int idEstado;
 
+    /**
+     *
+     */
     public Carga() {
     }
 
+    /**
+     *
+     * @param idCarga
+     * @param idSocio
+     * @param rut
+     * @param nombre
+     * @param idEstado
+     */
     public Carga(int idCarga, int idSocio, int rut, String nombre, int idEstado) {
         this.idCarga = idCarga;
         this.idSocio = idSocio;
@@ -32,6 +43,11 @@ public class Carga extends Conexion {
         this.idEstado = idEstado;
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public String cargaToSqlInsert(Carga c) {
         if (c != null) {
             String sql = "INSERT INTO \"carga\""
@@ -53,6 +69,11 @@ public class Carga extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public String cargaToSqlUpdate(Carga c) {
         if (c != null) {
             String sql = "UPDATE \"carga\""
@@ -69,6 +90,11 @@ public class Carga extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String cargaToSqlFindById(int id) {
         if (id >= 0) {
             String sql = "SELECT * FROM carga WHERE id_carga =" + id + ";";
@@ -78,6 +104,11 @@ public class Carga extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public String cargaToSqlFindByRut(int rut) {
         if (rut > 0) {
             String sql = "SELECT * FROM carga WHERE rut_carga =" + rut + ";";
@@ -87,6 +118,11 @@ public class Carga extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public int insertCarga(Carga c) {
         String sql = this.cargaToSqlInsert(c);
 
@@ -104,6 +140,11 @@ public class Carga extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public int updateCarga(Carga c) {
         String sql = this.cargaToSqlUpdate(c);
 
@@ -121,6 +162,10 @@ public class Carga extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Carga> getAllCargas() {
         String sql = "select * from carga where id_estado = 1";
         ResultSet result = null;
@@ -152,6 +197,11 @@ public class Carga extends Conexion {
         return listCargas;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public LinkedList<Carga> getAllCargasByIdSocio(int id) {
         String sql = "select * from carga where id_socio =" + id;
         ResultSet result = null;
@@ -183,6 +233,11 @@ public class Carga extends Conexion {
         return listCargas;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Carga getCargasById(int id) {
         String sql = cargaToSqlFindById(id);
         ResultSet result = null;
@@ -210,6 +265,11 @@ public class Carga extends Conexion {
         return newCarga;
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public Carga getCargasByRut(int rut) {
         String sql = cargaToSqlFindByRut(rut);
         ResultSet result = null;
@@ -237,6 +297,11 @@ public class Carga extends Conexion {
         return newCarga;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public Carga createCargaFromResultSet(ResultSet r) {
         try {
             Carga c;
@@ -255,42 +320,82 @@ public class Carga extends Conexion {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdCarga() {
         return idCarga;
     }
 
+    /**
+     *
+     * @param idCarga
+     */
     public void setIdCarga(int idCarga) {
         this.idCarga = idCarga;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdSocio() {
         return idSocio;
     }
 
+    /**
+     *
+     * @param idSocio
+     */
     public void setIdSocio(int idSocio) {
         this.idSocio = idSocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getRut() {
         return rut;
     }
 
+    /**
+     *
+     * @param rut
+     */
     public void setRut(int rut) {
         this.rut = rut;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdEstado() {
         return idEstado;
     }
 
+    /**
+     *
+     * @param idEstado
+     */
     public void setIdEstado(int idEstado) {
         this.idEstado = idEstado;
     }

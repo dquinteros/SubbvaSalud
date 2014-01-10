@@ -26,7 +26,6 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
 
     CargaController cc;
 
-    
     private static Periodo periodo;
     private static Date fechaSolicitud;
     private static int rutSocio;
@@ -36,6 +35,8 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
 
     /**
      * Creates new form InsertNewDocByCode
+     * @param parent
+     * @param modal
      */
     public InsertNewDocByCode(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -56,7 +57,6 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         insertNewDocByCodePanel = new javax.swing.JPanel();
         codigoInsertNewDocByCodeLabel = new javax.swing.JLabel();
         montoInsertNewDocByCodeLabel = new javax.swing.JLabel();
-        codigoInsertNewDocByCodeTextField = new javax.swing.JTextField();
         totalTextField = new javax.swing.JTextField();
         aceptarInsertNewDocByCodeButton = new javax.swing.JButton();
         cancelarInsertNewDocByCodeButton = new javax.swing.JButton();
@@ -71,6 +71,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         nombreCargaTextField = new javax.swing.JTextField();
         bonificacionLabel = new javax.swing.JLabel();
         porcentajeTextField = new javax.swing.JTextField();
+        codeTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -80,12 +81,6 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         codigoInsertNewDocByCodeLabel.setText("Código*:");
 
         montoInsertNewDocByCodeLabel.setText("Monto Total*:");
-
-        codigoInsertNewDocByCodeTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                codigoInsertNewDocByCodeTextFieldKeyTyped(evt);
-            }
-        });
 
         aceptarInsertNewDocByCodeButton.setText("Aceptar");
         aceptarInsertNewDocByCodeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +129,17 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         bonificacionLabel.setText("Bonificación");
 
         porcentajeTextField.setFocusable(false);
+        porcentajeTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                porcentajeTextFieldKeyTyped(evt);
+            }
+        });
+
+        codeTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codeTextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout insertNewDocByCodePanelLayout = new javax.swing.GroupLayout(insertNewDocByCodePanel);
         insertNewDocByCodePanel.setLayout(insertNewDocByCodePanelLayout);
@@ -157,11 +163,11 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                         .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nombreCargaTextField)
                             .addGroup(insertNewDocByCodePanelLayout.createSequentialGroup()
-                                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cargaCheckBox)
                                     .addComponent(docDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                                    .addComponent(codigoInsertNewDocByCodeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                                    .addComponent(rutCargaTextField))
+                                    .addComponent(rutCargaTextField)
+                                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(montoInsertNewDocByCodeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -177,7 +183,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        insertNewDocByCodePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cargaCheckBox, codigoInsertNewDocByCodeTextField, docDateChooser, rutCargaTextField});
+        insertNewDocByCodePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cargaCheckBox, codeTextField, docDateChooser, rutCargaTextField});
 
         insertNewDocByCodePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {codigoInsertNewDocByCodeLabel, fechaLabel, nombreLabel, rutLabel});
 
@@ -198,8 +204,8 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(codigoInsertNewDocByCodeLabel)
-                            .addComponent(codigoInsertNewDocByCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(montoInsertNewDocByCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(montoInsertNewDocByCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(totalTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -222,7 +228,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        insertNewDocByCodePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bonificableTextField, codigoInsertNewDocByCodeTextField, docDateChooser, nombreCargaTextField, porcentajeTextField, rutCargaTextField, totalTextField});
+        insertNewDocByCodePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bonificableTextField, codeTextField, docDateChooser, nombreCargaTextField, porcentajeTextField, rutCargaTextField, totalTextField});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,7 +271,12 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                                         JOptionPane.showMessageDialog(this, "El rut de la carga es incorrecto o no fue ingresado", "Error rut de la carga", WIDTH);
                                     }
                                 } else {
-                                    int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);
+                                    int reembolso = 0;
+                                    if (tipo.getId_tipo() == 400) {
+                                        reembolso = (Integer.parseInt(porcentajeTextField.getText()) * monto) / 100;
+                                    } else {
+                                        reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);
+                                    }
                                     DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, prestacionSelected.getNombrePrestacion(), fechaDocumento, montoT, monto, reembolso, rutSocio);
                                     DocumentController dc = new DocumentController();
                                     dc.guardarDocumento(ds);
@@ -306,18 +317,6 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cargaCheckBoxActionPerformed
 
-    private void codigoInsertNewDocByCodeTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoInsertNewDocByCodeTextFieldKeyTyped
-        ViewUtils.onlyNumbers(evt, codigoInsertNewDocByCodeTextField, 4);
-        int code = Integer.parseInt(codigoInsertNewDocByCodeTextField.getText());
-        TipoDeDocumento t = tipo.getTipoDeDocumentosById(code);
-        if (t != null) {
-            bonificableTextField.setText(t.getPorcentaje_tipo() + "");
-            tipo = t;
-        } else {
-            bonificableTextField.setText("");
-        }
-    }//GEN-LAST:event_codigoInsertNewDocByCodeTextFieldKeyTyped
-
     private void rutCargaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutCargaTextFieldKeyTyped
         String rut = rutCargaTextField.getText() + evt.getKeyChar();
         boolean rutValido = ViewUtils.validaRut(rut);
@@ -344,6 +343,38 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_nombreCargaTextFieldKeyTyped
+
+    private void codeTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeTextFieldKeyTyped
+        ViewUtils.onlyNumbers(evt, codeTextField, 4);
+        String s;
+        if (evt.isConsumed()) {
+            s = codeTextField.getText();
+        } else {
+            s = codeTextField.getText() + evt.getKeyChar();
+        }
+        s = s.replaceFirst("^0+(?!$)", "");
+        if (!s.equals("") && !s.equals("0")) {
+            int code = Integer.parseInt(s);
+            DocumentController dc = new DocumentController();
+            TipoDeDocumento t = dc.getById(code);
+            if (t != null) {
+                porcentajeTextField.setText(t.getPorcentaje_tipo() + "");
+                tipo = t;
+                if (tipo.getId_tipo() == 400) {
+                    porcentajeTextField.setFocusable(true);
+                    porcentajeTextField.setEnabled(true);
+                } else {
+                    porcentajeTextField.setFocusable(false);
+                }
+            } else {
+                porcentajeTextField.setText("");
+            }
+        }
+    }//GEN-LAST:event_codeTextFieldKeyTyped
+
+    private void porcentajeTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_porcentajeTextFieldKeyTyped
+        ViewUtils.onlyNumbersMaxValue(evt, porcentajeTextField, 100);
+    }//GEN-LAST:event_porcentajeTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -405,8 +436,8 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
     private javax.swing.JLabel bonificacionLabel;
     private javax.swing.JButton cancelarInsertNewDocByCodeButton;
     private javax.swing.JCheckBox cargaCheckBox;
+    private javax.swing.JTextField codeTextField;
     private javax.swing.JLabel codigoInsertNewDocByCodeLabel;
-    private javax.swing.JTextField codigoInsertNewDocByCodeTextField;
     private com.toedter.calendar.JDateChooser docDateChooser;
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JPanel insertNewDocByCodePanel;

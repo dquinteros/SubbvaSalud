@@ -37,6 +37,8 @@ public class NewSolicitud extends javax.swing.JDialog {
 
     /**
      * Creates new form NewSolicitud
+     * @param parent
+     * @param modal
      */
     public NewSolicitud(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -500,6 +502,9 @@ public class NewSolicitud extends javax.swing.JDialog {
 
     }
 
+    /**
+     *
+     */
     public void guardarSolicitud() {
         String rutSocio = rutSocioNewSolicitudTextField.getText();
         int row = periodoTable.getSelectedRow();

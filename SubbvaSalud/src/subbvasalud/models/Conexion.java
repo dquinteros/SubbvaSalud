@@ -20,6 +20,10 @@ public class Conexion {
 
     Connection connection;
     Statement query;
+
+    /**
+     *
+     */
     public String ruta;
 
     /**
@@ -30,6 +34,9 @@ public class Conexion {
         ruta = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/subbvaSaludDB.db";
     }
 
+    /**
+     *
+     */
     public void connect() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -44,6 +51,11 @@ public class Conexion {
         }
     }
 
+    /**
+     *
+     * @param sql
+     * @return
+     */
     public ResultSet consultar(String sql) {
         connect();
         ResultSet resultado = null;

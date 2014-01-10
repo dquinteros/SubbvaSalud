@@ -16,12 +16,22 @@ import java.sql.Statement;
  */
 public class modelUtils {
 
+    /**
+     *
+     * @param e
+     */
     public static void showSQLException(SQLException e) {
         System.out.println("SQLExeption");
         System.out.println(e.getSQLState());
         System.out.println(e.getMessage());
     }
 
+    /**
+     *
+     * @param q
+     * @param c
+     * @param r
+     */
     public static void postSelectFinally(Statement q, Connection c, ResultSet r) {
         try {
             q.close();
@@ -34,6 +44,11 @@ public class modelUtils {
         }
     }
 
+    /**
+     *
+     * @param q
+     * @param c
+     */
     public static void postUpdateFinally(Statement q, Connection c) {
         try {
             q.close();

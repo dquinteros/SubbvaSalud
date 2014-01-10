@@ -25,12 +25,20 @@ public class SolicitudController {
     Socio s;
     LinkedList<SolicitudDeReembolso> lsr;
 
+    /**
+     *
+     */
     public SolicitudController() {
         sr = new SolicitudDeReembolso();
         p = new Periodo();
         s = new Socio();
     }
 
+    /**
+     *
+     * @param sre
+     * @return
+     */
     public int guardarSolicitud(SolicitudDeReembolso sre) {
 
         int i = sr.insertSolicitud(sre);
@@ -41,6 +49,11 @@ public class SolicitudController {
         }
     }
 
+    /**
+     *
+     * @param sre
+     * @return
+     */
     public int editarSolicitud(SolicitudDeReembolso sre) {
         int i = sr.updateSolicitud(sre);
         if (i == 0) {
@@ -50,10 +63,20 @@ public class SolicitudController {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public SolicitudDeReembolso getSolicitud(int id) {
         return sr.getSolicitudById(id);
     }
 
+    /**
+     *
+     * @param sre
+     * @return
+     */
     public int guardarSolicitudCondicional(SolicitudDeReembolso sre) {
         SolicitudDeReembolso sol;
         sol = sre.getSolicitudByPeriodoAndSocio(sre.getIdSocio(), sre.getIdPeriodo());
@@ -67,6 +90,11 @@ public class SolicitudController {
         return sol.getIdSolicitud();
     }
 
+    /**
+     *
+     * @param tableModel
+     * @param id
+     */
     public void mostrarDetalle(DefaultTableModel tableModel, int id) {
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         LinkedList<DetalleSolicitud> lds = new LinkedList<>();

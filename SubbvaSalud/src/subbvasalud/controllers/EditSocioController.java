@@ -21,11 +21,19 @@ public class EditSocioController {
     Socio s;
     Banco b;
 
+    /**
+     *
+     */
     public EditSocioController() {
         s = new Socio();
         b = new Banco();
     }
 
+    /**
+     *
+     * @param so
+     * @return
+     */
     public int editarSocio(Socio so) {
         int i = s.updateSocio(so);
         if (i == 0) {
@@ -35,10 +43,21 @@ public class EditSocioController {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Socio getSocio(int id) {
         return s.getSociosById(id);
     }
 
+    /**
+     *
+     * @param bancoComboBox
+     * @param idBanco
+     * @return
+     */
     public LinkedList<Banco> fillBancoComboBox(JComboBox bancoComboBox, int idBanco) {
         LinkedList<Banco> listBancos = b.getAllBancos();
         for (Banco ba : listBancos) {
@@ -51,6 +70,12 @@ public class EditSocioController {
         return listBancos;
     }
 
+    /**
+     *
+     * @param rutTextField
+     * @param nameTextField
+     * @return
+     */
     public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField) {
 
         if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0)) {

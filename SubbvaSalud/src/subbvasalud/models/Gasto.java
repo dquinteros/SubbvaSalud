@@ -18,15 +18,27 @@ public class Gasto extends Conexion {
     private int idGasto;
     private String nombreGasto;
 
+    /**
+     *
+     */
     public Gasto() {
         this.idGasto = -1;
     }
 
+    /**
+     *
+     * @param idGasto
+     * @param nombreGasto
+     */
     public Gasto(int idGasto, String nombreGasto) {
         this.idGasto = idGasto;
         this.nombreGasto = nombreGasto;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Gasto> getAllGastos() {
         String sql = "select * from gasto";
         ResultSet result = null;
@@ -58,6 +70,11 @@ public class Gasto extends Conexion {
         return listGastos;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public Gasto createGastoFromResultSet(ResultSet r) {
         try {
             Gasto g;
@@ -73,18 +90,34 @@ public class Gasto extends Conexion {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdGasto() {
         return idGasto;
     }
 
+    /**
+     *
+     * @param idGasto
+     */
     public void setIdGasto(int idGasto) {
         this.idGasto = idGasto;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombreGasto() {
         return nombreGasto;
     }
 
+    /**
+     *
+     * @param nombreGasto
+     */
     public void setNombreGasto(String nombreGasto) {
         this.nombreGasto = nombreGasto;
     }

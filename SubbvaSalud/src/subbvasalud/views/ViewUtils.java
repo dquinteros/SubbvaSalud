@@ -18,6 +18,30 @@ import subbvasalud.models.TipoCuenta;
  */
 public class ViewUtils {
 
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public static boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z]+");
+    }
+    
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public static boolean isNum(String name) {
+        return name.matches("[0-9]+");
+    }
+
+    /**
+     *
+     * @param evt
+     * @param rutTextField
+     * @param maxChars
+     */
     public static void onlyRutNumbers(java.awt.event.KeyEvent evt, JTextField rutTextField, int maxChars) {
         char c = evt.getKeyChar();
         if (((!(Character.isDigit(c))) && (c != '\b')) && (c != 'k')) {
@@ -28,26 +52,42 @@ public class ViewUtils {
         }
     }
 
+    /**
+     *
+     * @param evt
+     * @param rutTextField
+     * @param maxChars
+     */
     public static void onlyNumbers(java.awt.event.KeyEvent evt, JTextField rutTextField, int maxChars) {
         char c = evt.getKeyChar();
         if (((!(Character.isDigit(c))) && (c != '\b'))) {
             evt.consume();
-        }
-        if (rutTextField.getText().length() > maxChars) {
+        } else if ((rutTextField.getText().length() + 1) > maxChars) {
             evt.consume();
         }
     }
 
+    /**
+     *
+     * @param evt
+     * @param rutTextField
+     * @param maxValue
+     */
     public static void onlyNumbersMaxValue(java.awt.event.KeyEvent evt, JTextField rutTextField, int maxValue) {
         char c = evt.getKeyChar();
-        if (((!(Character.isDigit(c))) && (c != '\b'))) {
+        if ((!(Character.isDigit(c))) && (c != '\b')) {
             evt.consume();
-        }
-        if (Integer.parseInt(rutTextField.getText()) > maxValue) {
+        } else if (Integer.parseInt(rutTextField.getText() + c) > maxValue) {
             evt.consume();
         }
     }
 
+    /**
+     *
+     * @param evt
+     * @param nameTextField
+     * @param lastnameTextField
+     */
     public static void onlyLetters(java.awt.event.KeyEvent evt, JTextField nameTextField, JTextField lastnameTextField) {
         char c = evt.getKeyChar();
         if (Character.isDigit(c)) {
@@ -58,6 +98,11 @@ public class ViewUtils {
         }
     }
 
+    /**
+     *
+     * @param evt
+     * @param nameTextField
+     */
     public static void onlyLetters(java.awt.event.KeyEvent evt, JTextField nameTextField) {
         char c = evt.getKeyChar();
         if (Character.isDigit(c)) {
@@ -65,6 +110,12 @@ public class ViewUtils {
         }
     }
 
+    /**
+     *
+     * @param evt
+     * @param textField
+     * @param maxChars
+     */
     public static void maxLongInput(java.awt.event.KeyEvent evt, JTextField textField, int maxChars) {
         char c = evt.getKeyChar();
         if (textField.getText().length() > maxChars) {
@@ -72,10 +123,20 @@ public class ViewUtils {
         }
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public static boolean validaRut(int rut) {
         return validaRut(String.valueOf(rut));
     }
 
+    /**
+     *
+     * @param typeAccountComboBox
+     * @return
+     */
     public static ArrayList<TipoCuenta> fillTipoCuentaComBox(JComboBox typeAccountComboBox) {
         ArrayList<TipoCuenta> accountTypeList = new ArrayList<>();
         TipoCuenta corriente = new TipoCuenta(1, "Cuenta Corriente");
@@ -94,6 +155,11 @@ public class ViewUtils {
         return accountTypeList;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public static String getTipoCuentaName(int id) {
         String name;
         if (id == 1) {
@@ -108,6 +174,11 @@ public class ViewUtils {
         return name;
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public static boolean validaRut(String rut) {
         boolean validacion = false;
         try {
@@ -132,18 +203,42 @@ public class ViewUtils {
         return validacion;
     }
 
+    /**
+     *
+     * @param rutSocio
+     * @param rutCarga
+     * @return
+     */
     public static boolean validaCargaByRut(String rutSocio, String rutCarga) {
         return validaCargaByRut(Integer.parseInt(rutSocio), Integer.parseInt(rutCarga));
     }
 
+    /**
+     *
+     * @param rutSocio
+     * @param rutCarga
+     * @return
+     */
     public static boolean validaCargaByRut(String rutSocio, int rutCarga) {
         return validaCargaByRut(Integer.parseInt(rutSocio), rutCarga);
     }
 
+    /**
+     *
+     * @param rutSocio
+     * @param rutCarga
+     * @return
+     */
     public static boolean validaCargaByRut(int rutSocio, String rutCarga) {
         return validaCargaByRut(rutSocio, Integer.parseInt(rutCarga));
     }
 
+    /**
+     *
+     * @param rutSocio
+     * @param rutCarga
+     * @return
+     */
     public static boolean validaCargaByRut(int rutSocio, int rutCarga) {
         if (!ViewUtils.validaRut(rutSocio) || !validaRut(rutCarga)) {
             Socio s = new Socio();

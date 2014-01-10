@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,6 +21,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import subbvasalud.models.Banco;
 import subbvasalud.models.Socio;
 import org.apache.poi.ss.usermodel.*;
+import subbvasalud.views.ViewUtils;
 
 /**
  *
@@ -30,31 +32,45 @@ public class AddNewSocioController {
     Socio s;
     Banco b;
 
+    /**
+     *
+     */
     public AddNewSocioController() {
         s = new Socio();
         b = new Banco();
     }
 
+    /**
+     *
+     * @param file
+     * @return
+     */
     public int cargaMasivaSocios(File file) {
         if (file.exists() && file.isFile() && file.canRead()) {
-            String[] rutaArchivo = file.getPath().split("\\.");
-            int tam = rutaArchivo.length - 1;
 
-            switch (rutaArchivo[tam]) {
-                case "xls":
-                    System.out.println("Archivo xls: " + file.getPath());
-                    return cargaArchivoXls(file);
-                case "xlsx":
-                    System.out.println("Archivo xlsx: " + file.getPath());
-                    return 0;
-
+            LinkedList<Socio> socios = cargaArchivo(file);
+            setAllSociosDisabled();
+            for (Socio socio : socios) {
+                guardarSocio(socio);
             }
         }
         return 0;
     }
-
-    public int cargaArchivoXls(File file) {
-        FileInputStream f = null;
+    
+    public void setAllSociosDisabled(){
+        Socio o = new Socio();
+        LinkedList<Socio> socios = o.getAllSocios();
+        for (Socio socio : socios) {
+            socio.setIdEstado(0);
+            o.updateSocio(socio);
+        }
+    }
+    /**
+     *
+     * @param file
+     * @return
+     */
+    public LinkedList<Socio> cargaArchivo(File file) {
         try {
 
             //Get the workbook instance for XLS file
@@ -63,13 +79,48 @@ public class AddNewSocioController {
             Sheet sheet = workbook.getSheetAt(0);
             //Get iterator to all the rows in current sheet
             Iterator<Row> rowIterator = sheet.iterator();
+            LinkedList<Socio> socios = new LinkedList<>();
+            CellStyle style = workbook.createCellStyle();
+            style.setFillBackgroundColor(IndexedColors.RED.getIndex());
+            style.setFillPattern(CellStyle.THIN_FORWARD_DIAG);
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                //Get iterator to all cells of current row
-                Iterator<Cell> cellIterator = row.cellIterator();
-
+                Iterator<Cell> cellIterator = row.cellIterator(); 
+                int i = 0;
+                int rut = -1, tipoCuenta = -1;
+                String name = null, cuenta = null;
+                while (cellIterator.hasNext() && i < 4) {
+                    Cell cell = cellIterator.next();
+                    switch (i) {
+                        case 0:
+                            rut = getRut(cell);
+                            break;
+                        case 1:
+                            name = getName(cell);
+                            break;
+                        case 2:
+                            cuenta = getCuenta(cell);
+                            break;
+                        case 3:
+                            tipoCuenta = getTipoCuenta(cell);
+                            break;
+                    }
+                    i++;
+                }
+                if ((rut == -1) || (name == null)) {
+                    row.setRowStyle(style);                    
+                } else if((cuenta == null) || (tipoCuenta == -1)) {
+                    Socio socio = new Socio(-1, rut, name, "0", 0, 0, 1, 504);
+                    socios.add(socio);
+                } else{
+                    Socio socio = new Socio(-1, rut, name, cuenta, tipoCuenta, 0, 1, 504);
+                    socios.add(socio);
+                }
             }
-
+            try (FileOutputStream out = new FileOutputStream(file.getName())) {
+                workbook.write(out);
+            }
+            return socios;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -77,15 +128,76 @@ public class AddNewSocioController {
         } catch (InvalidFormatException ex) {
             Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            try {
-                f.close();
-            } catch (IOException ex) {
-                Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
-        return 0;
+        return null;
     }
 
+    /**
+     *
+     * @param cell
+     * @return
+     */
+    public int getRut(Cell cell) {
+        cell.setCellType(Cell.CELL_TYPE_STRING);
+        String stringRut = cell.getStringCellValue();
+        if (ViewUtils.validaRut(stringRut)) {
+            return Integer.parseInt(stringRut);
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     *
+     * @param cell
+     * @return
+     */
+    public String getName(Cell cell) {
+        cell.setCellType(Cell.CELL_TYPE_STRING);
+        String name = cell.getStringCellValue();
+        if (ViewUtils.isAlpha(name.toLowerCase()) && (name.trim().length() <= 45)) {
+            return name.trim();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @param cell
+     * @return
+     */
+    public String getCuenta(Cell cell) {
+        cell.setCellType(Cell.CELL_TYPE_STRING);
+        String cuenta = cell.getStringCellValue();
+        if (ViewUtils.isNum(cuenta.trim())) {
+            return cuenta.trim();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @param cell
+     * @return
+     */
+    public int getTipoCuenta(Cell cell) {
+        cell.setCellType(Cell.CELL_TYPE_STRING);
+        String cuenta = cell.getStringCellValue();
+        if (ViewUtils.isNum(cuenta.trim())) {
+            return Integer.parseInt(cuenta.trim());
+        } else {
+            return -1;
+        }
+
+    }
+
+    /**
+     *
+     * @param so
+     * @return
+     */
     public int guardarSocio(Socio so) {
         s = s.getSociosByRut(so.getRutSocio());
         if (s.getNombreSocio() == null) {
@@ -106,9 +218,17 @@ public class AddNewSocioController {
         }
     }
 
+    /**
+     *
+     */
     public void formInsertarSocio() {
     }
 
+    /**
+     *
+     * @param bancoComboBox
+     * @return
+     */
     public LinkedList<Banco> fillBancoComboBox(JComboBox bancoComboBox) {
         LinkedList<Banco> listBancos = b.getAllBancos();
         for (Banco ba : listBancos) {
@@ -117,6 +237,13 @@ public class AddNewSocioController {
         return listBancos;
     }
 
+    /**
+     *
+     * @param rutTextField
+     * @param nameTextField
+     * @param lastnameTextField
+     * @return
+     */
     public boolean validateNullMainFields(JTextField rutTextField, JTextField nameTextField, JTextField lastnameTextField) {
 
         if ((rutTextField.getText().length() == 0) || (nameTextField.getText().length() == 0) || (lastnameTextField.getText().length() == 0)) {

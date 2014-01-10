@@ -5,6 +5,7 @@
  */
 package subbvasalud.controllers;
 
+import java.util.LinkedList;
 import subbvasalud.models.DetalleSolicitud;
 import subbvasalud.models.SolicitudDeReembolso;
 import subbvasalud.models.TipoDeDocumento;
@@ -20,6 +21,9 @@ public class DocumentController {
     SolicitudController src;
     TipoDeDocumento td;
 
+    /**
+     *
+     */
     public DocumentController() {
         ds = new DetalleSolicitud();
         sr = new SolicitudDeReembolso();
@@ -27,6 +31,11 @@ public class DocumentController {
         td = new TipoDeDocumento();
     }
 
+    /**
+     *
+     * @param dso
+     * @return
+     */
     public int guardarDocumento(DetalleSolicitud dso) {
 
         int i = ds.insertDetalle(dso);
@@ -36,6 +45,22 @@ public class DocumentController {
             return 1;
         }
 
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public TipoDeDocumento getById(int id) {
+        TipoDeDocumento newType = new TipoDeDocumento();
+        LinkedList<TipoDeDocumento> tipos = newType.getAllTipoDocumentos();
+        for (TipoDeDocumento tipo : tipos) {
+            if (tipo.getId_tipo() == id) {
+                return tipo;
+            }
+        }
+        return null;
     }
 
 }

@@ -21,9 +21,20 @@ public class TipoDeDocumento extends Conexion {
     private int id_prevision;
     private int porcentaje_tipo;
 
+    /**
+     *
+     */
     public TipoDeDocumento() {
     }
 
+    /**
+     *
+     * @param id_tipo
+     * @param id_gasto
+     * @param id_prestacion
+     * @param id_prevision
+     * @param porcentaje_tipo
+     */
     public TipoDeDocumento(int id_tipo, int id_gasto, int id_prestacion, int id_prevision, int porcentaje_tipo) {
         this.id_tipo = id_tipo;
         this.id_gasto = id_gasto;
@@ -32,6 +43,11 @@ public class TipoDeDocumento extends Conexion {
         this.porcentaje_tipo = porcentaje_tipo;
     }
 
+    /**
+     *
+     * @param td
+     * @return
+     */
     public String tipoDocumentoToSqlInsert(TipoDeDocumento td) {
         if (td != null) {
             String sql = "INSERT INTO \"tipos_de_documento\""
@@ -53,6 +69,11 @@ public class TipoDeDocumento extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param td
+     * @return
+     */
     public String tipoDocumentoToSqlUpdate(TipoDeDocumento td) {
         if (td != null) {
             String sql = "UPDATE \"tipos_de_documento\""
@@ -70,6 +91,11 @@ public class TipoDeDocumento extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String tipoDocumentoToSqlFindById(int id) {
         if (id > 0) {
             String sql = "SELECT * FROM tipos_de_documento WHERE id_tipo =" + id + ";";
@@ -79,6 +105,11 @@ public class TipoDeDocumento extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param td
+     * @return
+     */
     public int insertPeriodo(TipoDeDocumento td) {
         String sql = this.tipoDocumentoToSqlInsert(td);
 
@@ -96,6 +127,11 @@ public class TipoDeDocumento extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @param td
+     * @return
+     */
     public int updatePeriodo(TipoDeDocumento td) {
         String sql = this.tipoDocumentoToSqlUpdate(td);
 
@@ -113,6 +149,10 @@ public class TipoDeDocumento extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<TipoDeDocumento> getAllTipoDocumentos() {
         String sql = "select * from tipos_de_documento";
         ResultSet result = null;
@@ -144,6 +184,13 @@ public class TipoDeDocumento extends Conexion {
         return listTipoDocumento;
     }
 
+    /**
+     *
+     * @param id_gasto
+     * @param id_prestacion
+     * @param id_prevision
+     * @return
+     */
     public LinkedList<TipoDeDocumento> getAllTipoDocumentosBySearch(int id_gasto, int id_prestacion, int id_prevision) {
         String sql = "select * from tipos_de_documento where (id_gasto = " + id_gasto + ") and (id_prestacion = " + id_prestacion + ") and (id_prevision=" + id_prevision + ")";
         ResultSet result = null;
@@ -175,20 +222,21 @@ public class TipoDeDocumento extends Conexion {
         return listTipoDocumento;
     }
 
-    public TipoDeDocumento getTipoDeDocumentosById(int id) {
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public TipoDeDocumento getTipoDocumentoById(int id) {
         String sql = tipoDocumentoToSqlFindById(id);
         ResultSet result = null;
         connect();
-        TipoDeDocumento newTipoDeDocumento = new TipoDeDocumento();
+        TipoDeDocumento newTipo = new TipoDeDocumento();
         try {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-
-                    newTipoDeDocumento = this.createTipoDocumentoFromResultSet(result);
-                    if (newTipoDeDocumento != null) {
-
-                    }
+                    newTipo = this.createTipoDocumentoFromResultSet(result);                    
                 }
             }
         } catch (SQLException e) {
@@ -199,9 +247,14 @@ public class TipoDeDocumento extends Conexion {
         } finally {
             modelUtils.postSelectFinally(query, connection, result);
         }
-        return newTipoDeDocumento;
+        return newTipo;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public TipoDeDocumento createTipoDocumentoFromResultSet(ResultSet r) {
         try {
             TipoDeDocumento p;
@@ -220,42 +273,82 @@ public class TipoDeDocumento extends Conexion {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_tipo() {
         return id_tipo;
     }
 
+    /**
+     *
+     * @param id_tipo
+     */
     public void setId_tipo(int id_tipo) {
         this.id_tipo = id_tipo;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_gasto() {
         return id_gasto;
     }
 
+    /**
+     *
+     * @param id_gasto
+     */
     public void setId_gasto(int id_gasto) {
         this.id_gasto = id_gasto;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_prestacion() {
         return id_prestacion;
     }
 
+    /**
+     *
+     * @param id_prestacion
+     */
     public void setId_prestacion(int id_prestacion) {
         this.id_prestacion = id_prestacion;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_prevision() {
         return id_prevision;
     }
 
+    /**
+     *
+     * @param id_prevision
+     */
     public void setId_prevision(int id_prevision) {
         this.id_prevision = id_prevision;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPorcentaje_tipo() {
         return porcentaje_tipo;
     }
 
+    /**
+     *
+     * @param porcentaje_tipo
+     */
     public void setPorcentaje_tipo(int porcentaje_tipo) {
         this.porcentaje_tipo = porcentaje_tipo;
     }

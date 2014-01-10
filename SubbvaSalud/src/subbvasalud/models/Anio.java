@@ -18,14 +18,27 @@ public class Anio extends Conexion {
     private int id_anio;
     private int numero_anio;
 
+    /**
+     *
+     */
     public Anio() {
     }
 
+    /**
+     *
+     * @param id_anio
+     * @param numero_anio
+     */
     public Anio(int id_anio, int numero_anio) {
         this.id_anio = id_anio;
         this.numero_anio = numero_anio;
     }
 
+    /**
+     *
+     * @param a
+     * @return
+     */
     public String anioToSqlInsert(Anio a) {
         if (a != null) {
             String sql = "INSERT INTO \"anio\""
@@ -41,6 +54,11 @@ public class Anio extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String anioToSqlFindById(int id) {
         if (id > 0) {
             String sql = "SELECT * FROM anio WHERE id_anio =" + id + ";";
@@ -50,6 +68,11 @@ public class Anio extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param anio
+     * @return
+     */
     public String anioToSqlFindByYear(int anio) {
         if (anio > 0) {
             String sql = "SELECT * FROM anio WHERE numero_anio =" + anio + ";";
@@ -59,6 +82,11 @@ public class Anio extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param a
+     * @return
+     */
     public int insertAnio(Anio a) {
         String sql = this.anioToSqlInsert(a);
 
@@ -76,6 +104,10 @@ public class Anio extends Conexion {
         return 1;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Anio> getAllAnios() {
         String sql = "select * from anio";
         ResultSet result = null;
@@ -107,6 +139,11 @@ public class Anio extends Conexion {
         return listAnios;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Anio getCargasById(int id) {
         String sql = anioToSqlFindById(id);
         ResultSet result = null;
@@ -134,6 +171,11 @@ public class Anio extends Conexion {
         return newAnio;
     }
 
+    /**
+     *
+     * @param anio
+     * @return
+     */
     public Anio getAnioByYear(int anio) {
         String sql = anioToSqlFindByYear(anio);
         ResultSet result = null;
@@ -161,6 +203,11 @@ public class Anio extends Conexion {
         return newAnio;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public Anio createAnioFromResultSet(ResultSet r) {
         try {
             Anio a;
@@ -176,18 +223,34 @@ public class Anio extends Conexion {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_anio() {
         return id_anio;
     }
 
+    /**
+     *
+     * @param id_anio
+     */
     public void setId_anio(int id_anio) {
         this.id_anio = id_anio;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumero_anio() {
         return numero_anio;
     }
 
+    /**
+     *
+     * @param numero_anio
+     */
     public void setNumero_anio(int numero_anio) {
         this.numero_anio = numero_anio;
     }

@@ -15,19 +15,43 @@ import java.util.LinkedList;
  */
 public class Condicion extends Conexion {
 
+    /**
+     *
+     */
     public int idCondicion;
+
+    /**
+     *
+     */
     public int idTipo;
+
+    /**
+     *
+     */
     public int idTope;
 
+    /**
+     *
+     */
     public Condicion() {
     }
 
+    /**
+     *
+     * @param idCondicion
+     * @param idTipo
+     * @param idTope
+     */
     public Condicion(int idCondicion, int idTipo, int idTope) {
         this.idCondicion = idCondicion;
         this.idTipo = idTipo;
         this.idTope = idTope;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Condicion> getAllCondiciones() {
         String sql = "select * from condicion";
         ResultSet result = null;
@@ -59,6 +83,11 @@ public class Condicion extends Conexion {
         return listCondiciones;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public Condicion createCondicionFromResultSet(ResultSet r) {
         try {
             Condicion c;
@@ -75,26 +104,50 @@ public class Condicion extends Conexion {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdCondicion() {
         return idCondicion;
     }
 
+    /**
+     *
+     * @param idCondicion
+     */
     public void setIdCondicion(int idCondicion) {
         this.idCondicion = idCondicion;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdTipo() {
         return idTipo;
     }
 
+    /**
+     *
+     * @param idTipo
+     */
     public void setIdTipo(int idTipo) {
         this.idTipo = idTipo;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdTope() {
         return idTope;
     }
 
+    /**
+     *
+     * @param idTope
+     */
     public void setIdTope(int idTope) {
         this.idTope = idTope;
     }

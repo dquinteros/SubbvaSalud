@@ -18,14 +18,26 @@ public class Banco extends Conexion {
     private int idBanco;
     private String nombreBanco;
 
+    /**
+     *
+     */
     public Banco() {
     }
 
+    /**
+     *
+     * @param idBanco
+     * @param nombreBanco
+     */
     public Banco(int idBanco, String nombreBanco) {
         this.idBanco = idBanco;
         this.nombreBanco = nombreBanco;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Banco> getAllBancos() {
         String sql = "select * from banco";
         ResultSet result = null;
@@ -55,6 +67,11 @@ public class Banco extends Conexion {
         return listBancos;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public Banco createBancoFromResultSet(ResultSet r) {
         try {
             Banco b;
@@ -70,18 +87,34 @@ public class Banco extends Conexion {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdBanco() {
         return idBanco;
     }
 
+    /**
+     *
+     * @param idBanco
+     */
     public void setIdBanco(int idBanco) {
         this.idBanco = idBanco;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombreBanco() {
         return nombreBanco;
     }
 
+    /**
+     *
+     * @param nombreBanco
+     */
     public void setNombreBanco(String nombreBanco) {
         this.nombreBanco = nombreBanco;
     }

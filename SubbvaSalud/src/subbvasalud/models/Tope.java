@@ -20,9 +20,19 @@ public class Tope extends Conexion {
     private int monedaTope;
     private int tipoTope;
 
+    /**
+     *
+     */
     public Tope() {
     }
 
+    /**
+     *
+     * @param idTope
+     * @param tope
+     * @param monedaTope
+     * @param tipoTope
+     */
     public Tope(int idTope, Double tope, int monedaTope, int tipoTope) {
         this.idTope = idTope;
         this.tope = tope;
@@ -30,6 +40,10 @@ public class Tope extends Conexion {
         this.tipoTope = tipoTope;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Tope> getAllTopes() {
         String sql = "select * from Tope";
         ResultSet result = null;
@@ -61,6 +75,11 @@ public class Tope extends Conexion {
         return listTopes;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String topeToSqlFindById(int id) {
         if (id >= 0) {
             String sql = "SELECT * FROM tope WHERE id_tope =" + id + ";";
@@ -70,6 +89,11 @@ public class Tope extends Conexion {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Tope getTopeById(int id) {
         String sql = topeToSqlFindById(id);
         ResultSet result = null;
@@ -97,6 +121,11 @@ public class Tope extends Conexion {
         return newTope;
     }
 
+    /**
+     *
+     * @param r
+     * @return
+     */
     public Tope createTopeFromResultSet(ResultSet r) {
         try {
             Tope p;
@@ -114,34 +143,66 @@ public class Tope extends Conexion {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIdTope() {
         return idTope;
     }
 
+    /**
+     *
+     * @param idTope
+     */
     public void setIdTope(int idTope) {
         this.idTope = idTope;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getTope() {
         return tope;
     }
 
+    /**
+     *
+     * @param tope
+     */
     public void setTope(Double tope) {
         this.tope = tope;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMonedaTope() {
         return monedaTope;
     }
 
+    /**
+     *
+     * @param monedaTope
+     */
     public void setMonedaTope(int monedaTope) {
         this.monedaTope = monedaTope;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTipoTope() {
         return tipoTope;
     }
 
+    /**
+     *
+     * @param tipoTope
+     */
     public void setTipoTope(int tipoTope) {
         this.tipoTope = tipoTope;
     }

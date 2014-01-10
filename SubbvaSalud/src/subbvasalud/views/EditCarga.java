@@ -26,6 +26,8 @@ public class EditCarga extends javax.swing.JDialog {
 
     /**
      * Creates new form EditCarga
+     * @param parent
+     * @param modal
      */
     public EditCarga(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

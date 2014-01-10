@@ -21,11 +21,18 @@ public class MainMenuController {
     Carga c;
     LinkedList<Carga> lc;
 
+    /**
+     *
+     */
     public MainMenuController() {
         s = new Socio();
         c = new Carga();
     }
 
+    /**
+     *
+     * @param tableModel
+     */
     public void mostrarSocios(DefaultTableModel tableModel) {
 
         ls = s.getAllSocios();
@@ -41,6 +48,10 @@ public class MainMenuController {
         }
     }
 
+    /**
+     *
+     * @param tableModel
+     */
     public void mostrarCargas(DefaultTableModel tableModel) {
 
         lc = c.getAllCargas();
@@ -58,6 +69,11 @@ public class MainMenuController {
         }
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public int getIdSociosByRut(int rut) {
         Socio so = new Socio();
         so = so.getSociosByRut(rut);
@@ -69,6 +85,11 @@ public class MainMenuController {
         }
     }
 
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public int getIdCargasByRut(int rut) {
         for (Carga ca : lc) {
             if (ca.getRut() == rut) {

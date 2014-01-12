@@ -7,7 +7,6 @@ package subbvasalud.controllers;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -89,8 +88,7 @@ public class AddNewSocioController {
             Iterator<Row> rowIterator = sheet.iterator();
             LinkedList<Socio> socios = new LinkedList<>();
             CellStyle style = workbook.createCellStyle();
-            style.setFillBackgroundColor(IndexedColors.RED.getIndex());
-            style.setFillPattern(CellStyle.THIN_FORWARD_DIAG);
+            style.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -101,20 +99,28 @@ public class AddNewSocioController {
                     Cell cell = cellIterator.next();
                     switch (i) {
                         case 0:
-                            rut = getRut(cell);
-                            System.out.println("Rut: " + rut);
+                            rut = getRut(cell); 
+                            if(rut == null){
+                                cell.setCellStyle(style);
+                            }                            
                             break;
                         case 1:
                             name = getName(cell);
-                            System.out.println("Name: " + name);
+                             if(name == null){
+                                cell.setCellStyle(style);
+                            }
                             break;
                         case 2:
                             cuenta = getCuenta(cell);
-                            System.out.println("Cuenta: " + cuenta);
+                             if(cuenta == null){
+                                cell.setCellStyle(style);
+                            }
                             break;
                         case 3:
                             tipoCuenta = getTipoCuenta(cell);
-                            System.out.println("Tipo cuenta: " + tipoCuenta);
+                            if(tipoCuenta == -1){
+                                cell.setCellStyle(style);
+                            }
                             break;
                     }
                     i++;

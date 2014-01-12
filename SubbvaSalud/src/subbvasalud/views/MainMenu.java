@@ -110,10 +110,14 @@ public class MainMenu extends javax.swing.JFrame {
         viewSociosMenuItem = new javax.swing.JMenuItem();
         viewCargasMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
+        infoMenu = new javax.swing.JMenu();
+        infoGeneralMenuItem = new javax.swing.JMenuItem();
+        infoSocioMenuItem = new javax.swing.JMenuItem();
+        planPagoMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(608, 415));
         setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
@@ -201,7 +205,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(mainViewPeriodoScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(mainViewSolicitudScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         getContentPane().add(mainView, "mainViewCard");
@@ -333,7 +337,7 @@ public class MainMenu extends javax.swing.JFrame {
             viewCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewCargasPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewCargasScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                .addComponent(viewCargasScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(viewCargasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteCargaButton)
@@ -418,7 +422,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valorUfLabel)
                     .addComponent(valorUfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                 .addGroup(newPeriodoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newPeriodoCancelarButton)
                     .addComponent(newPeriodoNuevoPeriodoButton)
@@ -429,11 +433,6 @@ public class MainMenu extends javax.swing.JFrame {
         getContentPane().add(newPeriodoPanel, "newPeriodoCard");
 
         fileMenu.setText("Archivo");
-        fileMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileMenuActionPerformed(evt);
-            }
-        });
 
         mainViewMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         mainViewMenuItem.setText("Inicio");
@@ -470,6 +469,11 @@ public class MainMenu extends javax.swing.JFrame {
         fileMenu.add(loadFileSociosMenuItem);
 
         loadFileCArgasMenuItem.setText("Cargar archivo de cargas legales");
+        loadFileCArgasMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadFileCArgasMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(loadFileCArgasMenuItem);
 
         mainMenu.add(fileMenu);
@@ -496,6 +500,19 @@ public class MainMenu extends javax.swing.JFrame {
 
         editMenu.setText("Editar");
         mainMenu.add(editMenu);
+
+        infoMenu.setText("Informes");
+
+        infoGeneralMenuItem.setText("Informe general");
+        infoMenu.add(infoGeneralMenuItem);
+
+        infoSocioMenuItem.setText("Informe por Socio");
+        infoMenu.add(infoSocioMenuItem);
+
+        planPagoMenuItem.setText("Generar planilla de pago");
+        infoMenu.add(planPagoMenuItem);
+
+        mainMenu.add(infoMenu);
 
         setJMenuBar(mainMenu);
 
@@ -702,14 +719,14 @@ public class MainMenu extends javax.swing.JFrame {
         ViewUtils.onlyNumbers(evt, valorUfTextField, 6);
     }//GEN-LAST:event_valorUfTextFieldKeyTyped
 
-    private void fileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuActionPerformed
+    private void loadFileCArgasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFileCArgasMenuItemActionPerformed
         int rv = selectFile.showOpenDialog(getContentPane());
         if (rv == JFileChooser.APPROVE_OPTION) {
             File file = selectFile.getSelectedFile();
             AddNewCargaController cargaController = new AddNewCargaController();
             cargaController.cargaMasivaCargasLegales(file);
         }
-    }//GEN-LAST:event_fileMenuActionPerformed
+    }//GEN-LAST:event_loadFileCArgasMenuItemActionPerformed
 
     private void refresh() {
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
@@ -767,6 +784,9 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenu editMenu;
     private javax.swing.JButton editSocioButton;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem infoGeneralMenuItem;
+    private javax.swing.JMenu infoMenu;
+    private javax.swing.JMenuItem infoSocioMenuItem;
     private javax.swing.JMenuItem loadFileCArgasMenuItem;
     private javax.swing.JMenuItem loadFileSociosMenuItem;
     private javax.swing.JMenuBar mainMenu;
@@ -787,6 +807,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel newPeriodoPanel;
     private com.toedter.calendar.JYearChooser newPeriodoSelectAnio;
     private javax.swing.JMenuItem newSolicitudMenuItem;
+    private javax.swing.JMenuItem planPagoMenuItem;
     private javax.swing.JFileChooser selectFile;
     private javax.swing.JLabel valorUfLabel;
     private javax.swing.JTextField valorUfTextField;

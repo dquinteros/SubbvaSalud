@@ -195,8 +195,6 @@ public class ViewUtils {
             }
             if (dv == (char) (s != 0 ? s + 47 : 75)) {
                 validacion = true;
-            } else {
-                validaRut(rut.replaceAll("11", "K"));
             }
 
         } catch (java.lang.NumberFormatException e) {

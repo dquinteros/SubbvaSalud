@@ -25,6 +25,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import subbvasalud.models.Carga;
 import subbvasalud.models.Socio;
+import subbvasalud.views.ViewUtils;
 
 /**
  *
@@ -117,7 +118,7 @@ public class AddNewCargaController {
     public void cargaMasivaCargasLegales(File file) {
         if (file.exists() && file.isFile() && file.canRead()) {
             LinkedList<Carga> cargas = cargaArchivo(file);
-            setAllSociosDisabled();
+            setAllCargasDisabled();
             for (Carga socios : cargas) {
                 guardarCarga(socios);
             }
@@ -125,69 +126,113 @@ public class AddNewCargaController {
     }
 
     private LinkedList<Carga> cargaArchivo(File file) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-//        try {
-//
-//            //Get the workbook instance for XLS file
-//            Workbook workbook = WorkbookFactory.create(file);
-//            //Get first sheet from the workbook
-//            Sheet sheet = workbook.getSheetAt(0);
-//            //Get iterator to all the rows in current sheet
-//            Iterator<Row> rowIterator = sheet.iterator();
-//            LinkedList<Socio> socios = new LinkedList<>();
-//            CellStyle style = workbook.createCellStyle();
-//            style.setFillBackgroundColor(IndexedColors.RED.getIndex());
-//            style.setFillPattern(CellStyle.THIN_FORWARD_DIAG);
-//            while (rowIterator.hasNext()) {
-//                Row row = rowIterator.next();
-//                Iterator<Cell> cellIterator = row.cellIterator(); 
-//                int i = 0;
-//                int rutSocio = -1,rutCarga = -1, tipoCuenta = -1;
-//                String name = null, cuenta = null;
-//                while (cellIterator.hasNext() && i < 4) {
-//                    Cell cell = cellIterator.next();
-//                    switch (i) {
-//                        case 0:
-//                            rut = getRut(cell);
-//                            break;
-//                        case 1:
-//                            name = getName(cell);
-//                            break;
-//                        case 2:
-//                            cuenta = getCuenta(cell);
-//                            break;
-//                        case 3:
-//                            tipoCuenta = getTipoCuenta(cell);
-//                            break;
-//                    }
-//                    i++;
-//                }
-//                if ((rut == -1) || (name == null)) {
-//                    row.setRowStyle(style);                    
-//                } else if((cuenta == null) || (tipoCuenta == -1)) {
-//                    Socio socio = new Socio(-1, rut, name, "0", 0, 0, 1, 504);
-//                    socios.add(socio);
-//                } else{
-//                    Socio socio = new Socio(-1, rut, name, cuenta, tipoCuenta, 0, 1, 504);
-//                    socios.add(socio);
-//                }
-//            }
-//            try (FileOutputStream out = new FileOutputStream(file.getName())) {
-//                workbook.write(out);
-//            }
-//            return socios;
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (InvalidFormatException ex) {
-//            Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//        }
-//        return null;
+        try {
+
+            //Get the workbook instance for XLS file
+            Workbook workbook = WorkbookFactory.create(file);
+            //Get first sheet from the workbook
+            Sheet sheet = workbook.getSheetAt(0);
+            //Get iterator to all the rows in current sheet
+            Iterator<Row> rowIterator = sheet.iterator();
+            LinkedList<Carga> cargas = new LinkedList<>();
+            LinkedList<Socio> socios = s.getAllSocios();
+            CellStyle style = workbook.createCellStyle();
+            style.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
+                int i = 0;
+
+                String name = null, rutSocio = null, rutCarga = null;
+                while (cellIterator.hasNext() && i < 3) {
+                    Cell cell = cellIterator.next();
+                    switch (i) {
+                        case 0:
+                            rutSocio = getRut(cell);
+                            if (rutSocio == null) {
+                                cell.setCellStyle(style);
+                            }
+                            break;
+                        case 1:
+                            name = getName(cell);
+                            if (name == null) {
+                                cell.setCellStyle(style);
+                            }
+                            break;
+                        case 2:
+                            rutCarga = getRut(cell);
+                            if (rutCarga == null) {
+                                cell.setCellStyle(style);
+                            }
+                            break;
+                    }
+                    i++;
+                }
+                if ((rutSocio == null) || (name == null) || (rutCarga == null)) {
+                    row.setRowStyle(style);
+                } else {
+                    for (Socio socio : socios) {
+                        if (socio.getRutSocio().equals(rutSocio)) {
+                            Carga car = new Carga(-1, socio.getIdSocio(), rutCarga, name, 1);
+                            cargas.add(car);
+                        }
+                    }
+
+                }
+            }
+            try (FileOutputStream out = new FileOutputStream(file.getName())) {
+                workbook.write(out);
+            }
+            return cargas;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidFormatException ex) {
+            Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+        }
+        return null;
     }
 
-    private void setAllSociosDisabled() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     *
+     * @param cell
+     * @return
+     */
+    public String getRut(Cell cell) {
+        cell.setCellType(Cell.CELL_TYPE_STRING);
+        String stringRut = cell.getStringCellValue();
+        stringRut = stringRut.replaceFirst("^0+(?!$)", "");
+        if (ViewUtils.validaRut(stringRut)) {
+            return stringRut;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @param cell
+     * @return
+     */
+    public String getName(Cell cell) {
+        cell.setCellType(Cell.CELL_TYPE_STRING);
+        String name = cell.getStringCellValue();
+        System.out.println("nombre: " + name);
+        if (ViewUtils.isAlpha(name) && (name.trim().length() <= 45)) {
+            return name.trim();
+        } else {
+            return null;
+        }
+    }
+
+    private void setAllCargasDisabled() {
+        Carga c = new Carga();
+        LinkedList<Carga> cargas = c.getAllCargas();
+        for (Carga carga : cargas) {
+            carga.setIdEstado(0);
+            c.updateCarga(carga);
+        }
     }
 }

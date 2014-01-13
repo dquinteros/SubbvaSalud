@@ -406,7 +406,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                                     }
                                 } else {
                                     int reembolso = 0;
-                                     if (tipo.getId_tipo() == 400) {
+                                    if (tipo.getId_tipo() == 400) {
                                         reembolso = (Integer.parseInt(porcentajeTextField.getText()) * monto) / 100;
                                     } else {
                                         reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);

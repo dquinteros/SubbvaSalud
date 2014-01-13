@@ -197,9 +197,9 @@ public class EditCarga extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelCargaButtonActionPerformed
 
     private void saveCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCargaButtonActionPerformed
-         int socio = -1;
+        int socio = -1;
         if (!ViewUtils.validaRut(rutTextField.getText())) {
-           socio = mmc.getIdSociosByRut(rutSocioTextField.getText());
+            socio = mmc.getIdSociosByRut(rutSocioTextField.getText());
         }
         if (!editController.validateNullMainFields(rutTextField, nameTextField, rutSocioTextField)) {
             if (!ViewUtils.validaRut(rutTextField.getText())) {

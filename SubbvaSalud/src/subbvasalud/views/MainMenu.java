@@ -117,6 +117,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(608, 415));
         setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -468,7 +469,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
         fileMenu.add(loadFileSociosMenuItem);
 
-        loadFileCArgasMenuItem.setText("Cargar archivo de cargas legales");
+        loadFileCArgasMenuItem.setText("Cargar archivo de cargas");
         loadFileCArgasMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadFileCArgasMenuItemActionPerformed(evt);
@@ -510,6 +511,11 @@ public class MainMenu extends javax.swing.JFrame {
         infoMenu.add(infoSocioMenuItem);
 
         planPagoMenuItem.setText("Generar planilla de pago");
+        planPagoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                planPagoMenuItemActionPerformed(evt);
+            }
+        });
         infoMenu.add(planPagoMenuItem);
 
         mainMenu.add(infoMenu);
@@ -536,8 +542,7 @@ public class MainMenu extends javax.swing.JFrame {
         int rv = selectFile.showOpenDialog(getContentPane());
         if (rv == JFileChooser.APPROVE_OPTION) {
             File file = selectFile.getSelectedFile();
-            AddNewSocioController socioController = new AddNewSocioController();
-            socioController.cargaMasivaSocios(file);
+            ProgressDialogSocios.main(null, file);
         }
     }//GEN-LAST:event_loadFileSociosMenuItemActionPerformed
 
@@ -723,10 +728,13 @@ public class MainMenu extends javax.swing.JFrame {
         int rv = selectFile.showOpenDialog(getContentPane());
         if (rv == JFileChooser.APPROVE_OPTION) {
             File file = selectFile.getSelectedFile();
-            AddNewCargaController cargaController = new AddNewCargaController();
-            cargaController.cargaMasivaCargasLegales(file);
+            ProgressDialogCargas.main(null, file);
         }
     }//GEN-LAST:event_loadFileCArgasMenuItemActionPerformed
+
+    private void planPagoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planPagoMenuItemActionPerformed
+        SelectPeriodo.main(null);
+    }//GEN-LAST:event_planPagoMenuItemActionPerformed
 
     private void refresh() {
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {

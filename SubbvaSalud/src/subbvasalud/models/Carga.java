@@ -79,7 +79,7 @@ public class Carga extends Conexion {
         if (c != null) {
             String sql = "UPDATE \"carga\""
                     + " SET"
-                    + " rut_carga = " + c.getRut() + ","
+                    + " rut_carga = \"" + c.getRut() + "\","
                     + " nombre_carga = \"" + c.getNombre() + "\","
                     + " id_estado = " + c.getIdEstado()
                     + " WHERE id_carga= " + c.getIdCarga()

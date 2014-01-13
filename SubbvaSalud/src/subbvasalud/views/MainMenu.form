@@ -51,7 +51,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="loadFileCArgasMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cargar archivo de cargas legales"/>
+                <Property name="text" type="java.lang.String" value="Cargar archivo de cargas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadFileCArgasMenuItemActionPerformed"/>
@@ -106,6 +106,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Generar planilla de pago"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="planPagoMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -117,6 +120,7 @@
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="Cursor Por defecto"/>
     </Property>
+    <Property name="locationByPlatform" type="boolean" value="true"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[608, 415]"/>
     </Property>

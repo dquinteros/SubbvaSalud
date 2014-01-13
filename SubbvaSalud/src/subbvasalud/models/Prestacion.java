@@ -118,12 +118,12 @@ public class Prestacion extends Conexion {
         String sql = "select * from prestacion where id_prestacion = " + idGasto + ";";
         ResultSet result = null;
         connect();
-         Prestacion newPrestacion = new Prestacion();
+        Prestacion newPrestacion = new Prestacion();
         try {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-                    newPrestacion = this.createPrestacionFromResultSet(result);                    
+                    newPrestacion = this.createPrestacionFromResultSet(result);
                 }
             }
         } catch (SQLException e) {

@@ -41,9 +41,15 @@ public class InfoController {
                 if (linea != null) {
                     pagos.add(linea);
                 } else {
-
+                    String lineaCheque = createSingleExcludeLine(solicitud);
+                    if (lineaCheque != null) {
+                        cheques.add(lineaCheque);
+                    }
                 }
             }
+            StringUtils.replaceChars(file, ".", " con cheque.");
+            printListToFile(file, pagos);
+            printListToFile(file, cheques);
         }
     }
 
@@ -57,6 +63,9 @@ public class InfoController {
             rut = StringUtils.leftPad(rut, 9, '0');
             String name = s.getNombreSocio().trim().toUpperCase();
             name = StringUtils.substring(name, 0, 44);
+            if (solicitud.getMontoTotal() <= 0) {
+                return null;
+            }
             String monto = solicitud.getMontoTotal() + "";
             monto = StringUtils.leftPad(monto, 9, '0');
             linea = rut + "   " + name + "  " + monto;
@@ -82,6 +91,9 @@ public class InfoController {
                 String uno = "1";
                 String codBanco = "504";
                 cuenta = StringUtils.rightPad(cuenta, 20);
+                if (solicitud.getMontoTotal() <= 0) {
+                    return null;
+                }
                 String monto = solicitud.getMontoTotal() + "";
                 monto = StringUtils.leftPad(monto, 9, '0');
                 linea = rut + idCode + name + uno + codBanco + cuenta + code + monto;

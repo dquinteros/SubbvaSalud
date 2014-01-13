@@ -37,6 +37,7 @@ public class NewSolicitud extends javax.swing.JDialog {
 
     /**
      * Creates new form NewSolicitud
+     *
      * @param parent
      * @param modal
      */
@@ -208,6 +209,11 @@ public class NewSolicitud extends javax.swing.JDialog {
         });
 
         jButton5.setText("Guardar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         periodoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -484,6 +490,10 @@ public class NewSolicitud extends javax.swing.JDialog {
         guardarSolicitud();
         refresh();
     }//GEN-LAST:event_selectDateNewSolicitudDateChooserPropertyChange
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void refresh() {
         if (idSol >= 0) {

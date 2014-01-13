@@ -99,26 +99,26 @@ public class AddNewSocioController {
                     Cell cell = cellIterator.next();
                     switch (i) {
                         case 0:
-                            rut = getRut(cell); 
-                            if(rut == null){
+                            rut = getRut(cell);
+                            if (rut == null) {
                                 cell.setCellStyle(style);
-                            }                            
+                            }
                             break;
                         case 1:
                             name = getName(cell);
-                             if(name == null){
+                            if (name == null) {
                                 cell.setCellStyle(style);
                             }
                             break;
                         case 2:
                             cuenta = getCuenta(cell);
-                             if(cuenta == null){
+                            if (cuenta == null) {
                                 cell.setCellStyle(style);
                             }
                             break;
                         case 3:
                             tipoCuenta = getTipoCuenta(cell);
-                            if(tipoCuenta == -1){
+                            if (tipoCuenta == -1) {
                                 cell.setCellStyle(style);
                             }
                             break;

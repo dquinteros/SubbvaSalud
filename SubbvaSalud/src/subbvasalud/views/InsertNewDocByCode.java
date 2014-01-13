@@ -35,6 +35,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
 
     /**
      * Creates new form InsertNewDocByCode
+     *
      * @param parent
      * @param modal
      */

@@ -236,7 +236,7 @@ public class TipoDeDocumento extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-                    newTipo = this.createTipoDocumentoFromResultSet(result);                    
+                    newTipo = this.createTipoDocumentoFromResultSet(result);
                 }
             }
         } catch (SQLException e) {

@@ -83,6 +83,12 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
 
         montoInsertNewDocByCodeLabel.setText("Monto Total*:");
 
+        totalTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                totalTextFieldKeyTyped(evt);
+            }
+        });
+
         aceptarInsertNewDocByCodeButton.setText("Aceptar");
         aceptarInsertNewDocByCodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +97,11 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         });
 
         cancelarInsertNewDocByCodeButton.setText("Cancelar");
+        cancelarInsertNewDocByCodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarInsertNewDocByCodeButtonActionPerformed(evt);
+            }
+        });
 
         fechaLabel.setText("Fecha*:");
 
@@ -99,6 +110,11 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         bonificableTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bonificableTextFieldActionPerformed(evt);
+            }
+        });
+        bonificableTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bonificableTextFieldKeyTyped(evt);
             }
         });
 
@@ -111,7 +127,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
 
         rutLabel.setText("Rut");
 
-        rutCargaTextField.setEditable(false);
+        rutCargaTextField.setEnabled(false);
         rutCargaTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 rutCargaTextFieldKeyTyped(evt);
@@ -120,7 +136,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
 
         nombreLabel.setText("Nombre");
 
-        nombreCargaTextField.setEditable(false);
+        nombreCargaTextField.setEnabled(false);
         nombreCargaTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nombreCargaTextFieldKeyTyped(evt);
@@ -262,14 +278,26 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                                 prestacionSelected = prestacionSelected.getPrestacionById(tipo.getId_prestacion());
                                 if (idTipo == 194 || idTipo == 144 || idTipo == 113 || idTipo == 116) {
                                     String rutCarga = rutCargaTextField.getText().trim();
-                                    if (ViewUtils.validaCargaByRut(rutSocio, rutCarga)) {
-                                        int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutCargaTextField.getText(), periodo);
-                                        DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, prestacionSelected.getNombrePrestacion(), fechaDocumento, montoT, monto, reembolso, rutCarga);
+                                    if (ViewUtils.isNum(rutCarga)) {
+                                        if (ViewUtils.validaCargaByRut(rutSocio, rutCarga)) {
+                                            int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutCargaTextField.getText(), periodo);
+                                            Prestacion p = new Prestacion();
+                                            p = p.getPrestacionById(tipo.getId_prestacion());
+                                            DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, p.getNombrePrestacion(), fechaDocumento, montoT, monto, reembolso, rutCarga);
+                                            DocumentController dc = new DocumentController();
+                                            dc.guardarDocumento(ds);
+                                            this.dispose();
+                                        } else {
+                                            JOptionPane.showMessageDialog(this, "El rut de la carga es incorrecto o no fue ingresado", "Error rut de la carga", WIDTH);
+                                        }
+                                    } else {
+                                        int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);
+                                        Prestacion p = new Prestacion();
+                                        p = p.getPrestacionById(tipo.getId_prestacion());
+                                        DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, p.getNombrePrestacion(), fechaDocumento, montoT, monto, reembolso, rutSocio);
                                         DocumentController dc = new DocumentController();
                                         dc.guardarDocumento(ds);
                                         this.dispose();
-                                    } else {
-                                        JOptionPane.showMessageDialog(this, "El rut de la carga es incorrecto o no fue ingresado", "Error rut de la carga", WIDTH);
                                     }
                                 } else {
                                     int reembolso = 0;
@@ -278,7 +306,9 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                                     } else {
                                         reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);
                                     }
-                                    DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, prestacionSelected.getNombrePrestacion(), fechaDocumento, montoT, monto, reembolso, rutSocio);
+                                    Prestacion p = new Prestacion();
+                                    p = p.getPrestacionById(tipo.getId_prestacion());
+                                    DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, p.getNombrePrestacion(), fechaDocumento, montoT, monto, reembolso, rutSocio);
                                     DocumentController dc = new DocumentController();
                                     dc.guardarDocumento(ds);
                                     this.dispose();
@@ -321,12 +351,14 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
     private void rutCargaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutCargaTextFieldKeyTyped
         String rut = rutCargaTextField.getText() + evt.getKeyChar();
         boolean rutValido = ViewUtils.validaRut(rut);
-        if (rutValido) {
-            Carga cargaAux;
-            cargaAux = cc.getCargaByRutCargaAndSocio(Integer.parseInt(rut), rutSocio);
-            if (cargaAux != null) {
-                if ((cargaAux.getNombre() != null)) {
-                    nombreCargaTextField.setText(cargaAux.getNombre());
+        if (ViewUtils.isNum(rut)) {
+            if (rutValido) {
+                Carga cargaAux;
+                cargaAux = cc.getCargaByRutCargaAndSocio(rut, rutSocio);
+                if (cargaAux != null) {
+                    if ((cargaAux.getNombre() != null)) {
+                        nombreCargaTextField.setText(cargaAux.getNombre());
+                    }
                 }
             }
         }
@@ -376,6 +408,24 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
     private void porcentajeTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_porcentajeTextFieldKeyTyped
         ViewUtils.onlyNumbersMaxValue(evt, porcentajeTextField, 100);
     }//GEN-LAST:event_porcentajeTextFieldKeyTyped
+
+    private void totalTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalTextFieldKeyTyped
+        String nums = totalTextField.getText() + evt.getKeyChar();
+        if (!ViewUtils.isNum(nums)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_totalTextFieldKeyTyped
+
+    private void bonificableTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bonificableTextFieldKeyTyped
+        String nums = bonificableTextField.getText() + evt.getKeyChar();
+        if (!ViewUtils.isNum(nums)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_bonificableTextFieldKeyTyped
+
+    private void cancelarInsertNewDocByCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarInsertNewDocByCodeButtonActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_cancelarInsertNewDocByCodeButtonActionPerformed
 
     /**
      * @param args the command line arguments

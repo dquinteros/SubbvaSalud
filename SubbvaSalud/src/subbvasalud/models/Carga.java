@@ -84,7 +84,6 @@ public class Carga extends Conexion {
                     + " id_estado = " + c.getIdEstado()
                     + " WHERE id_carga= " + c.getIdCarga()
                     + ";";
-            System.out.println(sql);
             return sql;
         } else {
             return null;
@@ -112,7 +111,7 @@ public class Carga extends Conexion {
      */
     public String cargaToSqlFindByRut(String rut) {
         if (ViewUtils.validaRut(rut)) {
-            String sql = "SELECT * FROM carga WHERE rut_carga =" + rut + ";";
+            String sql = "SELECT * FROM carga WHERE rut_carga = '" + rut + "';";
             return sql;
         } else {
             return null;

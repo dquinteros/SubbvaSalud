@@ -18,6 +18,7 @@ import subbvasalud.controllers.AnioController;
 import subbvasalud.controllers.PeriodoController;
 import subbvasalud.controllers.SolicitudController;
 import subbvasalud.models.Anio;
+import subbvasalud.models.DetalleSolicitud;
 import subbvasalud.models.Periodo;
 import subbvasalud.models.SolicitudDeReembolso;
 
@@ -83,12 +84,14 @@ public class NewSolicitud extends javax.swing.JDialog {
         documentTable = new javax.swing.JTable();
         totalReembolsoTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        cancelarButton = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        eliminarDocumentoButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
         periodoScrollPanel = new javax.swing.JScrollPane();
         periodoTable = new javax.swing.JTable();
         anioComboBox = new javax.swing.JComboBox();
         anioLabel = new javax.swing.JLabel();
+        newDocByTypeButton = new javax.swing.JButton();
+        newDocByCodeButton = new javax.swing.JButton();
         newSolicitudMenuBar = new javax.swing.JMenuBar();
         newDocumentoMenuItem = new javax.swing.JMenu();
         docByCodeMenuItem = new javax.swing.JMenuItem();
@@ -150,14 +153,14 @@ public class NewSolicitud extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Tipo", "Monto total", "Monto no bonificado", "Monto de reembolso", "Fecha del documento"
+                "ID", "Código", "Tipo", "Monto total", "Monto no bonificado", "Monto de reembolso", "Fecha del documento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -168,21 +171,29 @@ public class NewSolicitud extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        documentTable.setColumnSelectionAllowed(true);
+        documentTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         docScrollPanel.setViewportView(documentTable);
-        documentTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         totalReembolsoTextField.setEditable(false);
         totalReembolsoTextField.setToolTipText("");
 
         jLabel1.setText("Total Reembolso");
 
+        eliminarDocumentoButton.setText("Eliminar Documento");
+        eliminarDocumentoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarDocumentoButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout insertDocumentoPanelLayout = new javax.swing.GroupLayout(insertDocumentoPanel);
         insertDocumentoPanel.setLayout(insertDocumentoPanelLayout);
         insertDocumentoPanelLayout.setHorizontalGroup(
             insertDocumentoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(insertDocumentoPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(eliminarDocumentoButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(totalReembolsoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,21 +208,15 @@ public class NewSolicitud extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(insertDocumentoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalReembolsoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(eliminarDocumentoButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cancelarButton.setText("Cancelar");
-        cancelarButton.addActionListener(new java.awt.event.ActionListener() {
+        saveButton.setText("Guardar y Cerrar");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarButtonActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Guardar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                saveButtonActionPerformed(evt);
             }
         });
 
@@ -248,6 +253,20 @@ public class NewSolicitud extends javax.swing.JDialog {
 
         anioLabel.setText("Año");
 
+        newDocByTypeButton.setText("Nuevo Documento por tipo");
+        newDocByTypeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newDocByTypeButtonActionPerformed(evt);
+            }
+        });
+
+        newDocByCodeButton.setText("Nuevo Documento por codigo");
+        newDocByCodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newDocByCodeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout newSolicitudPanelLayout = new javax.swing.GroupLayout(newSolicitudPanel);
         newSolicitudPanel.setLayout(newSolicitudPanelLayout);
         newSolicitudPanelLayout.setHorizontalGroup(
@@ -276,14 +295,13 @@ public class NewSolicitud extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newSolicitudPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(newDocByCodeButton)
                 .addGap(18, 18, 18)
-                .addComponent(cancelarButton)
-                .addGap(9, 9, 9))
+                .addComponent(newDocByTypeButton)
+                .addGap(18, 18, 18)
+                .addComponent(saveButton)
+                .addContainerGap())
         );
-
-        newSolicitudPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelarButton, jButton5});
-
         newSolicitudPanelLayout.setVerticalGroup(
             newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newSolicitudPanelLayout.createSequentialGroup()
@@ -307,18 +325,17 @@ public class NewSolicitud extends javax.swing.JDialog {
                     .addGroup(newSolicitudPanelLayout.createSequentialGroup()
                         .addComponent(periodoScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(insertDocumentoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
-                            .addComponent(cancelarButton)))
+                        .addComponent(insertDocumentoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(selectPeriodoNewSolicitudLabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveButton)
+                    .addComponent(newDocByTypeButton)
+                    .addComponent(newDocByCodeButton))
+                .addContainerGap())
         );
 
         newSolicitudPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {anioComboBox, nameSocioNewSolicitudTextField, rutSocioNewSolicitudTextField, selectDateNewSolicitudDateChooser});
-
-        newSolicitudPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cancelarButton, jButton5});
 
         newDocumentoMenuItem.setText(" Nuevo Documento");
 
@@ -359,37 +376,7 @@ public class NewSolicitud extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void docByCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docByCodeMenuItemActionPerformed
-        String rutSocio = rutSocioNewSolicitudTextField.getText();
-        int row = periodoTable.getSelectedRow();
-        Date fecha = selectDateNewSolicitudDateChooser.getDate();
-        if (ViewUtils.validaRut(rutSocio)) {
-            if (row != -1) {
-                if (fecha != null) {
-                    Periodo p = new Periodo();
-                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
-                    String[] args = new String[2];
-                    args[0] = rutSocio;
-
-                    s = s.getSociosByRut(rutSocio);
-                    if (s != null) {
-                        int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
-                        SolicitudDeReembolso sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), fecha, montoTotal);
-                        idSol = sc.guardarSolicitudCondicional(sdr);
-                        args[1] = idSol + "";
-                        InsertNewDocByCode.main(args, p, fecha);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Debe deleccionar uan fecha antes de ingresar un documento", "Fecha no seleccionada", WIDTH);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar un periodo antes de ingresar un documento", "Periodo no seleccionado", WIDTH);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
-        }
-        refresh();
+        newDocbyCode();
     }//GEN-LAST:event_docByCodeMenuItemActionPerformed
 
     private void rutSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutSocioNewSolicitudTextFieldKeyTyped
@@ -432,6 +419,55 @@ public class NewSolicitud extends javax.swing.JDialog {
     }//GEN-LAST:event_anioComboBoxItemStateChanged
 
     private void docByTypeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docByTypeMenuItemActionPerformed
+        newDocByType();
+    }//GEN-LAST:event_docByTypeMenuItemActionPerformed
+
+    private void newSolicitudPanelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newSolicitudPanelFocusGained
+        refresh();
+    }//GEN-LAST:event_newSolicitudPanelFocusGained
+
+    private void newSolicitudPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newSolicitudPanelMouseClicked
+        refresh();
+    }//GEN-LAST:event_newSolicitudPanelMouseClicked
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        refresh();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void periodoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_periodoTableMouseClicked
+        guardarSolicitud();
+        refresh();
+    }//GEN-LAST:event_periodoTableMouseClicked
+
+    private void selectDateNewSolicitudDateChooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_selectDateNewSolicitudDateChooserPropertyChange
+        guardarSolicitud();
+        refresh();
+    }//GEN-LAST:event_selectDateNewSolicitudDateChooserPropertyChange
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        guardarSolicitud();
+        this.dispose();
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void newDocByCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newDocByCodeButtonActionPerformed
+        newDocbyCode();
+    }//GEN-LAST:event_newDocByCodeButtonActionPerformed
+
+    private void newDocByTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newDocByTypeButtonActionPerformed
+        newDocByType();
+    }//GEN-LAST:event_newDocByTypeButtonActionPerformed
+
+    private void eliminarDocumentoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarDocumentoButtonActionPerformed
+        int row = documentTable.getSelectedRow();
+        if (row != -1) {
+            DetalleSolicitud ds = new DetalleSolicitud();
+            int idDetalle = (int) documentTable.getModel().getValueAt(row, 0);
+            ds.deleteDetalle(idDetalle);
+            refresh();
+        }
+    }//GEN-LAST:event_eliminarDocumentoButtonActionPerformed
+
+    private void newDocByType() {
         String rutSocio = rutSocioNewSolicitudTextField.getText();
         int row = periodoTable.getSelectedRow();
         Date fecha = selectDateNewSolicitudDateChooser.getDate();
@@ -463,37 +499,41 @@ public class NewSolicitud extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
         }
         refresh();
-    }//GEN-LAST:event_docByTypeMenuItemActionPerformed
+    }
 
-    private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_cancelarButtonActionPerformed
+    private void newDocbyCode() {
+        String rutSocio = rutSocioNewSolicitudTextField.getText();
+        int row = periodoTable.getSelectedRow();
+        Date fecha = selectDateNewSolicitudDateChooser.getDate();
+        if (ViewUtils.validaRut(rutSocio)) {
+            if (row != -1) {
+                if (fecha != null) {
+                    Periodo p = new Periodo();
+                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
+                    String[] args = new String[2];
+                    args[0] = rutSocio;
 
-    private void newSolicitudPanelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newSolicitudPanelFocusGained
+                    s = s.getSociosByRut(rutSocio);
+                    if (s != null) {
+                        int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
+                        SolicitudDeReembolso sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), fecha, montoTotal);
+                        idSol = sc.guardarSolicitudCondicional(sdr);
+                        args[1] = idSol + "";
+                        InsertNewDocByCode.main(args, p, fecha);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debe deleccionar uan fecha antes de ingresar un documento", "Fecha no seleccionada", WIDTH);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un periodo antes de ingresar un documento", "Periodo no seleccionado", WIDTH);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
+        }
         refresh();
-    }//GEN-LAST:event_newSolicitudPanelFocusGained
-
-    private void newSolicitudPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newSolicitudPanelMouseClicked
-        refresh();
-    }//GEN-LAST:event_newSolicitudPanelMouseClicked
-
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        refresh();
-    }//GEN-LAST:event_formWindowGainedFocus
-
-    private void periodoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_periodoTableMouseClicked
-        guardarSolicitud();
-        refresh();
-    }//GEN-LAST:event_periodoTableMouseClicked
-
-    private void selectDateNewSolicitudDateChooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_selectDateNewSolicitudDateChooserPropertyChange
-        guardarSolicitud();
-        refresh();
-    }//GEN-LAST:event_selectDateNewSolicitudDateChooserPropertyChange
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }
 
     private void refresh() {
         if (idSol >= 0) {
@@ -506,7 +546,7 @@ public class NewSolicitud extends javax.swing.JDialog {
         int suma = 0;
         int rows = ((DefaultTableModel) documentTable.getModel()).getRowCount();
         for (int i = 0; i < rows; i++) {
-            suma += (int) ((DefaultTableModel) documentTable.getModel()).getValueAt(i, 4);
+            suma += (int) ((DefaultTableModel) documentTable.getModel()).getValueAt(i, 5);
         }
         totalReembolsoTextField.setText(suma + "");
 
@@ -580,16 +620,17 @@ public class NewSolicitud extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox anioComboBox;
     private javax.swing.JLabel anioLabel;
-    private javax.swing.JButton cancelarButton;
     private javax.swing.JMenuItem docByCodeMenuItem;
     private javax.swing.JMenuItem docByTypeMenuItem;
     private javax.swing.JScrollPane docScrollPanel;
     private javax.swing.JTable documentTable;
+    private javax.swing.JButton eliminarDocumentoButton;
     private javax.swing.JPanel insertDocumentoPanel;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nameSocioNewSolicitudLabel;
     private javax.swing.JTextField nameSocioNewSolicitudTextField;
+    private javax.swing.JButton newDocByCodeButton;
+    private javax.swing.JButton newDocByTypeButton;
     private javax.swing.JMenu newDocumentoMenuItem;
     private javax.swing.JMenuBar newSolicitudMenuBar;
     private javax.swing.JPanel newSolicitudPanel;
@@ -597,6 +638,7 @@ public class NewSolicitud extends javax.swing.JDialog {
     private javax.swing.JTable periodoTable;
     private javax.swing.JLabel rutSocioNewSolicitudLabel;
     private javax.swing.JTextField rutSocioNewSolicitudTextField;
+    private javax.swing.JButton saveButton;
     private com.toedter.calendar.JDateChooser selectDateNewSolicitudDateChooser;
     private javax.swing.JLabel selectDateNewSolicitudLabel;
     private javax.swing.JLabel selectPeriodoNewSolicitudLabel;

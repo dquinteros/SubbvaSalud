@@ -5,7 +5,6 @@
  */
 package subbvasalud.controllers;
 
-import com.sun.jmx.snmp.BerDecoder;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import subbvasalud.models.Periodo;
 import subbvasalud.models.Socio;
 import subbvasalud.models.SolicitudDeReembolso;
@@ -47,8 +45,8 @@ public class InfoController {
                     }
                 }
             }
-            StringUtils.replaceChars(file, ".", " con cheque.");
             printListToFile(file, pagos);
+            file = StringUtils.replace(file, ".txt", " cheque.txt");
             printListToFile(file, cheques);
         }
     }
@@ -79,15 +77,18 @@ public class InfoController {
         Socio s = new Socio();
         s = s.getSociosById(solicitud.getIdSocio());
         if (s != null) {
+
             String cuenta = s.getCuentaBancariaSocio().trim();
             int code = s.getTipoCuentaSocio();
-            if ((cuenta.length() < 10) && (cuenta.length() > 20) && ViewUtils.isNum(cuenta) && (code > 0) && (code < 5)) {
+            
+            if ((cuenta.length() < 19) && ViewUtils.isNum(cuenta) && (code > 0) && (code < 5)) {
                 String linea;
                 String rut = s.getRutSocio().trim();
                 rut = StringUtils.leftPad(rut, 9, '0');
                 String idCode = StringUtils.rightPad(rut, 15);
                 String name = s.getNombreSocio().trim().toUpperCase().replace('Ñ', 'N');
                 name = StringUtils.substring(name, 0, 44);
+                name = StringUtils.rightPad(name, 45);
                 String uno = "1";
                 String codBanco = "504";
                 cuenta = StringUtils.rightPad(cuenta, 20);

@@ -132,7 +132,8 @@ public class DocumentUtils {
                 }
             }
         } else {
-            reembolso = monto;
+            
+            reembolso = (monto * tipo.getPorcentaje_tipo()) / 100;
         }
         System.out.println("Monto: " + monto);
         return reembolso;

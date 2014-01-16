@@ -102,13 +102,14 @@ public class SolicitudController {
         lds = ds.getAllDetallebyIdSolicitud(id);
         if (lds != null) {
             for (DetalleSolicitud d : lds) {
-                Object[] obj = new Object[6];
-                obj[0] = d.getId_tipo();
-                obj[1] = d.getNombre();
-                obj[2] = d.getMonto_total();
-                obj[3] = d.getNo_bonificado();
-                obj[4] = d.getReembolso();
-                obj[5] = f.format(d.getFecha());
+                Object[] obj = new Object[7];
+                obj[0] = d.getId_detalle();
+                obj[1] = d.getId_tipo();
+                obj[2] = d.getNombre();
+                obj[3] = d.getMonto_total();
+                obj[4] = d.getNo_bonificado();
+                obj[5] = d.getReembolso();
+                obj[6] = f.format(d.getFecha());
                 tableModel.addRow(obj);
             }
         } else {

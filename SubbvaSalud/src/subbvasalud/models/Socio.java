@@ -106,7 +106,6 @@ public class Socio extends Conexion {
                     + " id_banco = " + s.getBancoSocio()
                     + " WHERE id_socio= " + s.getIdSocio()
                     + ";";
-            System.out.println(sql);
             return sql;
         } else {
             return null;

@@ -182,6 +182,28 @@ public class DetalleSolicitud extends Conexion {
         return 1;
     }
 
+     /**
+     *
+     * @param id
+     * @return
+     */
+    public int deleteDetalle(int id) {
+        String sql = "DELETE FROM detalle_solicitud WHERE id_detalle =" + id + ";";
+
+        if (sql != null) {
+            connect();
+            try {
+                query.executeUpdate(sql);
+            } catch (SQLException e) {
+                modelUtils.showSQLException(e);
+            } finally {
+                modelUtils.postUpdateFinally(query, connection);
+            }
+            return 0;
+        }
+        return 1;
+    }
+    
     /**
      *
      * @param d

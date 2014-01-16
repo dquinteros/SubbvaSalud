@@ -395,14 +395,26 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                                 int idTipo = tipo.getId_tipo();
                                 if (idTipo == 194 || idTipo == 144 || idTipo == 113 || idTipo == 116) {
                                     String rutCarga = rutCargaTextField.getText().trim();
-                                    if (ViewUtils.validaCargaByRut(rutSocio, rutCarga)) {
-                                        int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutCargaTextField.getText(), periodo);
-                                        DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, prestacionSelected.getNombrePrestacion(), fechaDocumento, montoTotal, monto, reembolso, rutCarga);
+                                    if (ViewUtils.isNum(rutCarga)) {
+                                        if (ViewUtils.validaCargaByRut(rutSocio, rutCarga)) {
+                                            int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutCargaTextField.getText(), periodo);
+                                            Prestacion p = new Prestacion();
+                                            p = p.getPrestacionById(tipo.getId_prestacion());
+                                            DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, p.getNombrePrestacion(), fechaDocumento, montoTotal, monto, reembolso, rutCarga);
+                                            DocumentController dc = new DocumentController();
+                                            dc.guardarDocumento(ds);
+                                            this.dispose();
+                                        } else {
+                                            JOptionPane.showMessageDialog(this, "El rut de la carga es incorrecto o no fue ingresado", "Error rut de la carga", WIDTH);
+                                        }
+                                    } else {
+                                        int reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);
+                                        Prestacion p = new Prestacion();
+                                        p = p.getPrestacionById(tipo.getId_prestacion());
+                                        DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, p.getNombrePrestacion(), fechaDocumento, montoTotal, monto, reembolso, rutSocio);
                                         DocumentController dc = new DocumentController();
                                         dc.guardarDocumento(ds);
                                         this.dispose();
-                                    } else {
-                                        JOptionPane.showMessageDialog(this, "El rut de la carga es incorrecto o no fue ingresado", "Error rut de la carga", WIDTH);
                                     }
                                 } else {
                                     int reembolso = 0;
@@ -411,7 +423,9 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                                     } else {
                                         reembolso = DocumentUtils.calculaReeembolso(tipo, monto, rutSocio, periodo);
                                     }
-                                    DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, prestacionSelected.getNombrePrestacion(), fechaDocumento, montoTotal, monto, reembolso, rutSocio);
+                                    Prestacion p = new Prestacion();
+                                    p = p.getPrestacionById(tipo.getId_prestacion());
+                                    DetalleSolicitud ds = new DetalleSolicitud(-1, idSolicitud, idTipo, p.getNombrePrestacion(), fechaDocumento, montoTotal, monto, reembolso, rutSocio);
                                     DocumentController dc = new DocumentController();
                                     dc.guardarDocumento(ds);
                                     this.dispose();
@@ -481,13 +495,17 @@ public class InsertNewDocByType extends javax.swing.JDialog {
 
     private void rutCargaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutCargaTextFieldKeyTyped
         String rut = rutCargaTextField.getText() + evt.getKeyChar();
+        System.out.println(rut);
         boolean rutValido = ViewUtils.validaRut(rut);
-        if (rutValido) {
-            Carga cargaAux;
-            cargaAux = cc.getCargaByRutCargaAndSocio(Integer.parseInt(rut), rutSocio);
-            if (cargaAux != null) {
-                if ((cargaAux.getNombre() != null)) {
-                    nombreCargaTextField.setText(cargaAux.getNombre());
+        if (ViewUtils.isNum(rut)) {
+            if (rutValido) {
+                System.out.println(rut);
+                Carga cargaAux;
+                cargaAux = cc.getCargaByRutCargaAndSocio(rut, rutSocio);
+                if (cargaAux != null) {
+                    if ((cargaAux.getNombre() != null)) {
+                        nombreCargaTextField.setText(cargaAux.getNombre());
+                    }
                 }
             }
         }
@@ -533,6 +551,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                     if (tipos != null) {
                         porcentajeTextField.setText("");
                         if (tipos.size() == 1) {
+                            medicamentoCheckBox.setEnabled(false);
                             tipo = tipos.get(0);
                             porcentajeTextField.setText(tipo.getPorcentaje_tipo() + "");
                             if (tipo.getId_tipo() == 400) {
@@ -543,6 +562,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                                 porcentajeTextField.setEditable(false);
                             }
                         } else if (tipos.size() > 1) {
+                            medicamentoCheckBox.setEnabled(true);
                             if (!medicamentoCheckBox.isSelected()) {
                                 for (TipoDeDocumento tipoDeDocumento : tipos) {
                                     if (tipoDeDocumento.getId_tipo() < 1000) {

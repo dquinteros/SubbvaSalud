@@ -88,7 +88,8 @@ public class AddNewSocioController {
             Iterator<Row> rowIterator = sheet.iterator();
             LinkedList<Socio> socios = new LinkedList<>();
             CellStyle style = workbook.createCellStyle();
-            style.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
+            style.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
+            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -174,7 +175,6 @@ public class AddNewSocioController {
     public String getName(Cell cell) {
         cell.setCellType(Cell.CELL_TYPE_STRING);
         String name = cell.getStringCellValue();
-        System.out.println("nombre: " + name);
         if (ViewUtils.isAlpha(name) && (name.trim().length() <= 45)) {
             return name.trim();
         } else {

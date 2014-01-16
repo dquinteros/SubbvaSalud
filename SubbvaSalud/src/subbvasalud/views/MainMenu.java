@@ -109,7 +109,6 @@ public class MainMenu extends javax.swing.JFrame {
         viewMenu = new javax.swing.JMenu();
         viewSociosMenuItem = new javax.swing.JMenuItem();
         viewCargasMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
         infoMenu = new javax.swing.JMenu();
         infoGeneralMenuItem = new javax.swing.JMenuItem();
         infoSocioMenuItem = new javax.swing.JMenuItem();
@@ -144,15 +143,20 @@ public class MainMenu extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        mainViewPeriodoTable.setColumnSelectionAllowed(true);
         mainViewPeriodoTable.getTableHeader().setReorderingAllowed(false);
         mainViewPeriodoScrollPanel.setViewportView(mainViewPeriodoTable);
-        mainViewPeriodoTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         mainViewSolicitudTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -224,11 +228,20 @@ public class MainMenu extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        viewSociosTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        viewSociosTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         viewSociosScrollPanel.setViewportView(viewSociosTable);
 
         deleteSocioButton.setText("Eliminar Socio");
@@ -293,7 +306,16 @@ public class MainMenu extends javax.swing.JFrame {
             new String [] {
                 "Rut", "Nombre", "Nombre Socio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        viewCargasTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         viewCargasScrollPanel.setViewportView(viewCargasTable);
 
         deleteCargaButton.setText("Eliminar Carga");
@@ -498,9 +520,6 @@ public class MainMenu extends javax.swing.JFrame {
         viewMenu.add(viewCargasMenuItem);
 
         mainMenu.add(viewMenu);
-
-        editMenu.setText("Editar");
-        mainMenu.add(editMenu);
 
         infoMenu.setText("Informes");
 
@@ -789,7 +808,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton deleteCargaButton;
     private javax.swing.JButton deleteSocioButton;
     private javax.swing.JButton editCartaButton;
-    private javax.swing.JMenu editMenu;
     private javax.swing.JButton editSocioButton;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem infoGeneralMenuItem;

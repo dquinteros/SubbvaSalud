@@ -115,7 +115,7 @@ public class Prestacion extends Conexion {
      * @return
      */
     public Prestacion getPrestacionById(int id) {
-        String sql = "select * from prestacion where id_prestacion = " + idGasto + ";";
+        String sql = "select * from prestacion where id_prestacion = " + id + ";";
         ResultSet result = null;
         connect();
         Prestacion newPrestacion = new Prestacion();

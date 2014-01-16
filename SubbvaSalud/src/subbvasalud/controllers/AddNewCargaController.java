@@ -137,7 +137,8 @@ public class AddNewCargaController {
             LinkedList<Carga> cargas = new LinkedList<>();
             LinkedList<Socio> socios = s.getAllSocios();
             CellStyle style = workbook.createCellStyle();
-            style.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
+            style.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
+            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -219,7 +220,6 @@ public class AddNewCargaController {
     public String getName(Cell cell) {
         cell.setCellType(Cell.CELL_TYPE_STRING);
         String name = cell.getStringCellValue();
-        System.out.println("nombre: " + name);
         if (ViewUtils.isAlpha(name) && (name.trim().length() <= 45)) {
             return name.trim();
         } else {

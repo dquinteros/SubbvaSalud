@@ -44,7 +44,7 @@ public class ViewUtils {
      */
     public static void onlyRutNumbers(java.awt.event.KeyEvent evt, JTextField rutTextField, int maxChars) {
         char c = evt.getKeyChar();
-        if (((!(Character.isDigit(c))) && (c != '\b')) && (c != 'k')) {
+        if (((!(Character.isDigit(c))) && (c != '\b')) && (c != 'k') && (c!='K')) {
             evt.consume();
         }
         if (rutTextField.getText().length() > maxChars) {
@@ -168,8 +168,10 @@ public class ViewUtils {
             name = "Cuenta de Ahorro";
         } else if (id == 3) {
             name = "Vale Vista";
-        } else {
+        } else if (id == 4){
             name = "Cuenta en Linea";
+        }else{
+            name = "<Seleccione un tipo de cuenta>";
         }
         return name;
     }
@@ -213,7 +215,7 @@ public class ViewUtils {
      * @return
      */
     public static boolean validaCargaByRut(String rutSocio, String rutCarga) {
-        if (!ViewUtils.validaRut(rutSocio) || !validaRut(rutCarga)) {
+        if (validaRut(rutSocio) && validaRut(rutCarga)) {
             Socio s = new Socio();
             Carga c = new Carga();
             s = s.getSociosByRut(rutSocio);

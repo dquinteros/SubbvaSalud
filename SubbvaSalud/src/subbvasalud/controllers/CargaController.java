@@ -55,7 +55,7 @@ public class CargaController {
      * @param rutSocio
      * @return
      */
-    public Carga getCargaByRutCargaAndSocio(int rutCarga, String rutSocio) {
+    public Carga getCargaByRutCargaAndSocio(String rutCarga, String rutSocio) {
         if (ViewUtils.validaRut(rutCarga)) {
             LinkedList<Carga> cargas = this.getCargasByRutSocio(rutSocio);
             if (cargas != null) {

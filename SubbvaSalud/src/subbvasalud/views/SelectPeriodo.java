@@ -75,9 +75,8 @@ public class SelectPeriodo extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        periodoTable.setColumnSelectionAllowed(true);
+        periodoTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         periodoScrollPane.setViewportView(periodoTable);
-        periodoTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         anioLabel.setText("Año");
 
@@ -157,10 +156,11 @@ public class SelectPeriodo extends javax.swing.JDialog {
             Periodo p = new Periodo();
             p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
             InfoController info = new InfoController();
-            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
             String file = "pago " + f.format(new Date()) + ".txt";
             info.createPlanPago(file, p.getId_periodo());
         }
+        this.dispose();
     }//GEN-LAST:event_aceptarButtonActionPerformed
 
     /**

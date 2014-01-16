@@ -6,6 +6,8 @@
 package subbvasalud.controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
@@ -42,6 +44,13 @@ public class ReportController {
             s = s.getSolicitudByPeriodoAndSocio(socio.getIdSocio(), periodo.getId_periodo());
             if (s != null) {
                 Workbook wb = createPersonalReport(s, socio, periodo);
+                try (FileOutputStream out = new FileOutputStream(file)) {
+                    wb.write(out);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -74,7 +83,7 @@ public class ReportController {
                     } else if (i == 2 && j == 15) {
                         cell.setCellValue("Nombre:" + so.getNombreSocio());
                     } else if (i == 1 && j == 16) {
-                        cell.setCellValue("Fecha:");                        
+                        cell.setCellValue("Fecha:");
                         cell.setCellStyle(style);
                     } else if (i == 2 && j == 16) {
                         cell.setCellValue("Rut");
@@ -100,29 +109,36 @@ public class ReportController {
                     } else if (i > 8) {
                         break;
                     }
-                    if (!detalles.isEmpty()) {
+                    if (!detalles.isEmpty() && j > 16) {
                         DetalleSolicitud de = detalles.pop();
-                        if (i == 1 && j > 16) {                            
-                            cell.setCellValue(df.format(de.getFecha()));                            
-                        } else if (i == 2 && j > 16) {
-                            cell.setCellValue(de.getRut());                            
-                        } else if (i == 3 && j > 16) {
+                        if (i == 1) {
+                            cell.setCellValue(df.format(de.getFecha()));
+                        } else if (i == 2) {
+                            cell.setCellValue(de.getRut());
+                        } else if (i == 3) {
                             cell.setCellValue(de.getId_tipo());
-                        } else if (i == 4 && j > 16) {
+                        } else if (i == 4) {
                             cell.setCellValue(de.getNombre());
-                        } else if (i == 5 && j > 16) {
+                        } else if (i == 5) {
                             TipoDeDocumento t = new TipoDeDocumento();
                             t = t.getTipoDocumentoById(de.getId_tipo());
-                            cell.setCellValue(t.getPorcentaje_tipo()+"%");
-                        } else if (i == 6 && j > 16) {
+                            cell.setCellValue(t.getPorcentaje_tipo() + "%");
+                        } else if (i == 6) {
                             cell.setCellValue(de.getMonto_total());
-                        } else if (i == 7 && j > 16) {
+                        } else if (i == 7) {
                             cell.setCellValue(de.getNo_bonificado());
-                        } else if (i == 8 && j > 16) {
-                            
-                            cell.setCellStyle(style);
+                        } else if (i == 8) {
+                            cell.setCellValue(de.getReembolso());
                         } else if (i > 8) {
                             break;
+                        }
+                    } else if (detalles.isEmpty() && j > 16) {
+                        if (i == 7) {
+                            cell.setCellStyle(style);
+                            cell.setCellValue("Total");
+                        } else if (i == 8) {
+                            cell.setCellStyle(style);
+                            cell.setCellValue(s.getMontoTotal());
                         }
                     }
                     i++;
@@ -130,6 +146,7 @@ public class ReportController {
                 i = 0;
                 j++;
             }
+            return workbook;
         } catch (IOException ex) {
             Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidFormatException ex) {

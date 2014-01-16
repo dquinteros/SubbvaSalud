@@ -60,7 +60,7 @@ public class DocumentUtils {
         System.out.println("Rut: " + rut);
         if (ViewUtils.validaRut(rut)) {
             LinkedList<Tope> topes = getTopebyDocType(tipo);
-            if (topes.size() == 1) {
+            if (topes.size() == 1) {                
                 Tope tope = topes.getFirst();
                 reembolso = calculaReembolsoUnaCondicion(tipo, monto, tope, periodo, rut);
             } else if (topes.size() > 1) {

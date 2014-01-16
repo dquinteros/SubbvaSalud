@@ -234,7 +234,7 @@ public class NewSocio extends javax.swing.JDialog {
     }//GEN-LAST:event_lastnameTextFieldKeyTyped
 
     private void accountTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_accountTextFieldKeyTyped
-        ViewUtils.onlyRutNumbers(evt, rutTextField, 20);
+        ViewUtils.onlyRutNumbers(evt, accountTextField, 18);
     }//GEN-LAST:event_accountTextFieldKeyTyped
 
     private void aceptNewSociosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptNewSociosButtonActionPerformed

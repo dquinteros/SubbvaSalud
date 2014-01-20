@@ -527,6 +527,11 @@ public class MainMenu extends javax.swing.JFrame {
         infoMenu.add(infoGeneralMenuItem);
 
         infoSocioMenuItem.setText("Informe por Socio");
+        infoSocioMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoSocioMenuItemActionPerformed(evt);
+            }
+        });
         infoMenu.add(infoSocioMenuItem);
 
         planPagoMenuItem.setText("Generar planilla de pago");
@@ -754,6 +759,10 @@ public class MainMenu extends javax.swing.JFrame {
     private void planPagoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planPagoMenuItemActionPerformed
         SelectPeriodo.main(null);
     }//GEN-LAST:event_planPagoMenuItemActionPerformed
+
+    private void infoSocioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoSocioMenuItemActionPerformed
+      SelectInformePersonal.main(null);
+    }//GEN-LAST:event_infoSocioMenuItemActionPerformed
 
     private void refresh() {
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {

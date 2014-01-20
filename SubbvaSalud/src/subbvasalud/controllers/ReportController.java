@@ -9,10 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,29 +36,27 @@ public class ReportController {
     }
 
     public void createPersonalReport(File file, Socio socio, Periodo periodo) {
-        if (file.exists() && file.isFile() && file.canRead()) {
-            SolicitudDeReembolso s = new SolicitudDeReembolso();
-            s = s.getSolicitudByPeriodoAndSocio(socio.getIdSocio(), periodo.getId_periodo());
-            if (s != null) {
-                Workbook wb = createPersonalReport(s, socio, periodo);
-                try (FileOutputStream out = new FileOutputStream(file)) {
-                    wb.write(out);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+        SolicitudDeReembolso s = new SolicitudDeReembolso();
+        s = s.getSolicitudByPeriodoAndSocio(socio.getIdSocio(), periodo.getId_periodo());
+        if (s != null) {
+            Workbook wb = createPersonalReport(s, socio, periodo);
+            try (FileOutputStream out = new FileOutputStream(file.getPath())) {
+                wb.write(out);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
 
     private Workbook createPersonalReport(SolicitudDeReembolso s, Socio so, Periodo p) {
         try {
             String path = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/formatoInforme.xlsx";
             File f = new File(path);
-            int i = 0, j = 0;
             DetalleSolicitud d = new DetalleSolicitud();
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
             LinkedList<DetalleSolicitud> detalles = d.getAllDetallebyIdSolicitud(s.getIdSolicitud());
             Workbook workbook = WorkbookFactory.create(f);
             //Get first sheet from the workbook
@@ -72,80 +67,80 @@ public class ReportController {
             style.setBorderTop(CellStyle.BORDER_MEDIUM);
             style.setBorderRight(CellStyle.BORDER_MEDIUM);
             style.setBorderLeft(CellStyle.BORDER_MEDIUM);
-            Iterator<Row> rowIterator = sheet.iterator();
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator();
-                while (cellIterator.hasNext()) {
-                    Cell cell = cellIterator.next();
-                    if (i == 1 && j == 15) {
-                        cell.setCellValue("Rut:" + so.getRutSocio());
-                    } else if (i == 2 && j == 15) {
-                        cell.setCellValue("Nombre:" + so.getNombreSocio());
-                    } else if (i == 1 && j == 16) {
-                        cell.setCellValue("Fecha:");
-                        cell.setCellStyle(style);
-                    } else if (i == 2 && j == 16) {
-                        cell.setCellValue("Rut");
-                        cell.setCellStyle(style);
-                    } else if (i == 3 && j == 16) {
-                        cell.setCellValue("Cod");
-                        cell.setCellStyle(style);
-                    } else if (i == 4 && j == 16) {
-                        cell.setCellValue("Prestacion");
-                        cell.setCellStyle(style);
-                    } else if (i == 5 && j == 16) {
-                        cell.setCellValue("Bon %");
-                        cell.setCellStyle(style);
-                    } else if (i == 6 && j == 16) {
-                        cell.setCellValue("Vtotal");
-                        cell.setCellStyle(style);
-                    } else if (i == 7 && j == 16) {
-                        cell.setCellValue("Cbonific");
-                        cell.setCellStyle(style);
-                    } else if (i == 8 && j == 16) {
-                        cell.setCellValue("Reembolso");
-                        cell.setCellStyle(style);
-                    } else if (i > 8) {
-                        break;
-                    }
-                    if (!detalles.isEmpty() && j > 16) {
-                        DetalleSolicitud de = detalles.pop();
-                        if (i == 1) {
-                            cell.setCellValue(df.format(de.getFecha()));
-                        } else if (i == 2) {
-                            cell.setCellValue(de.getRut());
-                        } else if (i == 3) {
-                            cell.setCellValue(de.getId_tipo());
-                        } else if (i == 4) {
-                            cell.setCellValue(de.getNombre());
-                        } else if (i == 5) {
-                            TipoDeDocumento t = new TipoDeDocumento();
-                            t = t.getTipoDocumentoById(de.getId_tipo());
-                            cell.setCellValue(t.getPorcentaje_tipo() + "%");
-                        } else if (i == 6) {
-                            cell.setCellValue(de.getMonto_total());
-                        } else if (i == 7) {
-                            cell.setCellValue(de.getNo_bonificado());
-                        } else if (i == 8) {
-                            cell.setCellValue(de.getReembolso());
-                        } else if (i > 8) {
-                            break;
-                        }
-                    } else if (detalles.isEmpty() && j > 16) {
-                        if (i == 7) {
-                            cell.setCellStyle(style);
-                            cell.setCellValue("Total");
-                        } else if (i == 8) {
-                            cell.setCellStyle(style);
-                            cell.setCellValue(s.getMontoTotal());
-                        }
-                    }
-                    i++;
-                }
-                i = 0;
-                j++;
+
+            CellStyle styleLeftSide = workbook.createCellStyle();
+            CellStyle styleRightSide = workbook.createCellStyle();
+            styleRightSide.setBorderRight(CellStyle.BORDER_MEDIUM);
+            styleLeftSide.setBorderLeft(CellStyle.BORDER_MEDIUM);
+            styleLeftSide.setDataFormat(workbook.createDataFormat().getFormat("dd/mm/yyyy hh:mm"));
+
+            Row row = sheet.createRow(1);
+            Cell cell = row.createCell(1);
+            cell.setCellValue("Rut:" + so.getRutSocio());
+            cell = row.createCell(2);
+            cell.setCellValue("Nombre:" + so.getNombreSocio());
+
+            row = sheet.createRow(2);
+
+            cell = row.createCell(1);
+            cell.setCellValue("Fecha");
+            cell.setCellStyle(style);
+            cell = row.createCell(2);
+            cell.setCellValue("Rut");
+            cell.setCellStyle(style);
+            cell = row.createCell(3);
+            cell.setCellValue("Cod");
+            cell.setCellStyle(style);
+            cell = row.createCell(4);
+            cell.setCellValue("Prestacion");
+            cell.setCellStyle(style);
+            cell = row.createCell(5);
+            cell.setCellValue("Bon %");
+            cell.setCellStyle(style);
+            cell = row.createCell(6);
+            cell.setCellValue("Vtotal");
+            cell.setCellStyle(style);
+            cell = row.createCell(7);
+            cell.setCellValue("Cbonific");
+            cell.setCellStyle(style);
+            cell = row.createCell(8);
+            cell.setCellValue("Reembolso");
+            cell.setCellStyle(style);
+            int i = 3;
+            while (!detalles.isEmpty()) {
+                DetalleSolicitud de = detalles.pop();
+                row = sheet.createRow(i);
+                cell = row.createCell(1);
+                cell.setCellValue(de.getFecha());
+                cell.setCellStyle(styleLeftSide);
+                cell = row.createCell(2);
+                cell.setCellValue(de.getRut());
+                cell = row.createCell(3);
+                cell.setCellValue(de.getId_tipo());
+                cell = row.createCell(4);
+                cell.setCellValue(de.getNombre());
+                cell = row.createCell(5);
+                TipoDeDocumento t = new TipoDeDocumento();
+                t = t.getTipoDocumentoById(de.getId_tipo());
+                cell.setCellValue(t.getPorcentaje_tipo() + "%");
+                cell = row.createCell(6);
+                cell.setCellValue(de.getMonto_total());
+                cell = row.createCell(7);
+                cell.setCellValue(de.getNo_bonificado());
+                cell = row.createCell(8);
+                cell.setCellValue(de.getReembolso());
+                cell.setCellStyle(styleRightSide);
+                i++;
             }
+
+            row = sheet.createRow(i);
+            cell = row.createCell(7);
+            cell.setCellValue("Total");
+            cell.setCellStyle(style);
+            cell = row.createCell(8);
+            cell.setCellValue(s.getMontoTotal());
+            cell.setCellStyle(style);
+
             return workbook;
         } catch (IOException ex) {
             Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
@@ -153,6 +148,80 @@ public class ReportController {
             Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public void createGeneralReport(File file, Periodo p) {
+        try {
+            SolicitudDeReembolso sdr = new SolicitudDeReembolso();
+            LinkedList<SolicitudDeReembolso> ls = sdr.getAllSolicitudByPeriodo(p.getId_periodo());
+            Workbook workbook = WorkbookFactory.create(file);
+            int i = 0;
+            for (SolicitudDeReembolso solicitud : ls) {
+                Object[] obj = makeGeneralReport(solicitud, i, workbook);
+                i = (int) obj[1];
+                workbook = (Workbook) obj[2];
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidFormatException ex) {
+            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private Object[] makeGeneralReport(SolicitudDeReembolso s, int i, Workbook workbook) {
+        String path = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/formatoInforme.xlsx";
+        DetalleSolicitud d = new DetalleSolicitud();
+        LinkedList<DetalleSolicitud> detalles = d.getAllDetallebyIdSolicitud(s.getIdSolicitud());
+        Socio so = new Socio();
+        so = so.getSociosById(s.getIdSocio());
+        Sheet sheet = workbook.getSheetAt(0);
+        CellStyle style = workbook.createCellStyle();
+        style.setBorderBottom(CellStyle.BORDER_MEDIUM);
+        style.setBorderTop(CellStyle.BORDER_MEDIUM);
+        style.setBorderRight(CellStyle.BORDER_MEDIUM);
+        style.setBorderLeft(CellStyle.BORDER_MEDIUM);
+        CellStyle styleLeftSide = workbook.createCellStyle();
+        CellStyle styleRightSide = workbook.createCellStyle();
+        styleLeftSide.setDataFormat(workbook.createDataFormat().getFormat("dd/mm/yyyy hh:mm"));
+        Row row;
+        Cell cell;  
+        while (!detalles.isEmpty()) {
+            DetalleSolicitud de = detalles.pop();
+            row = sheet.createRow(i);
+            cell = row.createCell(0);
+            cell.setCellValue(so.getRutSocio());
+            cell = row.createCell(1);
+            cell.setCellValue(so.getNombreSocio());
+            cell = row.createCell(2);
+            cell.setCellValue(de.getFecha());
+            cell.setCellStyle(styleLeftSide);
+            cell = row.createCell(3);
+            cell.setCellValue(de.getRut());
+            cell = row.createCell(4);
+            cell.setCellValue(de.getId_tipo());
+            cell = row.createCell(5);
+            cell.setCellValue(de.getNombre());
+            cell = row.createCell(6);
+            TipoDeDocumento t = new TipoDeDocumento();
+            t = t.getTipoDocumentoById(de.getId_tipo());
+            cell.setCellValue(t.getPorcentaje_tipo() + "%");
+            cell = row.createCell(7);
+            cell.setCellValue(de.getMonto_total());
+            cell = row.createCell(8);
+            cell.setCellValue(de.getNo_bonificado());
+            cell = row.createCell(9);
+            cell.setCellValue(de.getReembolso());
+            cell.setCellStyle(styleRightSide);
+            cell = row.createCell(10);
+            cell.setCellValue(s.getMontoTotal());
+            cell.setCellStyle(style);
+            i++;
+        }
+        Object[] obj = new Object[2];
+        obj[0] = i;
+        obj[1] = workbook;
+        return obj;
     }
 
 }

@@ -96,6 +96,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Informe por Socio"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="infoSocioMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="planPagoMenuItem">
               <Properties>

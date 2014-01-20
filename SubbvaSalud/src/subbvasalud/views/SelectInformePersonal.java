@@ -10,15 +10,16 @@ import subbvasalud.models.Socio;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import java.awt.event.ItemEvent;
 import static java.awt.image.ImageObserver.WIDTH;
-import java.util.Date;
+import java.io.File;
 import java.util.LinkedList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import subbvasalud.controllers.AnioController;
 import subbvasalud.controllers.PeriodoController;
+import subbvasalud.controllers.ReportController;
 import subbvasalud.controllers.SolicitudController;
 import subbvasalud.models.Anio;
-import subbvasalud.models.DetalleSolicitud;
 import subbvasalud.models.Periodo;
 import subbvasalud.models.SolicitudDeReembolso;
 
@@ -26,7 +27,7 @@ import subbvasalud.models.SolicitudDeReembolso;
  *
  * @author damage
  */
-public class selectInformePersonal extends javax.swing.JDialog {
+public class SelectInformePersonal extends javax.swing.JDialog {
 
     LinkedList<Socio> ls;
     Socio s;
@@ -42,7 +43,7 @@ public class selectInformePersonal extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public selectInformePersonal(java.awt.Frame parent, boolean modal) {
+    public SelectInformePersonal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         ls = new LinkedList<>();
         pc = new PeriodoController();
@@ -82,6 +83,9 @@ public class selectInformePersonal extends javax.swing.JDialog {
         periodoTable = new javax.swing.JTable();
         anioComboBox = new javax.swing.JComboBox();
         anioLabel = new javax.swing.JLabel();
+
+        selectFile.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        selectFile.setSelectedFile(new java.io.File("C:\\Program Files (x86)\\NetBeans 7.4\\informe.xlsx"));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
@@ -125,7 +129,7 @@ public class selectInformePersonal extends javax.swing.JDialog {
 
         selectPeriodoNewSolicitudLabel.setText("Periodo");
 
-        saveButton.setText("Guardar y Cerrar");
+        saveButton.setText("Crear informe");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
@@ -170,24 +174,26 @@ public class selectInformePersonal extends javax.swing.JDialog {
         newSolicitudPanelLayout.setHorizontalGroup(
             newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newSolicitudPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameSocioNewSolicitudLabel)
-                    .addComponent(rutSocioNewSolicitudLabel)
-                    .addComponent(selectPeriodoNewSolicitudLabel)
-                    .addComponent(anioLabel))
-                .addGap(18, 18, 18)
-                .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(rutSocioNewSolicitudTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(newSolicitudPanelLayout.createSequentialGroup()
-                        .addComponent(anioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(500, 500, 500))
-                    .addComponent(nameSocioNewSolicitudTextField)
-                    .addComponent(periodoScrollPanel))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newSolicitudPanelLayout.createSequentialGroup()
-                .addGap(546, 546, 546)
-                .addComponent(saveButton)
+                        .addContainerGap()
+                        .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameSocioNewSolicitudLabel)
+                            .addComponent(rutSocioNewSolicitudLabel)
+                            .addComponent(selectPeriodoNewSolicitudLabel)
+                            .addComponent(anioLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nameSocioNewSolicitudTextField)
+                            .addComponent(periodoScrollPanel)
+                            .addGroup(newSolicitudPanelLayout.createSequentialGroup()
+                                .addGroup(newSolicitudPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rutSocioNewSolicitudTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(anioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(341, 341, 341))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newSolicitudPanelLayout.createSequentialGroup()
+                        .addGap(546, 546, 546)
+                        .addComponent(saveButton)))
                 .addContainerGap())
         );
         newSolicitudPanelLayout.setVerticalGroup(
@@ -259,8 +265,7 @@ public class selectInformePersonal extends javax.swing.JDialog {
     }//GEN-LAST:event_periodoTableMouseClicked
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-
-        this.dispose();
+        newDocByType();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void nameSocioNewSolicitudTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameSocioNewSolicitudTextFieldKeyTyped
@@ -296,34 +301,24 @@ public class selectInformePersonal extends javax.swing.JDialog {
                 p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
                 s = s.getSociosByRut(rutSocio);
                 SolicitudDeReembolso sol = new SolicitudDeReembolso();
-               
+
                 if (s != null) {
-                     sol = sol.getSolicitudByPeriodoAndSocio(s.getIdSocio(),p.getId_periodo());
-                     
-                } else {
-                    JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar un periodo antes de ingresar un documento", "Periodo no seleccionado", WIDTH);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
-        }
-    }
+                    int rv = selectFile.showSaveDialog(getContentPane());
+                    if (rv != JFileChooser.CANCEL_OPTION) {
+                        File file = selectFile.getSelectedFile();
+                        if (file.exists()) {
+                            int result = JOptionPane.showConfirmDialog(this, "El archivo "+file.getName()+" ya existe, desea sobreescribirlo?", "Archivo existente", JOptionPane.YES_NO_OPTION);
+                            switch (result) {
+                                case JOptionPane.YES_OPTION:
+                                    ReportController rc = new ReportController();
+                                    rc.createPersonalReport(file, s, p);
+                                    JOptionPane.showMessageDialog(this, "Informe creado de forma exitosa", "Exito", WIDTH);
+                                    this.dispose();
 
-    private void newDocbyCode() {
-        String rutSocio = rutSocioNewSolicitudTextField.getText();
-        int row = periodoTable.getSelectedRow();
-        if (ViewUtils.validaRut(rutSocio)) {
-            if (row != -1) {
+                            }
+                        }
 
-                Periodo p = new Periodo();
-                p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
-                String[] args = new String[2];
-                args[0] = rutSocio;
-
-                s = s.getSociosByRut(rutSocio);
-                if (s != null) {
+                    }
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
@@ -353,20 +348,20 @@ public class selectInformePersonal extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(selectInformePersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectInformePersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(selectInformePersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectInformePersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(selectInformePersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectInformePersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(selectInformePersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectInformePersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                selectInformePersonal dialog = new selectInformePersonal(new javax.swing.JFrame(), true);
+                SelectInformePersonal dialog = new SelectInformePersonal(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

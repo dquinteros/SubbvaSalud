@@ -524,6 +524,11 @@ public class MainMenu extends javax.swing.JFrame {
         infoMenu.setText("Informes");
 
         infoGeneralMenuItem.setText("Informe general");
+        infoGeneralMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoGeneralMenuItemActionPerformed(evt);
+            }
+        });
         infoMenu.add(infoGeneralMenuItem);
 
         infoSocioMenuItem.setText("Informe por Socio");
@@ -763,6 +768,10 @@ public class MainMenu extends javax.swing.JFrame {
     private void infoSocioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoSocioMenuItemActionPerformed
       SelectInformePersonal.main(null);
     }//GEN-LAST:event_infoSocioMenuItemActionPerformed
+
+    private void infoGeneralMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoGeneralMenuItemActionPerformed
+        SelectInformeGeneral.main(null);
+    }//GEN-LAST:event_infoGeneralMenuItemActionPerformed
 
     private void refresh() {
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {

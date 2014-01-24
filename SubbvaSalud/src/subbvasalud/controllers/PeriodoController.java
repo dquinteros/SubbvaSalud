@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import subbvasalud.models.Anio;
 import subbvasalud.models.Periodo;
+import subbvasalud.models.Socio;
+import subbvasalud.models.SolicitudDeReembolso;
 
 /**
  *
@@ -83,11 +85,28 @@ public class PeriodoController {
                 Object[] obj = new Object[2];
                 obj[0] = p.getId_periodo();
                 obj[1] = p.getNombre_periodo();
-
                 tableModel.addRow(obj);
             }
         } else {
             System.out.println("Table Empty");
+        }
+    }
+
+    public void mostrarSolicitudes(DefaultTableModel tableModel, Periodo p) {
+        SolicitudDeReembolso s = new SolicitudDeReembolso();
+        LinkedList<SolicitudDeReembolso> ls = s.getAllSolicitudByPeriodo(p.getId_periodo());
+        if (ls != null && ls.size() > 0) {
+            for (SolicitudDeReembolso solicitud : ls) {
+                Object[] obj = new Object[4];
+                Socio so = new Socio();
+                so = so.getSociosById(solicitud.getIdSocio());                
+                obj[0] = so.getRutSocio();
+                obj[1] = so.getNombreSocio();
+                obj[2] = solicitud.getMontoTotal();
+                obj[3] = solicitud.getIdSolicitud();
+                tableModel.addRow(obj);
+
+            }
         }
     }
 

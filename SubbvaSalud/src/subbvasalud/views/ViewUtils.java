@@ -35,6 +35,10 @@ public class ViewUtils {
     public static boolean isNum(String name) {
         return name.matches("[0-9]+");
     }
+    
+    public static boolean isRutNum(String name) {
+        return name.matches("[0-9kK]+");
+    }
 
     /**
      *

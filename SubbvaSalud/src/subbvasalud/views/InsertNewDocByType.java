@@ -495,9 +495,8 @@ public class InsertNewDocByType extends javax.swing.JDialog {
 
     private void rutCargaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutCargaTextFieldKeyTyped
         String rut = rutCargaTextField.getText() + evt.getKeyChar();
-        System.out.println(rut);
         boolean rutValido = ViewUtils.validaRut(rut);
-        if (ViewUtils.isNum(rut)) {
+        if (ViewUtils.isRutNum(rut)) {
             if (rutValido) {
                 System.out.println(rut);
                 Carga cargaAux;
@@ -509,6 +508,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                 }
             }
         }
+
         ViewUtils.onlyRutNumbers(evt, rutCargaTextField, 9);
     }//GEN-LAST:event_rutCargaTextFieldKeyTyped
 

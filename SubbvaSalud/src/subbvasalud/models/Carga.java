@@ -139,6 +139,12 @@ public class Carga extends Conexion {
         }
         return 1;
     }
+    
+     public int insertAllCarga(LinkedList<String> lista) {
+        connect();
+        consultarBatch(lista);
+        return 0;
+     }
 
     /**
      *
@@ -168,6 +174,37 @@ public class Carga extends Conexion {
      */
     public LinkedList<Carga> getAllCargas() {
         String sql = "select * from carga where id_estado = 1";
+        ResultSet result = null;
+        connect();
+        LinkedList<Carga> listCargas;
+        listCargas = new LinkedList<>();
+
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                while (result.next()) {
+
+                    Carga newCarga = this.createCargaFromResultSet(result);
+                    boolean ans;
+                    ans = listCargas.add(newCarga);
+                    if (ans == true) {
+
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return listCargas;
+    }
+    
+    public LinkedList<Carga> getAllCargasFull() {
+        String sql = "select * from carga;";
         ResultSet result = null;
         connect();
         LinkedList<Carga> listCargas;

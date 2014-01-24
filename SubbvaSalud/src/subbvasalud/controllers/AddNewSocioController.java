@@ -48,11 +48,26 @@ public class AddNewSocioController {
     public int cargaMasivaSocios(File file) {
         if (file.exists() && file.isFile() && file.canRead()) {
 
-            LinkedList<Socio> socios = cargaArchivo(file);
+            LinkedList<Socio> sociosNuevos = cargaArchivo(file);
+            LinkedList<Socio> sociosActuales = s.getAllFullSocios();
+            LinkedList<String> lista = new LinkedList<>();
             setAllSociosDisabled();
-            for (Socio socio : socios) {
-                guardarSocio(socio);
+            boolean flag = true;
+            for (Socio socio : sociosNuevos) {
+                for (Socio so : sociosActuales) {
+                    if (so.getRutSocio().trim().equals(socio.getRutSocio().trim())) {
+                        so.setIdEstado(1);
+                        lista.add(s.socioToSqlUpdate(so));
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    lista.add(s.socioToSqlInsert(socio));                    
+                }
+                flag = true;
             }
+
+            s.insertAllSocio(lista);
         }
         return 0;
     }

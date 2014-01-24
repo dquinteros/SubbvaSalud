@@ -15,7 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import subbvasalud.controllers.AddNewCargaController;
 import subbvasalud.controllers.AnioController;
 import subbvasalud.controllers.EditCargaController;
 import subbvasalud.controllers.EditSocioController;
@@ -25,7 +24,6 @@ import subbvasalud.models.Anio;
 import subbvasalud.models.Carga;
 import subbvasalud.models.Periodo;
 import subbvasalud.models.Socio;
-import subbvasalud.controllers.AddNewSocioController;
 
 /**
  *
@@ -106,6 +104,7 @@ public class MainMenu extends javax.swing.JFrame {
         newPeriodoMenuItem = new javax.swing.JMenuItem();
         loadFileSociosMenuItem = new javax.swing.JMenuItem();
         loadFileCArgasMenuItem = new javax.swing.JMenuItem();
+        famciaItemMenu = new javax.swing.JMenuItem();
         viewMenu = new javax.swing.JMenu();
         viewSociosMenuItem = new javax.swing.JMenuItem();
         viewCargasMenuItem = new javax.swing.JMenuItem();
@@ -115,6 +114,7 @@ public class MainMenu extends javax.swing.JFrame {
         planPagoMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Convenio Salud SUBBVA");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(608, 415));
@@ -156,6 +156,11 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         mainViewPeriodoTable.getTableHeader().setReorderingAllowed(false);
+        mainViewPeriodoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mainViewPeriodoTableMouseClicked(evt);
+            }
+        });
         mainViewPeriodoScrollPanel.setViewportView(mainViewPeriodoTable);
 
         mainViewSolicitudTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -499,6 +504,14 @@ public class MainMenu extends javax.swing.JFrame {
         });
         fileMenu.add(loadFileCArgasMenuItem);
 
+        famciaItemMenu.setText("Cargar archivo de farmacia");
+        famciaItemMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                famciaItemMenuActionPerformed(evt);
+            }
+        });
+        fileMenu.add(famciaItemMenu);
+
         mainMenu.add(fileMenu);
 
         viewMenu.setText("Ver");
@@ -592,7 +605,8 @@ public class MainMenu extends javax.swing.JFrame {
     private void editSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSocioButtonActionPerformed
         int row = viewSociosTable.getSelectedRow();
         if (row != -1) {
-            String rut = (String) viewSociosTable.getModel().getValueAt(row, 0);
+            String rut = (String) viewSociosTable.getModel().getValueAt(viewSociosTable.convertRowIndexToModel(row), 0).toString();
+            
             if (ViewUtils.validaRut(rut)) {
                 int id = mmc.getIdSociosByRut(rut);
 
@@ -615,7 +629,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void deleteSocioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSocioButtonActionPerformed
         int row = viewSociosTable.getSelectedRow();
         if (row != -1) {
-            String rut = (String) viewSociosTable.getModel().getValueAt(row, 0);
+            String rut = (String) viewSociosTable.getModel().getValueAt(viewSociosTable.convertRowIndexToModel(row), 0);
             Socio s = new Socio();
             if (ViewUtils.validaRut(rut)) {
                 s = s.getSociosByRut(rut);
@@ -648,7 +662,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void editCartaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCartaButtonActionPerformed
         int row = viewCargasTable.getSelectedRow();
         if (row != -1) {
-            int rut = (int) viewCargasTable.getModel().getValueAt(row, 0);
+            String rut = (String) viewCargasTable.getModel().getValueAt(viewCargasTable.convertRowIndexToModel(row), 0);
             int id = mmc.getIdCargasByRut(rut);
 
             String[] arg = new String[2];
@@ -663,7 +677,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void deleteCargaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCargaButtonActionPerformed
         int row = viewCargasTable.getSelectedRow();
         if (row != -1) {
-            String rut = (String) viewCargasTable.getModel().getValueAt(row, 0);
+            String rut = (String) viewCargasTable.getModel().getValueAt(viewCargasTable.convertRowIndexToModel(row), 0);
             if (ViewUtils.validaRut(rut)) {
                 Carga c = new Carga();
                 c = c.getCargasByRut(rut);
@@ -766,12 +780,34 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_planPagoMenuItemActionPerformed
 
     private void infoSocioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoSocioMenuItemActionPerformed
-      SelectInformePersonal.main(null);
+        SelectInformePersonal.main(null);
     }//GEN-LAST:event_infoSocioMenuItemActionPerformed
 
     private void infoGeneralMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoGeneralMenuItemActionPerformed
         SelectInformeGeneral.main(null);
     }//GEN-LAST:event_infoGeneralMenuItemActionPerformed
+
+    private void mainViewPeriodoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainViewPeriodoTableMouseClicked
+        int row = mainViewPeriodoTable.getSelectedRow();
+        if (row != -1) {
+            int cod = (int) mainViewPeriodoTable.getValueAt(mainViewPeriodoTable.convertRowIndexToModel(row), 0);
+            Periodo p = new Periodo();
+            p = p.getPeriodoById(cod);
+            PeriodoController pc = new PeriodoController();
+            while (((DefaultTableModel) mainViewSolicitudTable.getModel()).getRowCount() != 0) {
+                ((DefaultTableModel) mainViewSolicitudTable.getModel()).removeRow(0);
+            }
+            pc.mostrarSolicitudes((DefaultTableModel) mainViewSolicitudTable.getModel(), p);
+        }
+    }//GEN-LAST:event_mainViewPeriodoTableMouseClicked
+
+    private void famciaItemMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_famciaItemMenuActionPerformed
+        int rv = selectFile.showOpenDialog(getContentPane());
+        if (rv == JFileChooser.APPROVE_OPTION) {
+            File file = selectFile.getSelectedFile();
+            ProgressDialogFarmacia.main(null, file);
+        }
+    }//GEN-LAST:event_famciaItemMenuActionPerformed
 
     private void refresh() {
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
@@ -827,6 +863,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton deleteSocioButton;
     private javax.swing.JButton editCartaButton;
     private javax.swing.JButton editSocioButton;
+    private javax.swing.JMenuItem famciaItemMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem infoGeneralMenuItem;
     private javax.swing.JMenu infoMenu;

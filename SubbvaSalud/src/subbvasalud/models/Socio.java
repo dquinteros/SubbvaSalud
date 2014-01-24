@@ -164,6 +164,17 @@ public class Socio extends Conexion {
 
     /**
      *
+     * @param lista
+     * @return
+     */
+    public int insertAllSocio(LinkedList<String> lista) {
+        connect();
+        consultarBatch(lista);
+        return 0;
+    }
+
+    /**
+     *
      * @param s
      * @return
      */
@@ -190,6 +201,37 @@ public class Socio extends Conexion {
      */
     public LinkedList<Socio> getAllSocios() {
         String sql = "select * from socio where id_estado = 1";
+        ResultSet result = null;
+        connect();
+        LinkedList<Socio> listSocios;
+        listSocios = new LinkedList<>();
+
+        try {
+            result = consultar(sql);
+            if (result != null) {
+                while (result.next()) {
+
+                    Socio newSocio = this.createSocioFromResultSet(result);
+                    boolean ans;
+                    ans = listSocios.add(newSocio);
+                    if (ans == true) {
+
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            modelUtils.showSQLException(e);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+            e.printStackTrace();
+        } finally {
+            modelUtils.postSelectFinally(query, connection, result);
+        }
+        return listSocios;
+    }
+
+    public LinkedList<Socio> getAllFullSocios() {
+        String sql = "select * from socio;";
         ResultSet result = null;
         connect();
         LinkedList<Socio> listSocios;

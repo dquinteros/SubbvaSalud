@@ -41,7 +41,7 @@ public class ReportController {
         s = s.getSolicitudByPeriodoAndSocio(socio.getIdSocio(), periodo.getId_periodo());
         if (s != null) {
             Workbook wb = createPersonalReport(s, socio, periodo);
-            try (FileOutputStream out = new FileOutputStream(file.getPath())) {
+            try (FileOutputStream out = new FileOutputStream(file.getPath() + ".xlsx")) {
                 wb.write(out);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,13 +154,19 @@ public class ReportController {
         try {
             SolicitudDeReembolso sdr = new SolicitudDeReembolso();
             LinkedList<SolicitudDeReembolso> ls = sdr.getAllSolicitudByPeriodo(p.getId_periodo());
-            Workbook workbook = WorkbookFactory.create(file);
+             String path = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/formatoInforme.xlsx";
+            File f = new File(path);
+            Workbook workbook = WorkbookFactory.create(f);
             int i = 0;
             for (SolicitudDeReembolso solicitud : ls) {
                 Object[] obj = makeGeneralReport(solicitud, i, workbook);
-                i = (int) obj[1];
-                workbook = (Workbook) obj[2];
+                i = (int) obj[0];
+                workbook = (Workbook) obj[1];
             }
+            try (FileOutputStream out = new FileOutputStream(file.getPath() + ".xlsx")) {
+                workbook.write(out);
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidFormatException ex) {
@@ -185,7 +191,7 @@ public class ReportController {
         CellStyle styleRightSide = workbook.createCellStyle();
         styleLeftSide.setDataFormat(workbook.createDataFormat().getFormat("dd/mm/yyyy hh:mm"));
         Row row;
-        Cell cell;  
+        Cell cell;
         while (!detalles.isEmpty()) {
             DetalleSolicitud de = detalles.pop();
             row = sheet.createRow(i);

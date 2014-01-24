@@ -7,7 +7,6 @@ package subbvasalud.views;
 
 import com.ezware.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import subbvasalud.models.Socio;
-import com.mxrck.autocompleter.TextAutoCompleter;
 import java.awt.event.ItemEvent;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
@@ -76,7 +75,7 @@ public class SelectInformeGeneral extends javax.swing.JDialog {
         anioLabel = new javax.swing.JLabel();
 
         selectFile.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        selectFile.setSelectedFile(new java.io.File("C:\\Program Files (x86)\\NetBeans 7.4\\informe.xlsx"));
+        selectFile.setSelectedFile(new java.io.File("C:\\Program Files (x86)\\NetBeans 7.4\\InformeGeneral"));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
@@ -246,6 +245,11 @@ public class SelectInformeGeneral extends javax.swing.JDialog {
                             JOptionPane.showMessageDialog(this, "Informe creado de forma exitosa", "Exito", WIDTH);
                             this.dispose();
                     }
+                } else {
+                    ReportController rc = new ReportController();
+                    rc.createGeneralReport(file, p);
+                    JOptionPane.showMessageDialog(this, "Informe creado de forma exitosa", "Exito", WIDTH);
+                    this.dispose();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);

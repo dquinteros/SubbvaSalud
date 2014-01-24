@@ -5,6 +5,7 @@
  */
 package subbvasalud.views;
 
+import com.mxrck.autocompleter.TextAutoCompleter;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.Date;
 import java.util.LinkedList;
@@ -16,6 +17,7 @@ import subbvasalud.models.Carga;
 import subbvasalud.models.DetalleSolicitud;
 import subbvasalud.models.Periodo;
 import subbvasalud.models.Prestacion;
+import subbvasalud.models.Socio;
 import subbvasalud.models.TipoDeDocumento;
 
 /**
@@ -44,6 +46,13 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         initComponents();
         cc = new CargaController();
         tipo = new TipoDeDocumento();
+        
+        TextAutoCompleter textAutoAcompleter = new TextAutoCompleter(nombreCargaTextField);
+        LinkedList<Carga> cargas = cc.getCargasByRutSocio(rutSocio);
+        for (Carga ca : cargas) {
+            textAutoAcompleter.addItem(ca.getNombre());
+        }
+        textAutoAcompleter.setMode(0);
     }
 
     /**
@@ -239,9 +248,9 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                     .addComponent(nombreCargaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nombreLabel))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aceptarInsertNewDocByCodeButton)
-                    .addComponent(cancelarInsertNewDocByCodeButton))
+                .addGroup(insertNewDocByCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cancelarInsertNewDocByCodeButton)
+                    .addComponent(aceptarInsertNewDocByCodeButton))
                 .addContainerGap())
         );
 
@@ -351,7 +360,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
     private void rutCargaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutCargaTextFieldKeyTyped
         String rut = rutCargaTextField.getText() + evt.getKeyChar();
         boolean rutValido = ViewUtils.validaRut(rut);
-        if (ViewUtils.isNum(rut)) {
+        if (ViewUtils.isRutNum(rut)) {
             if (rutValido) {
                 Carga cargaAux;
                 cargaAux = cc.getCargaByRutCargaAndSocio(rut, rutSocio);

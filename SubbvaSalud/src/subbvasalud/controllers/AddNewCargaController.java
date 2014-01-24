@@ -117,11 +117,25 @@ public class AddNewCargaController {
 
     public void cargaMasivaCargasLegales(File file) {
         if (file.exists() && file.isFile() && file.canRead()) {
-            LinkedList<Carga> cargas = cargaArchivo(file);
+            LinkedList<Carga> cargasNuevas = cargaArchivo(file);
+            LinkedList<Carga> cargasActuales = c.getAllCargasFull();
+            LinkedList<String> lista = new LinkedList<>();
             setAllCargasDisabled();
-            for (Carga socios : cargas) {
-                guardarCarga(socios);
+            boolean flag = true;
+            for (Carga carga : cargasNuevas) {
+                for (Carga ca : cargasActuales) {
+                    if (ca.getRut().trim().equals(carga.getRut().trim())) {
+                        ca.setIdEstado(1);
+                        lista.add(c.cargaToSqlUpdate(ca));
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    lista.add(c.cargaToSqlInsert(carga));
+                }
+                flag = true;
             }
+            c.insertAllCarga(lista);
         }
     }
 

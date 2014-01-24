@@ -90,7 +90,7 @@ public class MainMenuController {
      * @param rut
      * @return
      */
-    public int getIdCargasByRut(int rut) {
+    public int getIdCargasByRut(String rut) {
         for (Carga ca : lc) {
             if (ca.getRut().equals(rut)) {
                 return ca.getIdCarga();

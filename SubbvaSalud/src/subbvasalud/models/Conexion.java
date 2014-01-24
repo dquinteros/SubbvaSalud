@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -69,4 +70,27 @@ public class Conexion {
         }
         return resultado;
     }
+
+    /**
+     *
+     * @param lista
+     * @return
+     */
+    public ResultSet consultarBatch(LinkedList<String> lista) {
+        connect();
+        ResultSet resultado = null;
+        try {
+            for (String string : lista) {
+                query.addBatch(string);
+            }
+            query.executeBatch();
+        } catch (SQLException e) {
+            System.out.println("Mensaje:" + e.getMessage());
+            System.out.println("Estado:" + e.getSQLState());
+            System.out.println("Codigo del error:" + e.getErrorCode());
+            JOptionPane.showMessageDialog(null, "" + e.getMessage());
+        }
+        return resultado;
+    }
+
 }

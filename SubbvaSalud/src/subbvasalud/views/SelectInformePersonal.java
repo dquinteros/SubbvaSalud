@@ -85,7 +85,7 @@ public class SelectInformePersonal extends javax.swing.JDialog {
         anioLabel = new javax.swing.JLabel();
 
         selectFile.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-        selectFile.setSelectedFile(new java.io.File("C:\\Program Files (x86)\\NetBeans 7.4\\informe.xlsx"));
+        selectFile.setSelectedFile(new java.io.File("C:\\Program Files (x86)\\NetBeans 7.4\\InformePersonal"));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
@@ -307,19 +307,21 @@ public class SelectInformePersonal extends javax.swing.JDialog {
                     if (rv != JFileChooser.CANCEL_OPTION) {
                         File file = selectFile.getSelectedFile();
                         if (file.exists()) {
-                            int result = JOptionPane.showConfirmDialog(this, "El archivo "+file.getName()+" ya existe, desea sobreescribirlo?", "Archivo existente", JOptionPane.YES_NO_OPTION);
+                            int result = JOptionPane.showConfirmDialog(this, "El archivo " + file.getName() + " ya existe, desea sobreescribirlo?", "Archivo existente", JOptionPane.YES_NO_OPTION);
                             switch (result) {
                                 case JOptionPane.YES_OPTION:
                                     ReportController rc = new ReportController();
                                     rc.createPersonalReport(file, s, p);
                                     JOptionPane.showMessageDialog(this, "Informe creado de forma exitosa", "Exito", WIDTH);
                                     this.dispose();
-
                             }
+                        } else { 
+                            ReportController rc = new ReportController();
+                            rc.createPersonalReport(file, s, p);
+                            JOptionPane.showMessageDialog(this, "Informe creado de forma exitosa", "Exito", WIDTH);
+                            this.dispose();
                         }
-
                     }
-
                 } else {
                     JOptionPane.showMessageDialog(this, "Ingrese un rut de socio valido", "Rut Invalido", WIDTH);
                 }

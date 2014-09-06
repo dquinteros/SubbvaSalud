@@ -606,7 +606,7 @@ public class MainMenu extends javax.swing.JFrame {
         int row = viewSociosTable.getSelectedRow();
         if (row != -1) {
             String rut = (String) viewSociosTable.getModel().getValueAt(viewSociosTable.convertRowIndexToModel(row), 0).toString();
-            
+
             if (ViewUtils.validaRut(rut)) {
                 int id = mmc.getIdSociosByRut(rut);
 
@@ -790,7 +790,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void mainViewPeriodoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainViewPeriodoTableMouseClicked
         int row = mainViewPeriodoTable.getSelectedRow();
         if (row != -1) {
-            int cod = (int) mainViewPeriodoTable.getValueAt(mainViewPeriodoTable.convertRowIndexToModel(row), 0);
+            int cod = (int) mainViewPeriodoTable.getValueAt(row, 0);
             Periodo p = new Periodo();
             p = p.getPeriodoById(cod);
             PeriodoController pc = new PeriodoController();

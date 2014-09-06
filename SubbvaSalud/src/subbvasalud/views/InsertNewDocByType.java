@@ -502,7 +502,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
                 Carga cargaAux;
                 cargaAux = cc.getCargaByRutCargaAndSocio(rut, rutSocio);
                 if (cargaAux != null) {
-                    if ((cargaAux.getNombre() != null)) {
+                    if (cargaAux.getNombre() != null) {
                         nombreCargaTextField.setText(cargaAux.getNombre());
                     }
                 }
@@ -531,9 +531,7 @@ public class InsertNewDocByType extends javax.swing.JDialog {
     private void previsionComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_previsionComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             String item = (String) evt.getItem();
-            if (item.equals("Seleccionar")) {
-
-            } else {
+            if (!item.equals("Seleccionar")) {
                 LinkedList<Prevision> previsiones = prev.getAllPrevision();
                 for (Prevision prevision : previsiones) {
                     System.out.println(prevision.getNombrePrevision());

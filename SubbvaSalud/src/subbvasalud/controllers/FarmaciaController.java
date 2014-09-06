@@ -42,16 +42,11 @@ public class FarmaciaController {
         if (descFarma.size() > 0) {
             for (FarmaciaDTO desc : descFarma) {
                 if ((s = isSocio(desc.getRut(), socios)) != null) {
+                    sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), new Date(), desc.getMonto());
+                    sdr.insertSolicitud(sdr);
                     sdr = sdr.getSolicitudByPeriodoAndSocio(s.getIdSocio(), p.getId_periodo());
-                    if (sdr != null) {
-                        DetalleSolicitud ds = new DetalleSolicitud(-1, sdr.getIdSolicitud(), 1522, "Tarjeta Farmacia", new Date(), desc.getMonto(), desc.getMonto(), desc.getMonto(), desc.getRut());
-                        dc.guardarDocumento(ds);
-                    } else {
-                        sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), new Date(), 0);
-                        sdr = sdr.getSolicitudByPeriodoAndSocio(s.getIdSocio(), p.getId_periodo());
-                        DetalleSolicitud ds = new DetalleSolicitud(-1, sdr.getIdSolicitud(), 1522, "Tarjeta Farmacia", new Date(), desc.getMonto(), desc.getMonto(), desc.getMonto(), desc.getRut());
-                        dc.guardarDocumento(ds);
-                    }
+                    DetalleSolicitud ds = new DetalleSolicitud(-1, sdr.getIdSolicitud(), 1522, "Tarjeta Farmacia", new Date(), desc.getMonto(), desc.getMonto(), desc.getMonto(), desc.getRut());
+                    dc.guardarDocumento(ds);
                 }
             }
         }

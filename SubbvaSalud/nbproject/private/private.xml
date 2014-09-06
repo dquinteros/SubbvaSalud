@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/models/Socio.java</file>
-            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/AddNewSocioController.java</file>
-            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/NewSolicitud.java</file>
-            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/InsertNewDocByType.java</file>
-            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/ViewUtils.java</file>
-            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/views/InsertNewDocByCode.java</file>
+            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/SolicitudController.java</file>
+            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/DocumentController.java</file>
+            <file>file:/C:/Users/damage/Documents/GitHub/SubbvaSalud/SubbvaSalud/src/subbvasalud/controllers/FarmaciaController.java</file>
         </group>
     </open-files>
 </project-private>

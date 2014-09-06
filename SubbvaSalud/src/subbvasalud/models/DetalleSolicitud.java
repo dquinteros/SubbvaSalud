@@ -182,7 +182,7 @@ public class DetalleSolicitud extends Conexion {
         return 1;
     }
 
-     /**
+    /**
      *
      * @param id
      * @return
@@ -203,7 +203,7 @@ public class DetalleSolicitud extends Conexion {
         }
         return 1;
     }
-    
+
     /**
      *
      * @param d
@@ -241,13 +241,8 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
-                    boolean ans;
-                    ans = listDetalles.add(newDetalle);
-                    if (ans == true) {
-
-                    }
+                    listDetalles.add(newDetalle);
                 }
             }
         } catch (SQLException e) {
@@ -280,11 +275,7 @@ public class DetalleSolicitud extends Conexion {
                 while (result.next()) {
 
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
-                    boolean ans;
-                    ans = listDetalles.add(newDetalle);
-                    if (ans == true) {
-
-                    }
+                    listDetalles.add(newDetalle);
                 }
             }
         } catch (SQLException e) {
@@ -316,11 +307,8 @@ public class DetalleSolicitud extends Conexion {
                 while (result.next()) {
 
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
-                    boolean ans;
-                    ans = listDetalles.add(newDetalle);
-                    if (ans == true) {
+                    listDetalles.add(newDetalle);
 
-                    }
                 }
             }
         } catch (SQLException e) {
@@ -350,13 +338,8 @@ public class DetalleSolicitud extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-
                     DetalleSolicitud newDetalle = this.createDetalleFromResultSet(result);
-                    boolean ans;
-                    ans = listDetalles.add(newDetalle);
-                    if (ans == true) {
-
-                    }
+                    listDetalles.add(newDetalle);
                 }
             }
         } catch (SQLException e) {

@@ -21,7 +21,6 @@ import subbvasalud.controllers.ReportController;
 import subbvasalud.controllers.SolicitudController;
 import subbvasalud.models.Anio;
 import subbvasalud.models.Periodo;
-import subbvasalud.models.SolicitudDeReembolso;
 
 /**
  *
@@ -300,7 +299,6 @@ public class SelectInformePersonal extends javax.swing.JDialog {
                 Periodo p = new Periodo();
                 p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
                 s = s.getSociosByRut(rutSocio);
-                SolicitudDeReembolso sol = new SolicitudDeReembolso();
 
                 if (s != null) {
                     int rv = selectFile.showSaveDialog(getContentPane());
@@ -315,7 +313,7 @@ public class SelectInformePersonal extends javax.swing.JDialog {
                                     JOptionPane.showMessageDialog(this, "Informe creado de forma exitosa", "Exito", WIDTH);
                                     this.dispose();
                             }
-                        } else { 
+                        } else {
                             ReportController rc = new ReportController();
                             rc.createPersonalReport(file, s, p);
                             JOptionPane.showMessageDialog(this, "Informe creado de forma exitosa", "Exito", WIDTH);

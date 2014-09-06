@@ -17,7 +17,6 @@ import subbvasalud.models.Carga;
 import subbvasalud.models.DetalleSolicitud;
 import subbvasalud.models.Periodo;
 import subbvasalud.models.Prestacion;
-import subbvasalud.models.Socio;
 import subbvasalud.models.TipoDeDocumento;
 
 /**
@@ -46,7 +45,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
         initComponents();
         cc = new CargaController();
         tipo = new TipoDeDocumento();
-        
+
         TextAutoCompleter textAutoAcompleter = new TextAutoCompleter(nombreCargaTextField);
         LinkedList<Carga> cargas = cc.getCargasByRutSocio(rutSocio);
         for (Carga ca : cargas) {
@@ -365,7 +364,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
                 Carga cargaAux;
                 cargaAux = cc.getCargaByRutCargaAndSocio(rut, rutSocio);
                 if (cargaAux != null) {
-                    if ((cargaAux.getNombre() != null)) {
+                    if (cargaAux.getNombre() != null) {
                         nombreCargaTextField.setText(cargaAux.getNombre());
                     }
                 }
@@ -433,7 +432,7 @@ public class InsertNewDocByCode extends javax.swing.JDialog {
     }//GEN-LAST:event_bonificableTextFieldKeyTyped
 
     private void cancelarInsertNewDocByCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarInsertNewDocByCodeButtonActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_cancelarInsertNewDocByCodeButtonActionPerformed
 
     /**

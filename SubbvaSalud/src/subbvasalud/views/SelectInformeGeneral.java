@@ -20,7 +20,6 @@ import subbvasalud.controllers.ReportController;
 import subbvasalud.controllers.SolicitudController;
 import subbvasalud.models.Anio;
 import subbvasalud.models.Periodo;
-import subbvasalud.models.SolicitudDeReembolso;
 
 /**
  *
@@ -232,7 +231,6 @@ public class SelectInformeGeneral extends javax.swing.JDialog {
         if (row != -1) {
             Periodo p = new Periodo();
             p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
-            SolicitudDeReembolso sol = new SolicitudDeReembolso();
             int rv = selectFile.showSaveDialog(getContentPane());
             if (rv != JFileChooser.CANCEL_OPTION) {
                 File file = selectFile.getSelectedFile();

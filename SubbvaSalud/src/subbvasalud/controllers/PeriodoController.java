@@ -99,7 +99,7 @@ public class PeriodoController {
             for (SolicitudDeReembolso solicitud : ls) {
                 Object[] obj = new Object[4];
                 Socio so = new Socio();
-                so = so.getSociosById(solicitud.getIdSocio());                
+                so = so.getSociosById(solicitud.getIdSocio());
                 obj[0] = so.getRutSocio();
                 obj[1] = so.getNombreSocio();
                 obj[2] = solicitud.getMontoTotal();

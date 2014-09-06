@@ -55,11 +55,8 @@ public class Prestacion extends Conexion {
                 while (result.next()) {
 
                     Prestacion newPrestacion = this.createPrestacionFromResultSet(result);
-                    boolean ans;
-                    ans = listPrestacion.add(newPrestacion);
-                    if (ans == true) {
+                    listPrestacion.add(newPrestacion);
 
-                    }
                 }
             }
         } catch (SQLException e) {

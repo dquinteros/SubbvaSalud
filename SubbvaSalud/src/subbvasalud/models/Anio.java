@@ -153,11 +153,7 @@ public class Anio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-
                     newAnio = this.createAnioFromResultSet(result);
-                    if (newAnio != null) {
-
-                    }
                 }
             }
         } catch (SQLException e) {
@@ -185,11 +181,7 @@ public class Anio extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-
                     newAnio = this.createAnioFromResultSet(result);
-                    if (newAnio != null) {
-
-                    }
                 }
             }
         } catch (SQLException e) {

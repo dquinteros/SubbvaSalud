@@ -40,7 +40,7 @@ public class ReportController {
         SolicitudDeReembolso s = new SolicitudDeReembolso();
         s = s.getSolicitudByPeriodoAndSocio(socio.getIdSocio(), periodo.getId_periodo());
         if (s != null) {
-            Workbook wb = createPersonalReport(s, socio, periodo);
+            Workbook wb = createPersonalReport(s, socio);
             try (FileOutputStream out = new FileOutputStream(file.getPath() + ".xlsx")) {
                 wb.write(out);
             } catch (FileNotFoundException ex) {
@@ -52,7 +52,7 @@ public class ReportController {
 
     }
 
-    private Workbook createPersonalReport(SolicitudDeReembolso s, Socio so, Periodo p) {
+    private Workbook createPersonalReport(SolicitudDeReembolso s, Socio so) {
         try {
             String path = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/formatoInforme.xlsx";
             File f = new File(path);
@@ -154,7 +154,7 @@ public class ReportController {
         try {
             SolicitudDeReembolso sdr = new SolicitudDeReembolso();
             LinkedList<SolicitudDeReembolso> ls = sdr.getAllSolicitudByPeriodo(p.getId_periodo());
-             String path = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/formatoInforme.xlsx";
+            String path = System.getProperty("user.dir").substring(2).replace('\\', '/') + "/data/formatoInforme.xlsx";
             File f = new File(path);
             Workbook workbook = WorkbookFactory.create(f);
             int i = 0;

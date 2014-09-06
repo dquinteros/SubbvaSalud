@@ -205,7 +205,6 @@ public class AddNewCargaController {
             Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidFormatException ex) {
             Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
         }
         return null;
     }

@@ -25,8 +25,6 @@ public class Socio extends Conexion {
     private int idEstado;
     private int bancoSocio;
 
-    private static final int COLUMNAS = 8;
-
     /**
      *
      */

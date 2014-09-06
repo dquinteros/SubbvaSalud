@@ -7,7 +7,6 @@ package subbvasalud.views;
 
 import java.io.File;
 import subbvasalud.controllers.AddNewCargaController;
-import subbvasalud.controllers.AddNewSocioController;
 
 /**
  *
@@ -16,8 +15,8 @@ import subbvasalud.controllers.AddNewSocioController;
 public class ProgressDialogCargas extends javax.swing.JDialog {
 
     private static File file;
-    public ProgressDialogCargas thisDialog; 
-            
+    public ProgressDialogCargas thisDialog;
+
     /**
      * Creates new form progressDialog
      *
@@ -141,9 +140,9 @@ public class ProgressDialogCargas extends javax.swing.JDialog {
 
                     }
                 });
-                dialog.thisDialog = dialog; 
+                dialog.thisDialog = dialog;
                 dialog.setVisible(true);
-                
+
             }
         });
     }

@@ -6,7 +6,6 @@
 package subbvasalud.views;
 
 import java.awt.Color;
-import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;

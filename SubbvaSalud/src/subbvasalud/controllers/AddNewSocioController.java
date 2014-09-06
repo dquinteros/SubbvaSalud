@@ -62,7 +62,7 @@ public class AddNewSocioController {
                     }
                 }
                 if (flag) {
-                    lista.add(s.socioToSqlInsert(socio));                    
+                    lista.add(s.socioToSqlInsert(socio));
                 }
                 flag = true;
             }
@@ -161,7 +161,6 @@ public class AddNewSocioController {
             Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidFormatException ex) {
             Logger.getLogger(AddNewSocioController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
         }
         return null;
     }

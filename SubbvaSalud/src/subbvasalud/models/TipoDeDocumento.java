@@ -166,11 +166,7 @@ public class TipoDeDocumento extends Conexion {
                 while (result.next()) {
 
                     TipoDeDocumento newTipoDocumento = this.createTipoDocumentoFromResultSet(result);
-                    boolean ans;
-                    ans = listTipoDocumento.add(newTipoDocumento);
-                    if (ans == true) {
-
-                    }
+                    listTipoDocumento.add(newTipoDocumento);
                 }
             }
         } catch (SQLException e) {
@@ -202,13 +198,9 @@ public class TipoDeDocumento extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-
                     TipoDeDocumento newTipoDocumento = this.createTipoDocumentoFromResultSet(result);
-                    boolean ans;
-                    ans = listTipoDocumento.add(newTipoDocumento);
-                    if (ans == true) {
+                    listTipoDocumento.add(newTipoDocumento);
 
-                    }
                 }
             }
         } catch (SQLException e) {

@@ -263,11 +263,7 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-
                     newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
-                    if (newSolicitudDeReembolso != null) {
-
-                    }
                 }
             }
         } catch (SQLException e) {
@@ -296,11 +292,7 @@ public class SolicitudDeReembolso extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-
                     newSolicitudDeReembolso = this.createSolicitudDeReembolsoFromResultSet(result);
-                    if (newSolicitudDeReembolso != null) {
-
-                    }
                 }
             }
         } catch (SQLException e) {

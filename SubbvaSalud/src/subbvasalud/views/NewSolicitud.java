@@ -98,6 +98,7 @@ public class NewSolicitud extends javax.swing.JDialog {
         docByTypeMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Convenio Salud SUBBVA - Solicitud de reembolso");
         setModal(true);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
@@ -386,7 +387,7 @@ public class NewSolicitud extends javax.swing.JDialog {
             Socio socioAux = new Socio();
             socioAux = socioAux.getSociosByRut(rut);
             System.out.println(socioAux.getNombreSocio());
-            if ((socioAux.getNombreSocio() != null)) {
+            if (socioAux.getNombreSocio() != null) {
                 nameSocioNewSolicitudTextField.setText(socioAux.getNombreSocio());
             }
         }
@@ -416,6 +417,7 @@ public class NewSolicitud extends javax.swing.JDialog {
                 pc.mostrarPeriodos((DefaultTableModel) periodoTable.getModel(), year);
             }
         }
+        refresh();
     }//GEN-LAST:event_anioComboBoxItemStateChanged
 
     private void docByTypeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docByTypeMenuItemActionPerformed
@@ -461,9 +463,10 @@ public class NewSolicitud extends javax.swing.JDialog {
         int row = documentTable.getSelectedRow();
         if (row != -1) {
             DetalleSolicitud ds = new DetalleSolicitud();
-            int idDetalle = (int) documentTable.getModel().getValueAt(row, 0);
+            int idDetalle = (int) documentTable.getModel().getValueAt(documentTable.convertRowIndexToModel(row), 0);
             ds.deleteDetalle(idDetalle);
             refresh();
+            guardarSolicitud();
         }
     }//GEN-LAST:event_eliminarDocumentoButtonActionPerformed
 
@@ -475,7 +478,7 @@ public class NewSolicitud extends javax.swing.JDialog {
             if (row != -1) {
                 if (fecha != null) {
                     Periodo p = new Periodo();
-                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
+                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(periodoTable.convertRowIndexToModel(row), 0));
                     String[] args = new String[2];
                     args[0] = rutSocio;
 
@@ -509,10 +512,9 @@ public class NewSolicitud extends javax.swing.JDialog {
             if (row != -1) {
                 if (fecha != null) {
                     Periodo p = new Periodo();
-                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
+                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(periodoTable.convertRowIndexToModel(row), 0));
                     String[] args = new String[2];
                     args[0] = rutSocio;
-
                     s = s.getSociosByRut(rutSocio);
                     if (s != null) {
                         int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
@@ -546,10 +548,12 @@ public class NewSolicitud extends javax.swing.JDialog {
         int suma = 0;
         int rows = ((DefaultTableModel) documentTable.getModel()).getRowCount();
         for (int i = 0; i < rows; i++) {
-            suma += (int) ((DefaultTableModel) documentTable.getModel()).getValueAt(i, 5);
+            int tipo = (int) ((DefaultTableModel) documentTable.getModel()).getValueAt(i, 3);
+            if (tipo != 1522) {
+                suma += (int) ((DefaultTableModel) documentTable.getModel()).getValueAt(i, 5);
+            }
         }
         totalReembolsoTextField.setText(suma + "");
-
     }
 
     /**
@@ -563,10 +567,10 @@ public class NewSolicitud extends javax.swing.JDialog {
             if (row != -1) {
                 if (fecha != null) {
                     Periodo p = new Periodo();
-                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0));
+                    p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(periodoTable.convertRowIndexToModel(row), 0));
                     s = s.getSociosByRut(rutSocio);
+                    int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
                     if (s != null) {
-                        int montoTotal = Integer.parseInt(totalReembolsoTextField.getText());
                         SolicitudDeReembolso sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), fecha, montoTotal);
                         idSol = sc.guardarSolicitudCondicional(sdr);
                     }

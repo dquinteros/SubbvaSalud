@@ -55,20 +55,14 @@ public class Tope extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-
                     Tope newTope = this.createTopeFromResultSet(result);
-                    boolean ans;
-                    ans = listTopes.add(newTope);
-                    if (ans == true) {
-
-                    }
+                    listTopes.add(newTope);
                 }
             }
         } catch (SQLException e) {
             modelUtils.showSQLException(e);
         } catch (NullPointerException e) {
             System.out.println("NullPointerException");
-            e.printStackTrace();
         } finally {
             modelUtils.postSelectFinally(query, connection, result);
         }
@@ -105,9 +99,6 @@ public class Tope extends Conexion {
                 if (result.next()) {
 
                     newTope = this.createTopeFromResultSet(result);
-                    if (newTope != null) {
-
-                    }
                 }
             }
         } catch (SQLException e) {

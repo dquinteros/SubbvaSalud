@@ -139,12 +139,12 @@ public class Carga extends Conexion {
         }
         return 1;
     }
-    
-     public int insertAllCarga(LinkedList<String> lista) {
+
+    public int insertAllCarga(LinkedList<String> lista) {
         connect();
         consultarBatch(lista);
         return 0;
-     }
+    }
 
     /**
      *
@@ -185,11 +185,7 @@ public class Carga extends Conexion {
                 while (result.next()) {
 
                     Carga newCarga = this.createCargaFromResultSet(result);
-                    boolean ans;
-                    ans = listCargas.add(newCarga);
-                    if (ans == true) {
-
-                    }
+                    listCargas.add(newCarga);
                 }
             }
         } catch (SQLException e) {
@@ -202,7 +198,7 @@ public class Carga extends Conexion {
         }
         return listCargas;
     }
-    
+
     public LinkedList<Carga> getAllCargasFull() {
         String sql = "select * from carga;";
         ResultSet result = null;
@@ -218,9 +214,6 @@ public class Carga extends Conexion {
                     Carga newCarga = this.createCargaFromResultSet(result);
                     boolean ans;
                     ans = listCargas.add(newCarga);
-                    if (ans == true) {
-
-                    }
                 }
             }
         } catch (SQLException e) {
@@ -250,13 +243,8 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 while (result.next()) {
-
                     Carga newCarga = this.createCargaFromResultSet(result);
-                    boolean ans;
-                    ans = listCargas.add(newCarga);
-                    if (ans == true) {
-
-                    }
+                    listCargas.add(newCarga);
                 }
             }
         } catch (SQLException e) {
@@ -284,11 +272,7 @@ public class Carga extends Conexion {
             result = consultar(sql);
             if (result != null) {
                 if (result.next()) {
-
                     newCarga = this.createCargaFromResultSet(result);
-                    if (newCarga != null) {
-
-                    }
                 }
             }
         } catch (SQLException e) {
@@ -318,9 +302,6 @@ public class Carga extends Conexion {
                 if (result.next()) {
 
                     newCarga = this.createCargaFromResultSet(result);
-                    if (newCarga != null) {
-
-                    }
                 }
             }
         } catch (SQLException e) {

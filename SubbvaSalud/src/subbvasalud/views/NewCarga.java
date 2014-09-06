@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import subbvasalud.controllers.AddNewCargaController;
 import subbvasalud.controllers.MainMenuController;
 import subbvasalud.models.Carga;
-import subbvasalud.models.Socio;
 
 /**
  *

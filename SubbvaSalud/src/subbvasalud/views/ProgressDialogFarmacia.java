@@ -5,8 +5,19 @@
  */
 package subbvasalud.views;
 
+import com.ezware.oxbow.swingbits.table.filter.TableRowFilterSupport;
+import java.awt.event.ItemEvent;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
-import subbvasalud.controllers.AddNewCargaController;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import subbvasalud.controllers.AnioController;
+import subbvasalud.controllers.FarmaciaController;
+import subbvasalud.controllers.PeriodoController;
+import subbvasalud.models.Anio;
+import subbvasalud.models.Periodo;
+import subbvasalud.models.Socio;
 
 /**
  *
@@ -15,8 +26,14 @@ import subbvasalud.controllers.AddNewCargaController;
 public class ProgressDialogFarmacia extends javax.swing.JDialog {
 
     private static File file;
-    public ProgressDialogFarmacia thisDialog; 
-            
+    public ProgressDialogFarmacia thisDialog;
+    LinkedList<Socio> ls;
+    Socio s;
+    PeriodoController pc;
+    Periodo p;
+    AnioController ac;
+    LinkedList<Anio> la;
+
     /**
      * Creates new form progressDialog
      *
@@ -25,7 +42,16 @@ public class ProgressDialogFarmacia extends javax.swing.JDialog {
      */
     public ProgressDialogFarmacia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        ls = new LinkedList<>();
+        pc = new PeriodoController();
+        ac = new AnioController();
+        p = new Periodo();
+        s = new Socio();
+        ls = s.getAllSocios();
         initComponents();
+        TableRowFilterSupport.forTable(periodoTable).searchable(true).apply();
+        anioComboBox.removeAllItems();
+        la = ac.fillAnioComboBox(anioComboBox);
     }
 
     /**
@@ -38,7 +64,13 @@ public class ProgressDialogFarmacia extends javax.swing.JDialog {
     private void initComponents() {
 
         cargaPanel = new javax.swing.JPanel();
-        progressBar = new javax.swing.JProgressBar();
+        anioLabel = new javax.swing.JLabel();
+        anioComboBox = new javax.swing.JComboBox();
+        saveButton = new javax.swing.JButton();
+        selectPeriodoNewSolicitudLabel = new javax.swing.JLabel();
+        periodoScrollPanel = new javax.swing.JScrollPane();
+        periodoTable = new javax.swing.JTable();
+        cargandoFarmacia = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Carga de socios");
@@ -54,25 +86,89 @@ public class ProgressDialogFarmacia extends javax.swing.JDialog {
             }
         });
 
-        cargaPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Cargando..."));
+        cargaPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Cargar farmacias"));
         cargaPanel.setFocusable(false);
 
-        progressBar.setIndeterminate(true);
+        anioLabel.setText("Año");
+
+        anioComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                anioComboBoxItemStateChanged(evt);
+            }
+        });
+
+        saveButton.setText("Ingresar Farmacias");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+
+        selectPeriodoNewSolicitudLabel.setText("Periodo");
+
+        periodoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Periodo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        periodoTable.setToolTipText("");
+        periodoTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        periodoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                periodoTableMouseClicked(evt);
+            }
+        });
+        periodoScrollPanel.setViewportView(periodoTable);
 
         javax.swing.GroupLayout cargaPanelLayout = new javax.swing.GroupLayout(cargaPanel);
         cargaPanel.setLayout(cargaPanelLayout);
         cargaPanelLayout.setHorizontalGroup(
             cargaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargaPanelLayout.createSequentialGroup()
+            .addGroup(cargaPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(cargaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(selectPeriodoNewSolicitudLabel)
+                    .addComponent(anioLabel))
+                .addGap(47, 47, 47)
+                .addGroup(cargaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargaPanelLayout.createSequentialGroup()
+                        .addComponent(cargandoFarmacia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(saveButton))
+                    .addGroup(cargaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(periodoScrollPanel)
+                        .addGroup(cargaPanelLayout.createSequentialGroup()
+                            .addComponent(anioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(500, 500, 500))))
                 .addContainerGap())
         );
         cargaPanelLayout.setVerticalGroup(
             cargaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cargaPanelLayout.createSequentialGroup()
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(cargaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(anioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anioLabel))
+                .addGap(18, 18, 18)
+                .addGroup(cargaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(periodoScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectPeriodoNewSolicitudLabel))
+                .addGap(18, 18, 18)
+                .addGroup(cargaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cargandoFarmacia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -90,16 +186,45 @@ public class ProgressDialogFarmacia extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                AddNewCargaController cargaController = new AddNewCargaController();
-                cargaController.cargaMasivaCargasLegales(file);
-                thisDialog.dispose();
-            }
-        });
-        t.start();
+
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void anioComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_anioComboBoxItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int year = (int) anioComboBox.getSelectedItem();
+            if (year != 0) {
+                while (((DefaultTableModel) periodoTable.getModel()).getRowCount() != 0) {
+                    ((DefaultTableModel) periodoTable.getModel()).removeRow(0);
+                }
+                pc.mostrarPeriodos((DefaultTableModel) periodoTable.getModel(), year);
+            }
+        }
+    }//GEN-LAST:event_anioComboBoxItemStateChanged
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        int row = periodoTable.getSelectedRow();
+        if (row != -1) {
+            p = p.getPeriodoById((int) periodoTable.getModel().getValueAt(row, 0)); 
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {                    
+                    FarmaciaController fc = new FarmaciaController();
+                    cargandoFarmacia.setIndeterminate(true);
+                    fc.ingresoFarmacias(file, thisDialog.p);
+                    cargandoFarmacia.setIndeterminate(false);
+                    thisDialog.dispose();
+                }
+            });
+            t.start();
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione el periodo de farmacia correctamente", "Periodo No seleccionado", WIDTH);
+        }
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void periodoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_periodoTableMouseClicked
+
+    }//GEN-LAST:event_periodoTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -140,15 +265,21 @@ public class ProgressDialogFarmacia extends javax.swing.JDialog {
 
                     }
                 });
-                dialog.thisDialog = dialog; 
+                dialog.thisDialog = dialog;
                 dialog.setVisible(true);
-                
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox anioComboBox;
+    private javax.swing.JLabel anioLabel;
     private javax.swing.JPanel cargaPanel;
-    private javax.swing.JProgressBar progressBar;
+    private javax.swing.JProgressBar cargandoFarmacia;
+    private javax.swing.JScrollPane periodoScrollPanel;
+    private javax.swing.JTable periodoTable;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JLabel selectPeriodoNewSolicitudLabel;
     // End of variables declaration//GEN-END:variables
 }

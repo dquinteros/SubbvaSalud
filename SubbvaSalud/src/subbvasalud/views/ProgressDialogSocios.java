@@ -15,8 +15,8 @@ import subbvasalud.controllers.AddNewSocioController;
 public class ProgressDialogSocios extends javax.swing.JDialog {
 
     private static File file;
-    public ProgressDialogSocios thisDialog; 
-            
+    public ProgressDialogSocios thisDialog;
+
     /**
      * Creates new form progressDialog
      *
@@ -140,9 +140,9 @@ public class ProgressDialogSocios extends javax.swing.JDialog {
 
                     }
                 });
-                dialog.thisDialog = dialog; 
+                dialog.thisDialog = dialog;
                 dialog.setVisible(true);
-                
+
             }
         });
     }

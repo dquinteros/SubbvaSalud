@@ -80,7 +80,7 @@ public class InfoController {
 
             String cuenta = s.getCuentaBancariaSocio().trim();
             int code = s.getTipoCuentaSocio();
-            
+
             if ((cuenta.length() < 19) && ViewUtils.isNum(cuenta) && (code > 0) && (code < 5)) {
                 String linea;
                 String rut = s.getRutSocio().trim();

@@ -7,6 +7,7 @@ package subbvasalud.views;
 
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import subbvasalud.models.Carga;
 import subbvasalud.models.Socio;
@@ -35,7 +36,7 @@ public class ViewUtils {
     public static boolean isNum(String name) {
         return name.matches("[0-9]+");
     }
-    
+
     public static boolean isRutNum(String name) {
         return name.matches("[0-9kK]+");
     }
@@ -48,7 +49,7 @@ public class ViewUtils {
      */
     public static void onlyRutNumbers(java.awt.event.KeyEvent evt, JTextField rutTextField, int maxChars) {
         char c = evt.getKeyChar();
-        if (((!(Character.isDigit(c))) && (c != '\b')) && (c != 'k') && (c!='K')) {
+        if (((!(Character.isDigit(c))) && (c != '\b')) && (c != 'k') && (c != 'K')) {
             evt.consume();
         }
         if (rutTextField.getText().length() > maxChars) {
@@ -121,7 +122,6 @@ public class ViewUtils {
      * @param maxChars
      */
     public static void maxLongInput(java.awt.event.KeyEvent evt, JTextField textField, int maxChars) {
-        char c = evt.getKeyChar();
         if (textField.getText().length() > maxChars) {
             evt.consume();
         }
@@ -172,9 +172,9 @@ public class ViewUtils {
             name = "Cuenta de Ahorro";
         } else if (id == 3) {
             name = "Vale Vista";
-        } else if (id == 4){
+        } else if (id == 4) {
             name = "Cuenta en Linea";
-        }else{
+        } else {
             name = "<Seleccione un tipo de cuenta>";
         }
         return name;
@@ -233,4 +233,9 @@ public class ViewUtils {
             return false;
         }
     }
+
+    public static Object getCellInfo(JTable table, int row, int column) {
+        return table.getModel().getValueAt(table.convertRowIndexToModel(row), column);
+    }
+
 }

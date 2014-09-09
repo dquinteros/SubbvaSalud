@@ -112,6 +112,7 @@ public class MainMenu extends javax.swing.JFrame {
         infoGeneralMenuItem = new javax.swing.JMenuItem();
         infoSocioMenuItem = new javax.swing.JMenuItem();
         planPagoMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Convenio Salud SUBBVA");
@@ -560,6 +561,14 @@ public class MainMenu extends javax.swing.JFrame {
         });
         infoMenu.add(planPagoMenuItem);
 
+        jMenuItem1.setText("Informe Nubox");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        infoMenu.add(jMenuItem1);
+
         mainMenu.add(infoMenu);
 
         setJMenuBar(mainMenu);
@@ -809,6 +818,10 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_famciaItemMenuActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        InformeNubox.main(null);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     private void refresh() {
         while (((DefaultTableModel) viewSociosTable.getModel()).getRowCount() != 0) {
             ((DefaultTableModel) viewSociosTable.getModel()).removeRow(0);
@@ -868,6 +881,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem infoGeneralMenuItem;
     private javax.swing.JMenu infoMenu;
     private javax.swing.JMenuItem infoSocioMenuItem;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem loadFileCArgasMenuItem;
     private javax.swing.JMenuItem loadFileSociosMenuItem;
     private javax.swing.JMenuBar mainMenu;

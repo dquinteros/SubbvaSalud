@@ -45,7 +45,7 @@ public class FarmaciaController {
                     sdr = new SolicitudDeReembolso(-1, s.getIdSocio(), p.getId_periodo(), new Date(), desc.getMonto());
                     sdr.insertSolicitud(sdr);
                     sdr = sdr.getSolicitudByPeriodoAndSocio(s.getIdSocio(), p.getId_periodo());
-                    DetalleSolicitud ds = new DetalleSolicitud(-1, sdr.getIdSolicitud(), 1522, "Tarjeta Farmacia", new Date(), desc.getMonto(), desc.getMonto(), desc.getMonto(), desc.getRut());
+                    DetalleSolicitud ds = new DetalleSolicitud(-1, sdr.getIdSolicitud(), 182, "Tarjeta Farmacia", new Date(), desc.getMonto(), desc.getMonto(), desc.getMonto(), desc.getRut());
                     dc.guardarDocumento(ds);
                 }
             }
